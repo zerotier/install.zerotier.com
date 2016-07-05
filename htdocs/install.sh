@@ -27,6 +27,7 @@ if [ "$UID" != "0" ]; then
 	fi
 fi
 
+# MacOS
 if [ -e /usr/bin/uname -a "`/usr/bin/uname -s`" = "Darwin" ]; then
 	echo '*** Detected MacOS / Darwin, downloading and installing Mac .pkg...'
 	$SUDO rm -f "/tmp/ZeroTier One.pkg"
@@ -155,13 +156,13 @@ elif [ -f /etc/SuSE-release -o -f /etc/suse-release ]; then
 	cat /dv/null | $SUDO zypper install -y zerotier-one
 elif [ -d /etc/yum.repos.d ]; then
 	baseurl='http://download.zerotier.com/redhat/el/6'
-	if [ -n "`cat /etc/redhat-release | grep -i fedora`" ]; then
+	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl='http://download.zerotier.com/redhat/fc/22'
-	elif [ -n "`cat /etc/redhat-release | grep -i centos`" -o -n "`cat /etc/redhat-release | grep -i enterprise`" ]; then
+	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" ]; then
 		echo "*** Found RHEL/CentOS, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl='http://download.zerotier.com/redhat/el/$releasever'
-	elif [ -n "`cat /etc/system-release | grep -i amazon`" ]; then
+	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
 		baseurl='http://download.zerotier.com/redhat/amzn1/2016.03'
 	else
