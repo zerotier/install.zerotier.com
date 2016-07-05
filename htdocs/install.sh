@@ -5,13 +5,14 @@ export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
 echo
 echo '*** ZeroTier One Linux Quick Install'
 echo
-echo '*** Supported distributions:'
-echo '***    Debian (jessie or newer) on i386, x86_64, and armhf (Raspbian)'
-echo '***    Ubuntu (trusty or newer) on i386 and x86_64'
-echo '***    SuSE (12+) on i386 and x86_64'
-echo '***    CentOS (6+) on i386 and x86_64'
-echo '***    Fedora (22+) on i386 and x86_64'
-echo '***    Amazon (2016.03+) on x86_64'
+echo '*** Supported targets for this script:'
+echo '***    MacOS (10.7+) on x86_64 (installs Mac .pkg)'
+echo '***    Linux / Debian (jessie or newer) on i386, x86_64, and armhf (Raspbian)'
+echo '***    Linux / Ubuntu (trusty or newer) on i386 and x86_64'
+echo '***    Linux / SuSE (12+) on i386 and x86_64'
+echo '***    Linux / CentOS (6+) on i386 and x86_64'
+echo '***    Linux / Fedora (22+) on i386 and x86_64'
+echo '***    Linux / Amazon (2016.03+) on x86_64'
 echo
 echo '*** Please report problems to contact@zerotier.com and we will try to fix ASAP!'
 echo
@@ -24,6 +25,26 @@ if [ "$UID" != "0" ]; then
 		echo '*** This quick installer script requires root privileges.'
 		exit 0
 	fi
+fi
+
+if [ -e /usr/bin/uname -a "`/usr/bin/uname -s`" = "Darwin" ]; then
+	echo '*** Detected MacOS / Darwin, downloading and installing Mac .pkg...'
+	$SUDO rm -f "/tmp/ZeroTier One.pkg"
+	curl -s https://download.zerotier.com/dist/ZeroTier%20One.pkg >"/tmp/ZeroTier One.pkg"
+	$SUDO installer -pkg "/tmp/ZeroTier One.pkg" -target /
+
+	echo
+	echo '*** Waiting for identity generation...'
+
+	while [ ! -f "/Library/Application Support/ZeroTier/One/identity.secret" ]; do
+		sleep 1
+	done
+
+	echo
+	echo "*** Success! You are connected to port `cat '/Library/Application Support/ZeroTier/One/identity.public' | cut -d : -f 1` of Earth's planetary smart switch."
+	echo
+
+	exit 0
 fi
 
 if [ -f /usr/sbin/zerotier-one ]; then
