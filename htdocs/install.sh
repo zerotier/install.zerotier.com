@@ -32,27 +32,30 @@ if [ "$UID" != "0" ]; then
 	fi
 fi
 
-# MacOS
-if [ -e /usr/bin/uname -a "`/usr/bin/uname -s`" = "Darwin" ]; then
-	echo '*** Detected MacOS / Darwin, downloading and installing Mac .pkg...'
-	$SUDO rm -f "/tmp/ZeroTier One.pkg"
-	curl -s https://download.zerotier.com/dist/ZeroTier%20One.pkg >"/tmp/ZeroTier One.pkg"
-	$SUDO installer -pkg "/tmp/ZeroTier One.pkg" -target /
+# Detect MacOS and install .pkg file there
+if [ -e /usr/bin/uname ]; then
+	if [ "`/usr/bin/uname -s`" = "Darwin" ]; then
+		echo '*** Detected MacOS / Darwin, downloading and installing Mac .pkg...'
+		$SUDO rm -f "/tmp/ZeroTier One.pkg"
+		curl -s https://download.zerotier.com/dist/ZeroTier%20One.pkg >"/tmp/ZeroTier One.pkg"
+		$SUDO installer -pkg "/tmp/ZeroTier One.pkg" -target /
 
-	echo
-	echo '*** Waiting for identity generation...'
+		echo
+		echo '*** Waiting for identity generation...'
 
-	while [ ! -f "/Library/Application Support/ZeroTier/One/identity.secret" ]; do
-		sleep 1
-	done
+		while [ ! -f "/Library/Application Support/ZeroTier/One/identity.secret" ]; do
+			sleep 1
+		done
 
-	echo
-	echo "*** Success! You are connected to port `cat '/Library/Application Support/ZeroTier/One/identity.public' | cut -d : -f 1` of Earth's planetary smart switch."
-	echo
+		echo
+		echo "*** Success! You are connected to port `cat '/Library/Application Support/ZeroTier/One/identity.public' | cut -d : -f 1` of Earth's planetary smart switch."
+		echo
 
-	exit 0
+		exit 0
+	fi
 fi
 
+# Detect already-installed on Linux
 if [ -f /usr/sbin/zerotier-one ]; then
 	echo '*** ZeroTier One appears to already be installed.'
 	exit 0
@@ -243,19 +246,19 @@ echo
 
 exit 0
 -----BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
+Comment: GPGTools - https://gpgtools.org
 
-iQIcBAEBCAAGBQJXfJB3AAoJEBZXGYgj5Sph5/wP/34GJ73HbcyLi9K+WWSbYPnT
-XjwAdDSlYPG1yRynQ3CqJncINef1OvDWhTv/d8/tKMl0o+J+wnrS/Cr2PDTun5kd
-s54+GHKGU+8xEaPFB8pbZ3o1Jtsr+pG2ULOE50JH5U1T3iV9TwVIZ+Rhhl+X/SwE
-jZnk4RpzZvYgUxvfGTZ4cxkRTlkFa5e6SIXR/IyGC7xRWguLmkMP2YUzYox1aOFG
-sNqMYeNfTcdSBh5wfrPa/RakL7Lz7Sts7oW2dB6uTleatSiVfl625LS6aDYIOK7z
-LNIC37VVkmeabdtGzb4AvkvWD7yB126A+UTF9jCWYCsHQ8CD33E4hsuBzMqdlLa7
-tHLpfNIB3p+40xC4juuBaGw0gInYvKb6mM7mhxuAXH01VvNitW2Z9skYpJS7Pn0k
-vW7uZaA1utXBqikwVAxr+HlTY+vxAIJ54CFQZRXmuQ5gd5QnnUQdMAoqRw+Tyghe
-PfxQDYYGm2s1iwIjNulcbiUlLfW6ZmoiBALTQD+WtHTPw656S9gHlVdLqkCtR/f1
-QsqKkKHKNk3Rk1fZr2Nz3w9UsSHxHRFiDI2zbsBkYkbb6UWeidPIQcisJsLA9y4r
-TC90h3bWrurPSCppqOiiKE6QUegTUSRo5XrWbUgZUc+seJc3j0Y1/CDYHsk5rjxY
-b5fa9Ve5PYsH+vKzMKfs
-=k8yV
+iQIcBAEBCAAGBQJXfSkLAAoJEBZXGYgj5SphA/AQAKfkrDvP/Z7qnkIiSvmN4fqQ
+24iOJoDyo4jQfhRf3Lffg2XxREmrTGY8Xo1oeAiBJaf61ZPI1c3WINFdge3DsGju
+K5DaaUhP773SuxkHbl6G7cNYZUSN2RDexlO5jsjJUO8CjvKu2y1U/H27hwREgkZf
+/b6DehFlh6BU8OoC32NYOOBwMixELSukt4tRqiWsb27/29AdbKgU1AaB/b/SIuxL
+6dpjMgX4tJHJ9lllLfu/KbxBFiN4K1cyClijOm9rZNNKNZpAdgGHgDoOjc0BnJSh
+oPHSxPc+E0PwYtWqqdpRRlS5xZn/s1n+0BRO4+zKWxLkqGxnPZe12K0ETvjmNUAK
+IinTtA8pqChxsxpzfBv62BEO1uC+xJW4z6J8qBx4Jw5axtUv3G9+7gK6OHt10TEv
+olaNIg/ZNlFr1JidlFAmsH4qoNDA/Fv4oadqpbVyQwwzKJ37TF0a6tFc1gNvhVvM
+FW24oLnPFnl0xrcaGA6V/SWFVlvFS2qgcekF7GEkMTOr1B5/sb9ZjwI9/YQNkmYJ
+UVr7OX6uRjpOJDD3BsmAxJyfgwRFp2vbr2vqtI9rag4RF+/9sn6M1ndCoPB17F1G
+SMkHanzHTHFbwL/8ZFHRIi7WHtQ4meFEzchlo1eg4U3HdvoWypxQq2OLpLQiet/Y
+j/7JdiSsN4Nq3lUqwoPj
+=M/Ql
 -----END PGP SIGNATURE-----

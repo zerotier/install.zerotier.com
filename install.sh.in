@@ -27,27 +27,30 @@ if [ "$UID" != "0" ]; then
 	fi
 fi
 
-# MacOS
-if [ -e /usr/bin/uname -a "`/usr/bin/uname -s`" = "Darwin" ]; then
-	echo '*** Detected MacOS / Darwin, downloading and installing Mac .pkg...'
-	$SUDO rm -f "/tmp/ZeroTier One.pkg"
-	curl -s https://download.zerotier.com/dist/ZeroTier%20One.pkg >"/tmp/ZeroTier One.pkg"
-	$SUDO installer -pkg "/tmp/ZeroTier One.pkg" -target /
+# Detect MacOS and install .pkg file there
+if [ -e /usr/bin/uname ]; then
+	if [ "`/usr/bin/uname -s`" = "Darwin" ]; then
+		echo '*** Detected MacOS / Darwin, downloading and installing Mac .pkg...'
+		$SUDO rm -f "/tmp/ZeroTier One.pkg"
+		curl -s https://download.zerotier.com/dist/ZeroTier%20One.pkg >"/tmp/ZeroTier One.pkg"
+		$SUDO installer -pkg "/tmp/ZeroTier One.pkg" -target /
 
-	echo
-	echo '*** Waiting for identity generation...'
+		echo
+		echo '*** Waiting for identity generation...'
 
-	while [ ! -f "/Library/Application Support/ZeroTier/One/identity.secret" ]; do
-		sleep 1
-	done
+		while [ ! -f "/Library/Application Support/ZeroTier/One/identity.secret" ]; do
+			sleep 1
+		done
 
-	echo
-	echo "*** Success! You are connected to port `cat '/Library/Application Support/ZeroTier/One/identity.public' | cut -d : -f 1` of Earth's planetary smart switch."
-	echo
+		echo
+		echo "*** Success! You are connected to port `cat '/Library/Application Support/ZeroTier/One/identity.public' | cut -d : -f 1` of Earth's planetary smart switch."
+		echo
 
-	exit 0
+		exit 0
+	fi
 fi
 
+# Detect already-installed on Linux
 if [ -f /usr/sbin/zerotier-one ]; then
 	echo '*** ZeroTier One appears to already be installed.'
 	exit 0
