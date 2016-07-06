@@ -1,8 +1,3 @@
-#!/bin/bash
-<<ENDOFSIGSTART
------BEGIN PGP SIGNED MESSAGE-----
-Hash: SHA1
-
 ENDOFSIGSTART
 
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
@@ -242,20 +237,3 @@ echo "*** Success! You are connected to port `cat /var/lib/zerotier-one/identity
 echo
 
 exit 0
------BEGIN PGP SIGNATURE-----
-Version: GnuPG v2.0.22 (GNU/Linux)
-
-iQIcBAEBAgAGBQJXfIQwAAoJEBZXGYgj5Sph7/kQAKssRFxN23UcsE7RLruwIB3v
-H5Zkwl8CDLCpFcKLVjd+dmNByvNnJWJy4szFhCKqfXZJJ2P/2aLUmZRTE1Gr6EQp
-DRS/wLiUhQjUhCwC0prCIK8qCtcndACbX5vo6XlfVnknxYi6Wdp4oSqTJ/tzVEJg
-ocJOFc+JKvSXNPIi2Dex+l3vDbYd7wvk3Rupd156QRQwXolmSEWmLWjCkzpEhNZw
-7xCVc/C9uj4Mv2z5mEIv0ILlK2vzwyj75ev04CVneYTT/IHDJToit/4q2WmrvdZR
-NP1+K5Pdz3NQbmjlXyL+rZpzU8O5HG0624ndTmpTe0qyNx4y7TXkspydR+PLjfpr
-weas733Ej3wU6bLFeqvj6CK+/e9jlJEyLoE9fMvV+gi+d+OUaN6e2auJfBKQe7Zq
-wXLfCyA6mLaNbWdHs+/w8elOstT+XeKBh35lkNgkbvSQKubbrR/NHS9lUmu7JOHC
-Oqf2ImgseviAjZGvkIzMTofFluLXsvjkjmon5TNlsYSgDv9Q+WU+mt8UFqJDoSlh
-PgW/qp/MtBuEHaIF/vqsDFfim4k9fF7MGnKThX9ods7VPTrZd7+B52ap0ZqIdHyS
-NzxDynUjPlDV86jtDVWl18QCuGyyVYfg4Q+9LrVbiP3Doalit0P8F+8H+MYX2yn2
-qFjpoxaKu+0sU8HS7Pv5
-=fiN0
------END PGP SIGNATURE-----
