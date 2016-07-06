@@ -1,6 +1,6 @@
 #!/bin/bash
 
-gpg --clearsign install.sh.in
+gpg --digest-algo SHA256 --clearsign install.sh.in
 
 echo '#!/bin/bash' >install.sh
 echo '<<ENDOFSIGSTART' >>install.sh
