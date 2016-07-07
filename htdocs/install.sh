@@ -7,11 +7,24 @@ ENDOFSIGSTART=
 
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
 
+#
+# ZeroTier install script
+#
+# All this script does is determine your OS and/or distribution and then add the correct
+# repository or download the correct package and install it. It then starts the service
+# and prints your device's ZeroTier address.
+#
+
+# Base URL for download.zerotier.com tree; see https://github.com/zerotier/download.zerotier.com if you want to mirror.
+# Some things want http, some https, so we must specify both. Must include trailing /
+ZT_BASE_URL_HTTPS='https://download.zerotier.com/'
+ZT_BASE_URL_HTTP='http://download.zerotier.com/'
+
 echo
-echo '*** ZeroTier One Linux Quick Install'
+echo '*** ZeroTier One Quick Install for Unix-like Systems'
 echo
 echo '*** Supported targets for this script:'
-echo '***    MacOS (10.7+) on x86_64 (installs Mac .pkg)'
+echo '***    MacOS (10.7+) on x86_64 (just installs ZeroTier One.pkg)'
 echo '***    Linux / Debian (wheezy or newer) on i386, x86_64, and armhf (Raspbian/jessie only)'
 echo '***    Linux / Ubuntu (trusty or newer) on i386 and x86_64'
 echo '***    Linux / SuSE (12+) on i386 and x86_64'
@@ -37,7 +50,7 @@ if [ -e /usr/bin/uname ]; then
 	if [ "`/usr/bin/uname -s`" = "Darwin" ]; then
 		echo '*** Detected MacOS / Darwin, downloading and installing Mac .pkg...'
 		$SUDO rm -f "/tmp/ZeroTier One.pkg"
-		curl -s https://download.zerotier.com/dist/ZeroTier%20One.pkg >"/tmp/ZeroTier One.pkg"
+		curl -s ${ZT_BASE_URL_HTTPS}dist/ZeroTier%20One.pkg >"/tmp/ZeroTier One.pkg"
 		$SUDO installer -pkg "/tmp/ZeroTier One.pkg" -target /
 
 		echo
@@ -125,22 +138,22 @@ if [ -f /etc/debian_version ]; then
 	$SUDO rm -f /tmp/zt-sources-list
 	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
 		echo '*** Found Ubuntu "trusty", creating /etc/apt/sources.list.d/zerotier.list'
-		echo 'deb http://download.zerotier.com/debian/trusty trusty main' >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/trusty trusty main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F wily`" ]; then
 		echo '*** Found Ubuntu "wily", creating /etc/apt/sources.list.d/zerotier.list'
-		echo 'deb http://download.zerotier.com/debian/wily wily main' >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/wily wily main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F xenial`" ]; then
 		echo '*** Found Ubuntu "xenial", creating /etc/apt/sources.list.d/zerotier.list'
-		echo 'deb http://download.zerotier.com/debian/xenial xenial main' >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
 		echo '*** Found Debian "wheezy" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
-		echo 'deb http://download.zerotier.com/debian/wheezy wheezy main' >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/wheezy wheezy main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "8" -o "$dvers" = "jessie" ]; then
 		echo '*** Found Debian "jessie" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
-		echo 'deb http://download.zerotier.com/debian/jessie jessie main' >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/jessie jessie main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "9" -o "$dvers" = "stretch" -o "$dvers" = "10" -o "$dvers" = "sid" ]; then
 		echo '*** Found Debian "stretch" or "sid" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
-		echo 'deb http://download.zerotier.com/debian/stretch stretch main' >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/stretch stretch main" >/tmp/zt-sources-list
 	else
 		echo "*** FAILED: unrecognized or ancient distribution: $dvers"
 		exit 1
@@ -158,24 +171,24 @@ if [ -f /etc/debian_version ]; then
 	cat /dev/null | $SUDO apt-get install -y zerotier-one
 elif [ -f /etc/SuSE-release -o -f /etc/suse-release ]; then
 	echo '*** Found SuSE, adding zypper YUM repo...'
-	cat /dev/null | $SUDO zypper addrepo -t YUM -g http://download.zerotier.com/redhat/el/7 zerotier
+	cat /dev/null | $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier
 	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
 
 	echo
 	echo '*** Installing zeortier-one package...'
 
-	cat /dv/null | $SUDO zypper install -y zerotier-one
+	cat /dev/null | $SUDO zypper install -y zerotier-one
 elif [ -d /etc/yum.repos.d ]; then
-	baseurl='http://download.zerotier.com/redhat/el/6'
+	baseurl="${ZT_BASE_URL_HTTP}redhat/el/6"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
-		baseurl='http://download.zerotier.com/redhat/fc/22'
+		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
 	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" ]; then
 		echo "*** Found RHEL/CentOS, creating /etc/yum.repos.d/zerotier.repo"
-		baseurl='http://download.zerotier.com/redhat/el/$releasever'
+		baseurl="${ZT_BASE_URL_HTTP}redhat/el/$releasever"
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
-		baseurl='http://download.zerotier.com/redhat/amzn1/2016.03'
+		baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
 	else
 		echo "*** Found unknown yum-based repo, using el/6 for max compatibility, creating /etc/yum.repos.d/zerotier.repo"
 	fi
@@ -251,17 +264,17 @@ exit 0
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAEBCAAGBQJXfa6uAAoJEBZXGYgj5SphDPwQAIZdDJlefS52gOHyJMnzzlh8
-tt3h3pXdk4NtMVxbKuBPCPC9Sdl/1Qx5nqQYBObfV6+45kCMfrshc6JMamiGoQWA
-ljDDiOYE0DCWvjqHmX5PL2wdC94m6XnBqDQbmLvNi1dNyRYZkcUSqtPelFIgkzCb
-A/YXk9yQ89QXEPX3HJJF6Bf4xteMDBUkm2gmB4pqOFDlyLEuVt7Isx5xlQl5CP1u
-43rOeS0fCAeeO1NF6aLSz61t2uMRxNaImuBo5Q1T3fAX5Tzs7f9+Vui0w9tAn2/k
-xeI1yDPRwY/heNmmybxmuhUayFqZFffUsmTYUMyso5POTBavH0C50Orl8hdna2Py
-In4/6qs0ywTe9WBLeanqqX06/GQg2UlJVXqtNj/YnXuKIP+oY/6REIVW9iSaAG4v
-3VZX00oKg6iEPUVIUe+jfVXost5SEC6+Jp838SysMi6XDywPGco4UpLhDQEUd0gW
-VBuHQtARIpMZYuqsX8R5MDUUv3PIW+CGiBCmfBjW6MYhaM6wB06fF78TwIS7VgX/
-MCGuiet1hwK3lYLCV0UFvK/u2LTiR3fCiffExXnR/9HARFUy254IyZ1nt+NbJOWK
-0DZBBU04+R3v8bPL2lhKMlxpOQR5l4/etXOfVJgqWvukZG8lInLd215JOp3h99tv
-Q1CqlFoJ+yvcfPg1oJwF
-=g60y
+iQIcBAEBCAAGBQJXfsKsAAoJEBZXGYgj5SphtE0P/iMrG0kIKmnsqAc/J5Z8JpTn
+3WmhdB91xvX8YR8p49GzZj5uM8MdLQCQJ5p2dKuvJvY8ClRnFmM7GtQYHWJLdFMX
+uVlXEKZPcEMW+BkKCX75V26/UZ1+kUUiRM/v9dqqE/SFRPg8RCP4O5xieJXqv4m+
+553SSKPV9Ah/D/uT6rpyT/r2NjE9QSoFCwS2Qh7/HeApHl/BeXC3xDByx9vnVfVd
+VG6KRL8CGHDC0oKDCY6yLqsTsstHoCETZiI2d6lhG+Yv/mSgSh97yHCHGY9Kw+GI
+jgs9pq49orXXe0KWJ2pFXrSqcHpr4SpyQ1Bj1/pbymQKQ1phSW4JYpj53vuDtmE6
+uECsWmB2WDQIhjn9TUnPmSqadMKELFItqyhquSe6caYBxBsYzYt7AoxyNhYDNhuO
+4boJEtEz0tC7NWSZXxcJxwlAKr+w69Tt8s/89IhQ1riVcr7foYQTf+e/gFBDE/eQ
+001wEfLOatDPV9sNvq9vr6Zp0JqwAhENR9YBDqgg3qZnwtZqslp+ei9FDJf7dXNl
+WKlAzWXDwpKeX7OBmt5egsch2C8jRzaftBtGyIDmXSIdjKOE2bW84nD34tuTM+gp
+x6SorDueTpvDDZGLUuy29IB8ql2oPxe2VMAr8pm9rmTUj4pMl8a+U4BrEL2YPuag
+3GfmVo52d8QTAPdrLOUD
+=36XE
 -----END PGP SIGNATURE-----

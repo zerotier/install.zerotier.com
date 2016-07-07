@@ -3,19 +3,17 @@ ZeroTier `curl|bash` Installation Script
 
 This repository contains the `curl|bash` install script served from [https://install.zerotier.com/](https://install.zerotier.com).
 
-To offer a more secure installation option we use an inline GPG signature hack that allows the script to be signed but that makes signature verification optional. It's a perfectly valid script whether or not it gets run through GPG. The trick is to use a dummy multi-line variable to encapsulate the beginning of the GPG "clearsign" signature section, then to have an `exit 0` statement at the end before the actual signature. The last bit of magic is the end-of-multi-line-quote `ENDOFSIGSTART=` code that we use. Note the equals at the end. This means that the presence of that line as the first line in the script that `gpg --output` spits out doesn't break bash since it's just a null variable assign no-op.
+The `install.sh.in` file contains the script source minus the signature, while `build-install.sh` is a short shell script that signs it and concatenates it all together into the actuall install payload. You will need to edit the latter if you want to use it yourself since you will not have our *contact@zerotier.com* GPG secret key.
 
-This hack lets us offer the user two options:
+The GPG signed script built from `install.sh.in` uses a clever little hack to yield a script that is valid regardless of whether it's been passed through `gpg --output` to check its signature or not, offering two options to users:
 
-**Quick and dirty:**
+**Living dangerously (https check only):**
 
     curl -s https://install.zerotier.com/ | bash
 
-**Foil hat mode:**
+**Foil hat mode (2X redundant https + GPG):**
 
     curl -s https://raw.githubusercontent.com/zerotier/ZeroTierOne/master/doc/contact%40zerotier.com.gpg | gpg --import
     curl -s https://install.zerotier.com/ | gpg --output - >/tmp/zt-install.sh && bash /tmp/zt-install.sh
 
-You will not be able to build *our* script using just this repo since you'd need the *contact@zerotier.com* GPG secret key, but you are free to adapt it and host it elsewhere or look at what's here and steal our inline signature technique.
-
-The `install.sh.in` file contains the script source minus the signature, while `build-install.sh` is a short shell script that signs it and concatenates it all together into the actuall install payload.
+This is accomplished by signing the script with GPG's `--clearsign` mode and then using a multi-line bash escape to escape the begin signature lines. Since the script ends with `exit 0` the actual signature at the end is also ignored. A final piece of this trick is the use of `ENDOFSIGSTART=` as the magic multi-line escape sequence. Since it ends with an equals it converts into a no-op assignment after `gpg --output` strips away the script's first few lines, allowing GPG's output to be piped straight into *bash* if the signature check is successful.
