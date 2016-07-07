@@ -12,7 +12,7 @@ echo '*** ZeroTier One Linux Quick Install'
 echo
 echo '*** Supported targets for this script:'
 echo '***    MacOS (10.7+) on x86_64 (installs Mac .pkg)'
-echo '***    Linux / Debian (jessie or newer) on i386, x86_64, and armhf (Raspbian)'
+echo '***    Linux / Debian (wheezy or newer) on i386, x86_64, and armhf (Raspbian/jessie only)'
 echo '***    Linux / Ubuntu (trusty or newer) on i386 and x86_64'
 echo '***    Linux / SuSE (12+) on i386 and x86_64'
 echo '***    Linux / CentOS (6+) on i386 and x86_64'
@@ -251,17 +251,17 @@ exit 0
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAEBCAAGBQJXfaycAAoJEBZXGYgj5Sph7bIP/33BA2uzug9MNBBNoBkkNn0r
-igovZLJ5GBFUnsH2yeBagSkLHImONqgNJRMDaAouNakzfg7mKqTSBWe6auDhxkye
-wYaul+JiNJjiQAkhCML5SBpbGmOIKVcqilLeylJrWwcD2ytYSFXWiiaU3ZI1EqNB
-PrfgkAJkVo2gaggj/3X9jj0EX6sm0w30vT+kyVgnSAj4a3sFwkD79MVnZakNIIDj
-JudvV8F5UMm9wdQb2gnnX5I5Nwk+XgEuUQwzoodi2TGu87OXGGxSFj1xIiTpttA9
-BUDZoQj8k3RVhJKwE3qogEGZm5V5vmVWaye0vOrJvMJd3/8rvalXh2qU+s2w6vPn
-nehNV+ZzQhY2dEUKxZWgbhZPM3ukLpw4WK6ug5RdHGSfxnNDRFwZBY7dBQb1eIpH
-0GCOQ48Nlfw5NzJwhLTtBKYtJADeU/lD3oeW3g2GvdgHd+x/E9vBS2vW+uMESm+D
-YCgMcYJiBihW3wQssliTk22N5c7Z2vShgcDL9B8NH0LbinUjY1tkvjI5k/uyabbV
-cQ5AZfJJ4EOL2nfryz49MFY6cZQ/RfsYvLl2+QvIdT1Sy05WyZc+fM1HXlsiYvbq
-Tfj/7NERGfgJfBdS3aCBEcyuXN6sOEXwAUdYE0/ImqPhr4gRrTkHOqfehtroNryj
-As1h+XYW2aq9GV3fw4d3
-=yTtb
+iQIcBAEBCAAGBQJXfa6uAAoJEBZXGYgj5SphDPwQAIZdDJlefS52gOHyJMnzzlh8
+tt3h3pXdk4NtMVxbKuBPCPC9Sdl/1Qx5nqQYBObfV6+45kCMfrshc6JMamiGoQWA
+ljDDiOYE0DCWvjqHmX5PL2wdC94m6XnBqDQbmLvNi1dNyRYZkcUSqtPelFIgkzCb
+A/YXk9yQ89QXEPX3HJJF6Bf4xteMDBUkm2gmB4pqOFDlyLEuVt7Isx5xlQl5CP1u
+43rOeS0fCAeeO1NF6aLSz61t2uMRxNaImuBo5Q1T3fAX5Tzs7f9+Vui0w9tAn2/k
+xeI1yDPRwY/heNmmybxmuhUayFqZFffUsmTYUMyso5POTBavH0C50Orl8hdna2Py
+In4/6qs0ywTe9WBLeanqqX06/GQg2UlJVXqtNj/YnXuKIP+oY/6REIVW9iSaAG4v
+3VZX00oKg6iEPUVIUe+jfVXost5SEC6+Jp838SysMi6XDywPGco4UpLhDQEUd0gW
+VBuHQtARIpMZYuqsX8R5MDUUv3PIW+CGiBCmfBjW6MYhaM6wB06fF78TwIS7VgX/
+MCGuiet1hwK3lYLCV0UFvK/u2LTiR3fCiffExXnR/9HARFUy254IyZ1nt+NbJOWK
+0DZBBU04+R3v8bPL2lhKMlxpOQR5l4/etXOfVJgqWvukZG8lInLd215JOp3h99tv
+Q1CqlFoJ+yvcfPg1oJwF
+=g60y
 -----END PGP SIGNATURE-----

@@ -7,7 +7,7 @@ echo '*** ZeroTier One Linux Quick Install'
 echo
 echo '*** Supported targets for this script:'
 echo '***    MacOS (10.7+) on x86_64 (installs Mac .pkg)'
-echo '***    Linux / Debian (jessie or newer) on i386, x86_64, and armhf (Raspbian)'
+echo '***    Linux / Debian (wheezy or newer) on i386, x86_64, and armhf (Raspbian/jessie only)'
 echo '***    Linux / Ubuntu (trusty or newer) on i386 and x86_64'
 echo '***    Linux / SuSE (12+) on i386 and x86_64'
 echo '***    Linux / CentOS (6+) on i386 and x86_64'
