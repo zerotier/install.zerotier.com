@@ -132,6 +132,9 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F xenial`" ]; then
 		echo '*** Found Ubuntu "xenial", creating /etc/apt/sources.list.d/zerotier.list'
 		echo 'deb http://download.zerotier.com/debian/xenial xenial main' >/tmp/zt-sources-list
+	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
+		echo '*** Found Debian "wheezy" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		echo 'deb http://download.zerotier.com/debian/wheezy wheezy main' >/tmp/zt-sources-list
 	elif [ "$dvers" = "8" -o "$dvers" = "jessie" ]; then
 		echo '*** Found Debian "jessie" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo 'deb http://download.zerotier.com/debian/jessie jessie main' >/tmp/zt-sources-list
@@ -248,17 +251,17 @@ exit 0
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAEBCAAGBQJXfSkLAAoJEBZXGYgj5SphA/AQAKfkrDvP/Z7qnkIiSvmN4fqQ
-24iOJoDyo4jQfhRf3Lffg2XxREmrTGY8Xo1oeAiBJaf61ZPI1c3WINFdge3DsGju
-K5DaaUhP773SuxkHbl6G7cNYZUSN2RDexlO5jsjJUO8CjvKu2y1U/H27hwREgkZf
-/b6DehFlh6BU8OoC32NYOOBwMixELSukt4tRqiWsb27/29AdbKgU1AaB/b/SIuxL
-6dpjMgX4tJHJ9lllLfu/KbxBFiN4K1cyClijOm9rZNNKNZpAdgGHgDoOjc0BnJSh
-oPHSxPc+E0PwYtWqqdpRRlS5xZn/s1n+0BRO4+zKWxLkqGxnPZe12K0ETvjmNUAK
-IinTtA8pqChxsxpzfBv62BEO1uC+xJW4z6J8qBx4Jw5axtUv3G9+7gK6OHt10TEv
-olaNIg/ZNlFr1JidlFAmsH4qoNDA/Fv4oadqpbVyQwwzKJ37TF0a6tFc1gNvhVvM
-FW24oLnPFnl0xrcaGA6V/SWFVlvFS2qgcekF7GEkMTOr1B5/sb9ZjwI9/YQNkmYJ
-UVr7OX6uRjpOJDD3BsmAxJyfgwRFp2vbr2vqtI9rag4RF+/9sn6M1ndCoPB17F1G
-SMkHanzHTHFbwL/8ZFHRIi7WHtQ4meFEzchlo1eg4U3HdvoWypxQq2OLpLQiet/Y
-j/7JdiSsN4Nq3lUqwoPj
-=M/Ql
+iQIcBAEBCAAGBQJXfaycAAoJEBZXGYgj5Sph7bIP/33BA2uzug9MNBBNoBkkNn0r
+igovZLJ5GBFUnsH2yeBagSkLHImONqgNJRMDaAouNakzfg7mKqTSBWe6auDhxkye
+wYaul+JiNJjiQAkhCML5SBpbGmOIKVcqilLeylJrWwcD2ytYSFXWiiaU3ZI1EqNB
+PrfgkAJkVo2gaggj/3X9jj0EX6sm0w30vT+kyVgnSAj4a3sFwkD79MVnZakNIIDj
+JudvV8F5UMm9wdQb2gnnX5I5Nwk+XgEuUQwzoodi2TGu87OXGGxSFj1xIiTpttA9
+BUDZoQj8k3RVhJKwE3qogEGZm5V5vmVWaye0vOrJvMJd3/8rvalXh2qU+s2w6vPn
+nehNV+ZzQhY2dEUKxZWgbhZPM3ukLpw4WK6ug5RdHGSfxnNDRFwZBY7dBQb1eIpH
+0GCOQ48Nlfw5NzJwhLTtBKYtJADeU/lD3oeW3g2GvdgHd+x/E9vBS2vW+uMESm+D
+YCgMcYJiBihW3wQssliTk22N5c7Z2vShgcDL9B8NH0LbinUjY1tkvjI5k/uyabbV
+cQ5AZfJJ4EOL2nfryz49MFY6cZQ/RfsYvLl2+QvIdT1Sy05WyZc+fM1HXlsiYvbq
+Tfj/7NERGfgJfBdS3aCBEcyuXN6sOEXwAUdYE0/ImqPhr4gRrTkHOqfehtroNryj
+As1h+XYW2aq9GV3fw4d3
+=yTtb
 -----END PGP SIGNATURE-----

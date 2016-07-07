@@ -127,6 +127,9 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F xenial`" ]; then
 		echo '*** Found Ubuntu "xenial", creating /etc/apt/sources.list.d/zerotier.list'
 		echo 'deb http://download.zerotier.com/debian/xenial xenial main' >/tmp/zt-sources-list
+	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
+		echo '*** Found Debian "wheezy" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		echo 'deb http://download.zerotier.com/debian/wheezy wheezy main' >/tmp/zt-sources-list
 	elif [ "$dvers" = "8" -o "$dvers" = "jessie" ]; then
 		echo '*** Found Debian "jessie" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo 'deb http://download.zerotier.com/debian/jessie jessie main' >/tmp/zt-sources-list
