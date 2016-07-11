@@ -185,7 +185,7 @@ elif [ -d /etc/yum.repos.d ]; then
 		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
 	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" ]; then
 		echo "*** Found RHEL/CentOS, creating /etc/yum.repos.d/zerotier.repo"
-		baseurl="${ZT_BASE_URL_HTTP}redhat/el/$releasever"
+		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
@@ -264,17 +264,17 @@ exit 0
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAEBCAAGBQJXfsKsAAoJEBZXGYgj5SphtE0P/iMrG0kIKmnsqAc/J5Z8JpTn
-3WmhdB91xvX8YR8p49GzZj5uM8MdLQCQJ5p2dKuvJvY8ClRnFmM7GtQYHWJLdFMX
-uVlXEKZPcEMW+BkKCX75V26/UZ1+kUUiRM/v9dqqE/SFRPg8RCP4O5xieJXqv4m+
-553SSKPV9Ah/D/uT6rpyT/r2NjE9QSoFCwS2Qh7/HeApHl/BeXC3xDByx9vnVfVd
-VG6KRL8CGHDC0oKDCY6yLqsTsstHoCETZiI2d6lhG+Yv/mSgSh97yHCHGY9Kw+GI
-jgs9pq49orXXe0KWJ2pFXrSqcHpr4SpyQ1Bj1/pbymQKQ1phSW4JYpj53vuDtmE6
-uECsWmB2WDQIhjn9TUnPmSqadMKELFItqyhquSe6caYBxBsYzYt7AoxyNhYDNhuO
-4boJEtEz0tC7NWSZXxcJxwlAKr+w69Tt8s/89IhQ1riVcr7foYQTf+e/gFBDE/eQ
-001wEfLOatDPV9sNvq9vr6Zp0JqwAhENR9YBDqgg3qZnwtZqslp+ei9FDJf7dXNl
-WKlAzWXDwpKeX7OBmt5egsch2C8jRzaftBtGyIDmXSIdjKOE2bW84nD34tuTM+gp
-x6SorDueTpvDDZGLUuy29IB8ql2oPxe2VMAr8pm9rmTUj4pMl8a+U4BrEL2YPuag
-3GfmVo52d8QTAPdrLOUD
-=36XE
+iQIcBAEBCAAGBQJXhB02AAoJEBZXGYgj5SphqzYP/RUvdlnsvoL6Pm4g+so03FBg
+p0CaDFwMgpeKJIrBb2I2Cms1s/8LSyCMFes8tiTu9NZOx65HbYidOKkZtsoAp3xM
+JvixlzzpEi7lzyrGt6vmqEd6FKJXHKoYWsB4evn3uK8r3IfvEzVMI8Z9f4329R6t
+gLon/7J5YHiSDlkI1MdMO2eV8/tRJJMcGuzn8ZkFSLiUewVtoND9jtICXSnppXur
+Zw73qJhOyysn+MZWcgNnGj1jBKRSVOV+HZ8kHfMrNCgS3C+yCVFmgW1Y2KBWfZkb
+Es4/RJFEzHXWHKpWR6k0vC67JZucRcoGpyCR5u6LpbiqyMWSf/siEEY8+KyAWmo8
+d8kkXtM8HjGeVPLkYM+1CexeNAYk6kT+rIZCQ5i7W/1NeiHYtQBz+/GgxLBbdXzN
+ZIsmGvAXaEh4MkP6xu69X5/uebT0bBNz6crcW1QQSz8eAsPgPXkDn7Ls//YAKlm9
+YgAGwi6V9gGpSltlSi76bR5xTvQsgSfeSngWRXeplUAZgxePvvJlfP5i4pE9OzVs
+xGMOQUkNIiCFBjW16uYY1sunaJ+kpauB1qkKd9RvqstcXijGShcK68GpD/g+rSXv
+bpmbuwrksKp7mI1Csja6egDWxiPjwuCH46TxSJfRUGKOpJ9HUCNO9cj9Ii46I6Ou
+c2XSjxSPDCCh0tR3D15l
+=xx+t
 -----END PGP SIGNATURE-----
