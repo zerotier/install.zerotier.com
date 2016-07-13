@@ -257,24 +257,24 @@ while [ ! -f /var/lib/zerotier-one/identity.secret ]; do
 done
 
 echo
-echo "*** Success! You are connected to port `cat /var/lib/zerotier-one/identity.public | cut -d : -f 1` of Earth's planetary smart switch."
+echo "*** Success! You are ZeroTier address [ `cat /var/lib/zerotier-one/identity.public | cut -d : -f 1` ]."
 echo
 
 exit 0
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAEBCAAGBQJXhB02AAoJEBZXGYgj5SphqzYP/RUvdlnsvoL6Pm4g+so03FBg
-p0CaDFwMgpeKJIrBb2I2Cms1s/8LSyCMFes8tiTu9NZOx65HbYidOKkZtsoAp3xM
-JvixlzzpEi7lzyrGt6vmqEd6FKJXHKoYWsB4evn3uK8r3IfvEzVMI8Z9f4329R6t
-gLon/7J5YHiSDlkI1MdMO2eV8/tRJJMcGuzn8ZkFSLiUewVtoND9jtICXSnppXur
-Zw73qJhOyysn+MZWcgNnGj1jBKRSVOV+HZ8kHfMrNCgS3C+yCVFmgW1Y2KBWfZkb
-Es4/RJFEzHXWHKpWR6k0vC67JZucRcoGpyCR5u6LpbiqyMWSf/siEEY8+KyAWmo8
-d8kkXtM8HjGeVPLkYM+1CexeNAYk6kT+rIZCQ5i7W/1NeiHYtQBz+/GgxLBbdXzN
-ZIsmGvAXaEh4MkP6xu69X5/uebT0bBNz6crcW1QQSz8eAsPgPXkDn7Ls//YAKlm9
-YgAGwi6V9gGpSltlSi76bR5xTvQsgSfeSngWRXeplUAZgxePvvJlfP5i4pE9OzVs
-xGMOQUkNIiCFBjW16uYY1sunaJ+kpauB1qkKd9RvqstcXijGShcK68GpD/g+rSXv
-bpmbuwrksKp7mI1Csja6egDWxiPjwuCH46TxSJfRUGKOpJ9HUCNO9cj9Ii46I6Ou
-c2XSjxSPDCCh0tR3D15l
-=xx+t
+iQIcBAEBCAAGBQJXhm0rAAoJEBZXGYgj5Sph3isP/RAsenzEsXw/QSc3fcwyZjHk
+VKgpw0KlXWJr5NruBxDM47uoPb+bMw/7CRkiRCwlNFwqE/poT35vYX5sqPJas9y6
+14F2lj6SU3QhevAa6aBau3fMjqYQ1geKpcPj0b9t4Q37bKxG45hU9+btzKHupgoZ
+7dGZ72KERKJVU8Tl8i4wpwUW+pd70wmgdWJj+6Nrcb1zS9AG56n2gUPytSA45DHO
+CPE1W8KF4eJWPfrg/nlHZJbXDreYw9b6FuscluMxzAWl29m4J9RJnDKKzBBQ/G4v
+uuXzAHCUY8LOix1wqmdoyXSu17QqSWVQHpq0U+DTrqqbItXH2CTu8i9/mNDVk1PE
+2jebbpn6YR4dlawOFX7KnJadViOMZcEXpTor9jl0MZARKBDcMcsH697eBSBfwti4
+fzMzmdgG5tBNQc2z4BmdhDZK3Pqe/dnqIi0n1CSHL4QJRRKaKnsStCL5BIWpzp6w
+TMzHa7jBfT9arPoOi7zE62z+4IhWLmqVxQf5+OS3j4zb2b4mI6HF+045TYrmm7x8
+G9yt8vOGx1M/FkxeOmjY9oSsJ8DPJRKEuLWihv3oZoBIcZ1eidOUQltwFp8MF+Rk
+uGPrtBCOc3gf9I/gVd6lLJqFc4A1GlEFSM/3qD+3zdP9bwPfchwimUpgI6gkturK
+2FXXo1gWBGlQ4tHwVRHe
+=Hy09
 -----END PGP SIGNATURE-----
