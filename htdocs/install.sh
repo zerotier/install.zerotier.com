@@ -167,6 +167,12 @@ if [ -f /etc/debian_version ]; then
 	echo
 	echo '*** Installing zerotier-one package...'
 
+	# Pre-1.1.6 Debian package did not properly enumerate its files, causing
+	# problems when we try to replace it. So just delete them to force.
+	if [ -d /var/lib/zerotier-one ]; then
+		$SUDO rm -f /etc/init.d/zerotier-one /etc/systemd/system/multi-user.target.wants/zerotier-one.service /var/lib/zerotier-one/zerotier-one /usr/local/bin/zerotier-cli /usr/bin/zerotier-cli /usr/local/bin/zero
+	fi
+
 	cat /dev/null | $SUDO apt-get update
 	cat /dev/null | $SUDO apt-get install -y zerotier-one
 elif [ -f /etc/SuSE-release -o -f /etc/suse-release ]; then
@@ -264,17 +270,17 @@ exit 0
 -----BEGIN PGP SIGNATURE-----
 Comment: GPGTools - https://gpgtools.org
 
-iQIcBAEBCAAGBQJXhm0rAAoJEBZXGYgj5Sph3isP/RAsenzEsXw/QSc3fcwyZjHk
-VKgpw0KlXWJr5NruBxDM47uoPb+bMw/7CRkiRCwlNFwqE/poT35vYX5sqPJas9y6
-14F2lj6SU3QhevAa6aBau3fMjqYQ1geKpcPj0b9t4Q37bKxG45hU9+btzKHupgoZ
-7dGZ72KERKJVU8Tl8i4wpwUW+pd70wmgdWJj+6Nrcb1zS9AG56n2gUPytSA45DHO
-CPE1W8KF4eJWPfrg/nlHZJbXDreYw9b6FuscluMxzAWl29m4J9RJnDKKzBBQ/G4v
-uuXzAHCUY8LOix1wqmdoyXSu17QqSWVQHpq0U+DTrqqbItXH2CTu8i9/mNDVk1PE
-2jebbpn6YR4dlawOFX7KnJadViOMZcEXpTor9jl0MZARKBDcMcsH697eBSBfwti4
-fzMzmdgG5tBNQc2z4BmdhDZK3Pqe/dnqIi0n1CSHL4QJRRKaKnsStCL5BIWpzp6w
-TMzHa7jBfT9arPoOi7zE62z+4IhWLmqVxQf5+OS3j4zb2b4mI6HF+045TYrmm7x8
-G9yt8vOGx1M/FkxeOmjY9oSsJ8DPJRKEuLWihv3oZoBIcZ1eidOUQltwFp8MF+Rk
-uGPrtBCOc3gf9I/gVd6lLJqFc4A1GlEFSM/3qD+3zdP9bwPfchwimUpgI6gkturK
-2FXXo1gWBGlQ4tHwVRHe
-=Hy09
+iQIcBAEBCAAGBQJXiRYTAAoJEBZXGYgj5SphCIQP/1OFgapSPVUvLP3OLCJ0P4Or
+f/atxH2NSvB5h6VD+LgjAnBKU1OQxKsJ722g22k9a4VoaeYbf7Q7jzVZ+BL/lFsk
+lV99fpadHpQ1BYo6TzlS1qY0Fo1djqN7+PpxeLcZ6f6Ya2AuGQtORwAThGc7G8Xw
+Rdlxnq71jGp7fhparX1QotszXzhjTFb/vyZFMOe/3nMLO1ynwJ1Vgu7X2+DnSuQm
+1QkNLStpTePlATWCyb0hYwYGJKd/e9m6ZgUtz7R4HVhCJPJf2BzAjzRYyYk7QVNj
+oUqIBmoj6ID3Yse6xafdIWtw/QpD5CSLShJ6FT2DOgZU7ERRd5G/CEcRQqg5YJ+R
+xre5VGek9npKL8cugyKDRkotmX/npjoQq1etvwWhulcJ6sRvTpQ1lGLgcFf8ygJF
+wQgbLWy5BFVBJJrH+nLQO/BRv4MbzM0MvUGux6Qbl7KOlESt8aW/DTFzIY3BluNG
+lQjVZZD2RrMy0AAy+DKUS4Yabah237QZl0nIx2o4/TBYkAVDb5K8k2MmCYZ4zQjw
+/kBSBHJWfiQZKx3P/XpIDxt9R2ZwTOqVsKOB+w+BIOE86G+pnNBP5CS57vEDgEpS
++fXdUt4G7JH9bpjEqaIL3CxJbE35YpOyUh2vPDuTr1TTrAmhCtDTpMIQMAaFFtyc
+B1KfZwVRdEtzjsctZR+W
+=bZyF
 -----END PGP SIGNATURE-----
