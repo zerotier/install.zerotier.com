@@ -191,7 +191,7 @@ elif [ -f /etc/SuSE-release -o -f /etc/suse-release -o -f /etc/SUSE-brand -o -f 
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
 elif [ -d /etc/yum.repos.d ]; then
-	baseurl="${ZT_BASE_URL_HTTP}redhat/el/6"
+	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
@@ -202,7 +202,7 @@ elif [ -d /etc/yum.repos.d ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
 	else
-		echo "*** Found unknown yum-based repo, using el/6 for max compatibility, creating /etc/yum.repos.d/zerotier.repo"
+		echo "*** Found unknown yum-based repo, using el/7, creating /etc/yum.repos.d/zerotier.repo"
 	fi
 
 	$SUDO rpm --import /tmp/zt-gpg-key
@@ -275,17 +275,17 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAEBCAAGBQJYy2HOAAoJEBZXGYgj5SphVw8P/1nH0v+zH0wRRhRmQOLa3KYr
-FTOt2X50DH0UGfVHJefuXUiAe4F+hMojER41ozxaEcz8SFuY7r4m6IA6K3cCVCX1
-IG9aurWF2kbN8U8aTPnJZ6CElHXc8Frl9HTfyjMBAttqVih+U2Oqy5+ZUtKdF6Yv
-HabjNYYgsjmR4lDcVBWVG5PyHz5ipBOIic+drHofdDyj1Z9Yw1Kt9H11qKhHXMu2
-qZQidmZnR72rSUv0I4uC0W+UFlbQGqocwTAPnB48ciwegH70RXNQGtX6ynL5X47L
-lweEpkRJj0CdWRieLfFn9wNTt+hWNmLenAQVpHKjRIUzIp6T3U6YY1uJWgudUbOL
-BabOF1cW4190utkSt2giuHHx5ptFjHKjOjePo80P6ltcUR1/umuOQGu7FuJ+JMJz
-YM0NVIx5EhqxuX8MibSHgHYc0WlB7rdGYXDruAT9K2W1y+7xAk8VoBqHMVOC/V/+
-8xxba8hBPrXVAljXiyju6rEfMsj2GdV5bHU5+kJYeq8NbcWQTBH7zD0kg0TkEGUG
-PvmZEaDg0Jw8RqkX1sOEWO99NGhyibAi9Ppyl1jizRMcrJs2lxsnGvZx5e9dmaiI
-adhH84uT709NgHpAMffG9wcAhCNe2GeFsCAsgvV7lE8BZxskdzatunuwTUa3netP
-lpW7/skZfh2Zmz4M/MVK
-=ph3T
+iQIcBAEBCAAGBQJYy2OJAAoJEBZXGYgj5SphWVsP/i9CliEPMljfLImKXW7f1xvU
+QIM/twXQCebnl78Ytd1BgAv7KkWdCDb9RVFPmZssXt7YlMC6QTmTtkjPWHDyDaue
+V35fyg3osEeBEKCSXmH3nMpwyYrmRurIN2q3+lXnymGJpz0csJ13b1ZY8p2qHel4
+ePbCnGuD7uRwVqX/T21qVfnAtFEqdHQIHDVVIFA+dWUq24Z7JLGI6xmhl6u4OKgx
+yUIRmlMQ23iT+9gK/fSaA9R0b52LkzA3vt0qASK/22za6Mf4Hvfk+YgfPkQACt0g
+w25RSvMucZED7R+YItr+57U5QhuzPqKm5mIqjupHK/dliRm2iaxRjVDvl/LH2BUx
+dylQNbstNeMEimue+Js8mhAb2yi7W0rE2+UQnbKEKByWH1euvMZZrQJo1uYDYLPt
+HrQqo3GufafZPOATq3gCDIh8pZzCj7M0vz6cLICYWRedxY2WboI3uqwWxzhwLSB1
+picYVFdw+xVC0LmL337qlzjWoX0W2hOrPu0nODeLORW8RhwBk574soCZfZJFGo6T
+QhQpd0aHe0e0fWK0iPxg63a1CWO8VEFKQJYH6ZZm6U617Du58d735JpYkYLXHCWH
+pgRsHjLmz/qYPrYjoCnx7P4/Ye8Rhu6XuPugPHDt0TQrxhZcaN2kiKvBVBTt8gFC
+1oe7W3PD2Md8DLH3BI/M
+=MZSm
 -----END PGP SIGNATURE-----

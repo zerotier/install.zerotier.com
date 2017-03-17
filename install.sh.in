@@ -186,7 +186,7 @@ elif [ -f /etc/SuSE-release -o -f /etc/suse-release -o -f /etc/SUSE-brand -o -f 
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
 elif [ -d /etc/yum.repos.d ]; then
-	baseurl="${ZT_BASE_URL_HTTP}redhat/el/6"
+	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
@@ -197,7 +197,7 @@ elif [ -d /etc/yum.repos.d ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
 	else
-		echo "*** Found unknown yum-based repo, using el/6 for max compatibility, creating /etc/yum.repos.d/zerotier.repo"
+		echo "*** Found unknown yum-based repo, using el/7, creating /etc/yum.repos.d/zerotier.repo"
 	fi
 
 	$SUDO rpm --import /tmp/zt-gpg-key
