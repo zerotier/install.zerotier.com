@@ -25,6 +25,11 @@ echo '*** ZeroTier One Quick Install for Unix-like Systems'
 echo
 echo '*** Tested distributions and architectures:'
 echo '***   MacOS (10.7+) on x86_64 (just installs ZeroTier One.pkg)'
+echo '***   Debian (7+) on x86_64, x86, arm, and arm64'
+echo '***   RedHat/CentOS (6+) on x86_64 and x86'
+echo '***   Fedora (16+) on x86_64 and x86'
+echo '***   SuSE (12+) on x86_64 and x86'
+echo '***   Mint (18+) on x86_64, x86, arm, and arm64'
 echo
 echo '*** Please report problems to contact@zerotier.com and we will try to fix.'
 echo
@@ -270,17 +275,17 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAEBCAAGBQJYy1zAAAoJEBZXGYgj5SphT8gQAJ4obAJl3aQRcSMx9bgmm1kx
-KoqzplKdSiRixC/ymlh88nWQGR3BMCpE9J2/RwKfLo5exYVQdcT04af5FHNJtUJ9
-Y77loYsEsQAdebmEWZaD3FXxQQCsNV3fObj47dI9NEvZ3ttDP4zYjWCCtPI08TJC
-7PWYphLHsuF1i+YqWXA5W99HMp468Lb1NrLkLASH5tEFR+sspXH29F4Ed5v64JAK
-qEXWj5BNAboIJs00DpCoMeTe6gOA70MLhY7Od+2gWVaW4Pxi2zXEkm+GbKDI0G7b
-/sKmmJ9V2yeNvy4cn4dWi2rU11fywarmnAgAuhuHkEG+8nJm2xkShp9DzQk+HQHO
-pdDfs40BwR9ew7l1QrB70FYXf95euumh6GIIdvLrne5vR/Om8+kYiUHfGtVUjXeH
-qVF3XpKSBmm7k5Gul4dYGThCOoWQ4k9yYR667854xpYVGIisjpLdRxS1WJpqqgcU
-yo7RzY9XuoQbBfke2P2HwQB2iISniod3ycnnmLCFNO6WxAFa0lCi5a/MH1QFKxef
-cUk6WpgtVGffAueqPe6Ec0D1tb1VThWLDdZcSW1amMgKQoDRmPNWq+V9jE0cDSAG
-hzPSiGYix+RABSQvPURoacXYdCV76L9vv2MVLTBcbdxYyovhITF1oApyIKxupZrk
-iB9tAVg5H3LvAD9Q8wiV
-=sSb9
+iQIcBAEBCAAGBQJYy2HOAAoJEBZXGYgj5SphVw8P/1nH0v+zH0wRRhRmQOLa3KYr
+FTOt2X50DH0UGfVHJefuXUiAe4F+hMojER41ozxaEcz8SFuY7r4m6IA6K3cCVCX1
+IG9aurWF2kbN8U8aTPnJZ6CElHXc8Frl9HTfyjMBAttqVih+U2Oqy5+ZUtKdF6Yv
+HabjNYYgsjmR4lDcVBWVG5PyHz5ipBOIic+drHofdDyj1Z9Yw1Kt9H11qKhHXMu2
+qZQidmZnR72rSUv0I4uC0W+UFlbQGqocwTAPnB48ciwegH70RXNQGtX6ynL5X47L
+lweEpkRJj0CdWRieLfFn9wNTt+hWNmLenAQVpHKjRIUzIp6T3U6YY1uJWgudUbOL
+BabOF1cW4190utkSt2giuHHx5ptFjHKjOjePo80P6ltcUR1/umuOQGu7FuJ+JMJz
+YM0NVIx5EhqxuX8MibSHgHYc0WlB7rdGYXDruAT9K2W1y+7xAk8VoBqHMVOC/V/+
+8xxba8hBPrXVAljXiyju6rEfMsj2GdV5bHU5+kJYeq8NbcWQTBH7zD0kg0TkEGUG
+PvmZEaDg0Jw8RqkX1sOEWO99NGhyibAi9Ppyl1jizRMcrJs2lxsnGvZx5e9dmaiI
+adhH84uT709NgHpAMffG9wcAhCNe2GeFsCAsgvV7lE8BZxskdzatunuwTUa3netP
+lpW7/skZfh2Zmz4M/MVK
+=ph3T
 -----END PGP SIGNATURE-----
