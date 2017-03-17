@@ -23,16 +23,10 @@ ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 echo
 echo '*** ZeroTier One Quick Install for Unix-like Systems'
 echo
-echo '*** Supported targets for this script:'
-echo '***    MacOS (10.7+) on x86_64 (just installs ZeroTier One.pkg)'
-echo '***    Linux / Debian (wheezy or newer) on i386, x86_64, and armhf (Raspbian/jessie only)'
-echo '***    Linux / Ubuntu (trusty or newer) on i386 and x86_64'
-echo '***    Linux / SuSE (12+) on i386 and x86_64'
-echo '***    Linux / CentOS (6+) on i386 and x86_64'
-echo '***    Linux / Fedora (22+) on i386 and x86_64'
-echo '***    Linux / Amazon (2016.03+) on x86_64'
+echo '*** Tested distributions and architectures:'
+echo '***   MacOS (10.7+) on x86_64 (just installs ZeroTier One.pkg)'
 echo
-echo '*** Please report problems to contact@zerotier.com and we will try to fix ASAP!'
+echo '*** Please report problems to contact@zerotier.com and we will try to fix.'
 echo
 
 SUDO=
@@ -136,6 +130,7 @@ echo
 if [ -f /etc/debian_version ]; then
 	dvers=`cat /etc/debian_version | cut -d '.' -f 1 | cut -d '/' -f 1`
 	$SUDO rm -f /tmp/zt-sources-list
+
 	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
 		echo '*** Found Ubuntu "trusty", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/trusty trusty main" >/tmp/zt-sources-list
@@ -145,6 +140,12 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F xenial`" ]; then
 		echo '*** Found Ubuntu "xenial", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F zesty`" ]; then
+		echo '*** Found Ubuntu "zesty", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/zesty zesty main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F precise`" ]; then
+		echo '*** Found Ubuntu "precise", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/precise precise main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
 		echo '*** Found Debian "wheezy" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/wheezy wheezy main" >/tmp/zt-sources-list
@@ -175,7 +176,7 @@ if [ -f /etc/debian_version ]; then
 
 	cat /dev/null | $SUDO apt-get update
 	cat /dev/null | $SUDO apt-get install -y zerotier-one
-elif [ -f /etc/SuSE-release -o -f /etc/suse-release ]; then
+elif [ -f /etc/SuSE-release -o -f /etc/suse-release -o -f /etc/SUSE-brand -o -f /etc/SuSE-brand -o -f /etc/suse-brand ]; then
 	echo '*** Found SuSE, adding zypper YUM repo...'
 	cat /dev/null | $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier
 	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
@@ -268,19 +269,18 @@ echo
 
 exit 0
 -----BEGIN PGP SIGNATURE-----
-Comment: GPGTools - https://gpgtools.org
 
-iQIcBAEBCAAGBQJXiRYTAAoJEBZXGYgj5SphCIQP/1OFgapSPVUvLP3OLCJ0P4Or
-f/atxH2NSvB5h6VD+LgjAnBKU1OQxKsJ722g22k9a4VoaeYbf7Q7jzVZ+BL/lFsk
-lV99fpadHpQ1BYo6TzlS1qY0Fo1djqN7+PpxeLcZ6f6Ya2AuGQtORwAThGc7G8Xw
-Rdlxnq71jGp7fhparX1QotszXzhjTFb/vyZFMOe/3nMLO1ynwJ1Vgu7X2+DnSuQm
-1QkNLStpTePlATWCyb0hYwYGJKd/e9m6ZgUtz7R4HVhCJPJf2BzAjzRYyYk7QVNj
-oUqIBmoj6ID3Yse6xafdIWtw/QpD5CSLShJ6FT2DOgZU7ERRd5G/CEcRQqg5YJ+R
-xre5VGek9npKL8cugyKDRkotmX/npjoQq1etvwWhulcJ6sRvTpQ1lGLgcFf8ygJF
-wQgbLWy5BFVBJJrH+nLQO/BRv4MbzM0MvUGux6Qbl7KOlESt8aW/DTFzIY3BluNG
-lQjVZZD2RrMy0AAy+DKUS4Yabah237QZl0nIx2o4/TBYkAVDb5K8k2MmCYZ4zQjw
-/kBSBHJWfiQZKx3P/XpIDxt9R2ZwTOqVsKOB+w+BIOE86G+pnNBP5CS57vEDgEpS
-+fXdUt4G7JH9bpjEqaIL3CxJbE35YpOyUh2vPDuTr1TTrAmhCtDTpMIQMAaFFtyc
-B1KfZwVRdEtzjsctZR+W
-=bZyF
+iQIcBAEBCAAGBQJYy1zAAAoJEBZXGYgj5SphT8gQAJ4obAJl3aQRcSMx9bgmm1kx
+KoqzplKdSiRixC/ymlh88nWQGR3BMCpE9J2/RwKfLo5exYVQdcT04af5FHNJtUJ9
+Y77loYsEsQAdebmEWZaD3FXxQQCsNV3fObj47dI9NEvZ3ttDP4zYjWCCtPI08TJC
+7PWYphLHsuF1i+YqWXA5W99HMp468Lb1NrLkLASH5tEFR+sspXH29F4Ed5v64JAK
+qEXWj5BNAboIJs00DpCoMeTe6gOA70MLhY7Od+2gWVaW4Pxi2zXEkm+GbKDI0G7b
+/sKmmJ9V2yeNvy4cn4dWi2rU11fywarmnAgAuhuHkEG+8nJm2xkShp9DzQk+HQHO
+pdDfs40BwR9ew7l1QrB70FYXf95euumh6GIIdvLrne5vR/Om8+kYiUHfGtVUjXeH
+qVF3XpKSBmm7k5Gul4dYGThCOoWQ4k9yYR667854xpYVGIisjpLdRxS1WJpqqgcU
+yo7RzY9XuoQbBfke2P2HwQB2iISniod3ycnnmLCFNO6WxAFa0lCi5a/MH1QFKxef
+cUk6WpgtVGffAueqPe6Ec0D1tb1VThWLDdZcSW1amMgKQoDRmPNWq+V9jE0cDSAG
+hzPSiGYix+RABSQvPURoacXYdCV76L9vv2MVLTBcbdxYyovhITF1oApyIKxupZrk
+iB9tAVg5H3LvAD9Q8wiV
+=sSb9
 -----END PGP SIGNATURE-----

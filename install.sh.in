@@ -18,16 +18,10 @@ ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 echo
 echo '*** ZeroTier One Quick Install for Unix-like Systems'
 echo
-echo '*** Supported targets for this script:'
-echo '***    MacOS (10.7+) on x86_64 (just installs ZeroTier One.pkg)'
-echo '***    Linux / Debian (wheezy or newer) on i386, x86_64, and armhf (Raspbian/jessie only)'
-echo '***    Linux / Ubuntu (trusty or newer) on i386 and x86_64'
-echo '***    Linux / SuSE (12+) on i386 and x86_64'
-echo '***    Linux / CentOS (6+) on i386 and x86_64'
-echo '***    Linux / Fedora (22+) on i386 and x86_64'
-echo '***    Linux / Amazon (2016.03+) on x86_64'
+echo '*** Tested distributions and architectures:'
+echo '***   MacOS (10.7+) on x86_64 (just installs ZeroTier One.pkg)'
 echo
-echo '*** Please report problems to contact@zerotier.com and we will try to fix ASAP!'
+echo '*** Please report problems to contact@zerotier.com and we will try to fix.'
 echo
 
 SUDO=
@@ -131,6 +125,7 @@ echo
 if [ -f /etc/debian_version ]; then
 	dvers=`cat /etc/debian_version | cut -d '.' -f 1 | cut -d '/' -f 1`
 	$SUDO rm -f /tmp/zt-sources-list
+
 	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
 		echo '*** Found Ubuntu "trusty", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/trusty trusty main" >/tmp/zt-sources-list
@@ -140,6 +135,12 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F xenial`" ]; then
 		echo '*** Found Ubuntu "xenial", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F zesty`" ]; then
+		echo '*** Found Ubuntu "zesty", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/zesty zesty main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F precise`" ]; then
+		echo '*** Found Ubuntu "precise", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/precise precise main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
 		echo '*** Found Debian "wheezy" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/wheezy wheezy main" >/tmp/zt-sources-list
@@ -170,7 +171,7 @@ if [ -f /etc/debian_version ]; then
 
 	cat /dev/null | $SUDO apt-get update
 	cat /dev/null | $SUDO apt-get install -y zerotier-one
-elif [ -f /etc/SuSE-release -o -f /etc/suse-release ]; then
+elif [ -f /etc/SuSE-release -o -f /etc/suse-release -o -f /etc/SUSE-brand -o -f /etc/SuSE-brand -o -f /etc/suse-brand ]; then
 	echo '*** Found SuSE, adding zypper YUM repo...'
 	cat /dev/null | $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier
 	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
