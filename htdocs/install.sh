@@ -151,6 +151,15 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F precise`" ]; then
 		echo '*** Found Ubuntu "precise", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/precise precise main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F artful`" ]; then
+		echo '*** Found Ubuntu "artful", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/artful artful main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F bionic`" ]; then
+		echo '*** Found Ubuntu "bionic", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
+		echo '*** Found Debian "squeeze" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/squeeze squeeze main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
 		echo '*** Found Debian "wheezy" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/wheezy wheezy main" >/tmp/zt-sources-list
@@ -275,17 +284,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQIcBAEBCAAGBQJYy2OJAAoJEBZXGYgj5SphWVsP/i9CliEPMljfLImKXW7f1xvU
-QIM/twXQCebnl78Ytd1BgAv7KkWdCDb9RVFPmZssXt7YlMC6QTmTtkjPWHDyDaue
-V35fyg3osEeBEKCSXmH3nMpwyYrmRurIN2q3+lXnymGJpz0csJ13b1ZY8p2qHel4
-ePbCnGuD7uRwVqX/T21qVfnAtFEqdHQIHDVVIFA+dWUq24Z7JLGI6xmhl6u4OKgx
-yUIRmlMQ23iT+9gK/fSaA9R0b52LkzA3vt0qASK/22za6Mf4Hvfk+YgfPkQACt0g
-w25RSvMucZED7R+YItr+57U5QhuzPqKm5mIqjupHK/dliRm2iaxRjVDvl/LH2BUx
-dylQNbstNeMEimue+Js8mhAb2yi7W0rE2+UQnbKEKByWH1euvMZZrQJo1uYDYLPt
-HrQqo3GufafZPOATq3gCDIh8pZzCj7M0vz6cLICYWRedxY2WboI3uqwWxzhwLSB1
-picYVFdw+xVC0LmL337qlzjWoX0W2hOrPu0nODeLORW8RhwBk574soCZfZJFGo6T
-QhQpd0aHe0e0fWK0iPxg63a1CWO8VEFKQJYH6ZZm6U617Du58d735JpYkYLXHCWH
-pgRsHjLmz/qYPrYjoCnx7P4/Ye8Rhu6XuPugPHDt0TQrxhZcaN2kiKvBVBTt8gFC
-1oe7W3PD2Md8DLH3BI/M
-=MZSm
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAlpYCvwVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphJy4QALBaUmVuQOkqNYhGcvYR7DdWPdMT
+0PzwoHtNtdF8MaHhI83zB6CVMXtMhIVv9cL+Al8ejEYGg9k30GHtakSx2kOPx6XV
+16koIzcSe4u+uo6X52XZ/1rJBNnaoYQl2e7jYoJ6ZJy0uRzQE6S9mgvVrUEtQx3V
+wsYYH+Hnnxwm1l287pW5+AtHqwzZZuGC2sTE0YEix5xeS7TYUK/C4fgHVzblrpyu
+/YKZpvItFQUsKXciyDAuNXEkwmzrRX4rFmXy042PZos+X+uIw5+FkdSvD+6k01Pb
+2x2ml/UXWoa9JDa7QbsAm9zGQcXuvr6ScKsELMlBesxYfs8Rj9i+On+5u5RoG2Gp
+Jnl6yZ/81HytNDbCWhSQuLC771KOybcGwpNH4V26jAxkKCpLAFHS+P4wPllAINkl
+/TvLCJ7jItsb2k15MpZjnt1f9cDM5y3Dj/H4BMNUiwNVzBzHNbtBoTlb+YoYky/i
+K+doHH2LZJ+0lCWLj9wkePQUPm7TAkZOR6c+jXhB6NTHpH+qiR7bj3bv6afnzv5x
+AiTMQT5amqhx6Tw0GzPJCMzsEhSVEIuSQY/W25I45oF1ytQOmpxGjFYQ66RLp22F
+Fq5IGDlJncglNKpYZUi8G9GQUZiSrCFEz7VQxTBzOGyaqb65vYnoBcaxRt6+orc8
+atdazsR1IgJm8B/N
+=Nxle
 -----END PGP SIGNATURE-----
