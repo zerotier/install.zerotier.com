@@ -146,6 +146,15 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F precise`" ]; then
 		echo '*** Found Ubuntu "precise", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/precise precise main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F artful`" ]; then
+		echo '*** Found Ubuntu "artful", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/artful artful main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F bionic`" ]; then
+		echo '*** Found Ubuntu "bionic", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
+		echo '*** Found Debian "squeeze" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/squeeze squeeze main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
 		echo '*** Found Debian "wheezy" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/wheezy wheezy main" >/tmp/zt-sources-list
