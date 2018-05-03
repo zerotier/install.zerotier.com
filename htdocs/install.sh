@@ -157,6 +157,9 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F bionic`" ]; then
 		echo '*** Found Ubuntu "bionic", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F yakkety`" ]; then
+		echo '*** Found Ubuntu "yakkety", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/yakkety yakkety main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
 		echo '*** Found Debian "squeeze" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/squeeze squeeze main" >/tmp/zt-sources-list
@@ -166,9 +169,12 @@ if [ -f /etc/debian_version ]; then
 	elif [ "$dvers" = "8" -o "$dvers" = "jessie" ]; then
 		echo '*** Found Debian "jessie" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/jessie jessie main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "9" -o "$dvers" = "stretch" -o "$dvers" = "10" -o "$dvers" = "sid" ]; then
-		echo '*** Found Debian "stretch" or "sid" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+	elif [ "$dvers" = "9" -o "$dvers" = "stretch" ]; then
+		echo '*** Found Debian "stretch" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/stretch stretch main" >/tmp/zt-sources-list
+	elif [ "$dvers" = "10" -o "$dvers" = "11" -o "$dvers" = "sid" -o "$dvers" = "buster"]; then
+		echo '*** Found Debian "buster", or "sid" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/buster stretch main" >/tmp/zt-sources-list
 	else
 		echo "*** FAILED: unrecognized or ancient distribution: $dvers"
 		exit 1
@@ -284,18 +290,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAlpYCvwVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphJy4QALBaUmVuQOkqNYhGcvYR7DdWPdMT
-0PzwoHtNtdF8MaHhI83zB6CVMXtMhIVv9cL+Al8ejEYGg9k30GHtakSx2kOPx6XV
-16koIzcSe4u+uo6X52XZ/1rJBNnaoYQl2e7jYoJ6ZJy0uRzQE6S9mgvVrUEtQx3V
-wsYYH+Hnnxwm1l287pW5+AtHqwzZZuGC2sTE0YEix5xeS7TYUK/C4fgHVzblrpyu
-/YKZpvItFQUsKXciyDAuNXEkwmzrRX4rFmXy042PZos+X+uIw5+FkdSvD+6k01Pb
-2x2ml/UXWoa9JDa7QbsAm9zGQcXuvr6ScKsELMlBesxYfs8Rj9i+On+5u5RoG2Gp
-Jnl6yZ/81HytNDbCWhSQuLC771KOybcGwpNH4V26jAxkKCpLAFHS+P4wPllAINkl
-/TvLCJ7jItsb2k15MpZjnt1f9cDM5y3Dj/H4BMNUiwNVzBzHNbtBoTlb+YoYky/i
-K+doHH2LZJ+0lCWLj9wkePQUPm7TAkZOR6c+jXhB6NTHpH+qiR7bj3bv6afnzv5x
-AiTMQT5amqhx6Tw0GzPJCMzsEhSVEIuSQY/W25I45oF1ytQOmpxGjFYQ66RLp22F
-Fq5IGDlJncglNKpYZUi8G9GQUZiSrCFEz7VQxTBzOGyaqb65vYnoBcaxRt6+orc8
-atdazsR1IgJm8B/N
-=Nxle
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAlrrnzMVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphhbAP/3PKZkl+DIyeV0a58MYvSRMNDpVi
+YXdHYSRh4pK5r9pFbvzzu20PXwpNtJlui8nLpk2XbSkR0rAxfSnd+ESnRcX1w2Rr
+g+cf2o/Yb7Z9XVKavSJWhXKqfgJNC4CHbEvQdJvPI5uX8oXuULSG/igYstFNKBC6
+VCDT6DfZxOAPGssVW2YmhbT/dFSa2c5IPaaSnxFsNlFtrIJXaleB6TCf9k1vsnkm
+vk5qmvDp1FWb6NKHs9nU8SYrzLH0tEmOoD8wTL+PIV/Cdi+n7uRt/g1jFCZ8KcNT
+UspPKv2vy0wFT87ODvjyh562pS5anXmgd4u+WmR2z/tUPNJrkG2LoOPtyGfyL3Ks
+8Y7ePWhpPaZfWmxsx6iNKYLtmwQEEWyvVN9CblhAu0wtd09Q5UJ5TTiuTiUt7bwK
+Q+zDsI6FKLUyRHg1AptmHQ6aFcETYQJ3wjkAvjLvFUYa8HzkNiLvinMrWYG9/WIG
+JTDJqIFnFUp/zWeLcLCx+geMwm8R4kw4yawM6MyXDI0OMQf1kIx4Jc1MFiiV7aSc
+pqzfSLcC7Yf2GLqJO4+bQahN6kf4hKdhMCNCTZ0kDFZS99IbG+iEhecUhY/i/4Lm
+8x8hJIU09eFbe+jsIq2UczHg/ATQgqJ5xMshvkCyzCyvx5iXfSbTwqGBAdZWanyW
+z9Hm/PLhDjD8kNGW
+=18ez
 -----END PGP SIGNATURE-----
