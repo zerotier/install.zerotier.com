@@ -215,7 +215,11 @@ elif [ -d /etc/yum.repos.d ]; then
 		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
-		baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
+		if [ -n "`cat /etc/system-release 2>/dev/null | grep -F 'Amazon Linux 2'`" ]; then
+			baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
+		else
+			baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
+		fi
 	else
 		echo "*** Found unknown yum-based repo, using el/7, creating /etc/yum.repos.d/zerotier.repo"
 	fi
@@ -290,18 +294,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAltiIGMVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphaTsP+QGegUXO5SRL0ceKSCyCLvEfKOjK
-ljL36mbj1LqtycOnBfOOvMhv1Yos1Qq/dKA7x3JJF1dxhY7RFVyQB3mxHDz0cqMg
-otNjHU2zcQ2bi+UPtWX+rFOLcs9p9JaterpoWWktTTC8ZAoOMNRMiyF0GBy2ir8K
-++e1AxYBblx+ctF2h0IO71AEFnOX7XjH7tmY1mm9HzZ4gz+5wHzKLzacGjSllZT8
-r7hpkw/k705y/XcG8sfys0IUaB4IrbvK8KyQsNe9p358JHFp8As82lsLNFJvZ73i
-4mxSgKl4ctWRW/XINlxtBDQVm2saG3Bhe31sS2C059x5hLlRAjtElhaTwgNfNLjH
-RAdrxU5hK6UekU1+3hovLIS/ad9owNqqux6Ztn7bzq/D/mmGgPE38JstzmZwoaCu
-oarSgnU4lYtCmJHkDWOVlpYFwBHI8Ohmdwqi9l690BaMWbTJ+fW4ao5z3cE0o4kI
-DFKzXB/ISORZp+b+03Kib7gyA70qzkAZVVQUoSHMyhL+UfyldWitIUmVKZdVwk52
-jNuF/W6gnEbEt0JzwMAP1sNkUm3Uu6IZFkxaBVqhiqvJ2xy/dQciBAHhTDIGm+sm
-hhgTB4yJWZbBgUSMD4Sba5HqY5HFvjAQHuRignVQBoOIA3mWVKRZofG0OpmXBm8d
-Nd4HurZiG3IImszq
-=mgn0
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAluRt0MVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphKcEQAI5h9ycWYzsOZ1aHE1L80k/jiSrr
+GVrrdS7Qj5MusW1AF5GT/cDxAhlk2Mp0dzCXUQQLvEKrJwJwyU/eDFJPGXDU0rxm
+zZwfz6GOlr4buFXQJtjU6olLNCYOrn2ncZI4bpNCJqahjfuPpDmivwf9IzqA7dqW
+sJsfkhgJ5imA8Ue1q0NNdfj5X+knoUCkKOWp8sPA738RW0uDSOkcx5/bZ12UIQyw
+dZAmrgBjQMJ1UgHsEeLS8edgtc6bOkgwoqp06Kd29myXnhr5owYSxK3FQiZVXEaM
+2amhUSvAokQMMgEkLP84l7Kh0gR8UR1XEQE9Xz73TwFpx/f9F4ZRSP2CPaMeGT5Z
+Yh2VMNv3VjPVkPiVZhTebFep036WxnCVTu8NkhKvJqwznNWEkR39j0lAl/6ND2oQ
+3NMt4U+br1qfapYtrv6IA8JWxo6WVI49LYu7yd6kH9jawEDhll8fmtEkB4VSsfEI
+tz7YzOvxIberQ0+2to10Cnp+IKB7ANOJGqN6m3sReJFXVoMrtOcgRAl6Zic3C2Tf
+LLAiLqu6NU8LWzADn8aMwLvyp1luLJS3fODZU3ixu4QIzXYok9x/mVA+bN5vC8Ws
+EZ8+ocL4rLTHn8F8gyhJhjtoCS/RiQ6TX+5mBiIonipxqk4BvQROOw9jvjAdGr3X
+35g6wpK52kxNqIuj
+=aLp2
 -----END PGP SIGNATURE-----
