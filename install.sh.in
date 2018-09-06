@@ -211,9 +211,9 @@ elif [ -d /etc/yum.repos.d ]; then
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
 		if [ -n "`cat /etc/system-release 2>/dev/null | grep -F 'Amazon Linux 2'`" ]; then
-			baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
-		else
 			baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
+		else
+			baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
 		fi
 	else
 		echo "*** Found unknown yum-based repo, using el/7, creating /etc/yum.repos.d/zerotier.repo"

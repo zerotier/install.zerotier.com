@@ -216,9 +216,9 @@ elif [ -d /etc/yum.repos.d ]; then
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
 		if [ -n "`cat /etc/system-release 2>/dev/null | grep -F 'Amazon Linux 2'`" ]; then
-			baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
-		else
 			baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
+		else
+			baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
 		fi
 	else
 		echo "*** Found unknown yum-based repo, using el/7, creating /etc/yum.repos.d/zerotier.repo"
@@ -294,18 +294,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAluRt0MVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphKcEQAI5h9ycWYzsOZ1aHE1L80k/jiSrr
-GVrrdS7Qj5MusW1AF5GT/cDxAhlk2Mp0dzCXUQQLvEKrJwJwyU/eDFJPGXDU0rxm
-zZwfz6GOlr4buFXQJtjU6olLNCYOrn2ncZI4bpNCJqahjfuPpDmivwf9IzqA7dqW
-sJsfkhgJ5imA8Ue1q0NNdfj5X+knoUCkKOWp8sPA738RW0uDSOkcx5/bZ12UIQyw
-dZAmrgBjQMJ1UgHsEeLS8edgtc6bOkgwoqp06Kd29myXnhr5owYSxK3FQiZVXEaM
-2amhUSvAokQMMgEkLP84l7Kh0gR8UR1XEQE9Xz73TwFpx/f9F4ZRSP2CPaMeGT5Z
-Yh2VMNv3VjPVkPiVZhTebFep036WxnCVTu8NkhKvJqwznNWEkR39j0lAl/6ND2oQ
-3NMt4U+br1qfapYtrv6IA8JWxo6WVI49LYu7yd6kH9jawEDhll8fmtEkB4VSsfEI
-tz7YzOvxIberQ0+2to10Cnp+IKB7ANOJGqN6m3sReJFXVoMrtOcgRAl6Zic3C2Tf
-LLAiLqu6NU8LWzADn8aMwLvyp1luLJS3fODZU3ixu4QIzXYok9x/mVA+bN5vC8Ws
-EZ8+ocL4rLTHn8F8gyhJhjtoCS/RiQ6TX+5mBiIonipxqk4BvQROOw9jvjAdGr3X
-35g6wpK52kxNqIuj
-=aLp2
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAluRt90VHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphglMQAJ9XjnlH9jXJt2l8TPNGCCKmzcGV
+CkYFDJ475zRbbiyb/QrPjsv5JZUw4nj9mnmKQjWNgLba/X+zKMsQZUqkzf60qBCo
+ZzZdyZEe15c4xblFYVxoe5iSrK03ZbnNKslBgmco4E5AfIBa2BxfV/oKJ8J3VxWZ
+Y9qn4blfZn6yYDcjTHlkiOyqSGMScpxPetsJzt2IW9aOrXcn/5hf5hPa3w2I/W0h
+WcOfaTJOxtnZGwhIuG2DwpIh9nDW0q1bU+YIOwkiXQqdyWATGatvn9jbbNRU9e1O
+1+L+oC8Iwi5S3ufyZQWWzmZ+OzIFf4ZuDqfknxOUwUzHzjg+Se4kRfe5MHKqkscD
+CmHAfebys7EjNy9l3pmi0o85/dw/YByhvRndixUCpg0rxQgKbHWVPm6uGRjK9T61
+/lLYrYEMW8rjxo8ePrT0RjZWUPNYfcNfgmLSCONMIO+WRQ4pvzrKw2bGb80f2ykm
+YXpB/dhL/jON+TQUEtBiJzHL5LZm4tdzWL1e6s6Wu3yxizBvtRADYXsP9zyOtE7L
+9MPCIlEnHNrG+t0TKCNyP1vheSDqcfcbwFz6oPG6iaugg5lZxv2EDESuFzHQ+ldh
+/Xj7h4KrQ38eHL0QHs5oUHftMO4sSmCmGR0DIhNYCwbhT02zBdickbcHHsyCekWJ
+sXymnk3UAJxDJ2uk
+=hD2L
 -----END PGP SIGNATURE-----
