@@ -174,7 +174,7 @@ if [ -f /etc/debian_version ]; then
 		echo "deb ${ZT_BASE_URL_HTTP}debian/stretch stretch main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "10" -o "$dvers" = "11" -o "$dvers" = "sid" -o "$dvers" = "buster" ]; then
 		echo '*** Found Debian "buster", or "sid" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/buster stretch main" >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
 	else
 		echo "*** FAILED: unrecognized or ancient distribution: $dvers"
 		exit 1
@@ -294,18 +294,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAluRt90VHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphglMQAJ9XjnlH9jXJt2l8TPNGCCKmzcGV
-CkYFDJ475zRbbiyb/QrPjsv5JZUw4nj9mnmKQjWNgLba/X+zKMsQZUqkzf60qBCo
-ZzZdyZEe15c4xblFYVxoe5iSrK03ZbnNKslBgmco4E5AfIBa2BxfV/oKJ8J3VxWZ
-Y9qn4blfZn6yYDcjTHlkiOyqSGMScpxPetsJzt2IW9aOrXcn/5hf5hPa3w2I/W0h
-WcOfaTJOxtnZGwhIuG2DwpIh9nDW0q1bU+YIOwkiXQqdyWATGatvn9jbbNRU9e1O
-1+L+oC8Iwi5S3ufyZQWWzmZ+OzIFf4ZuDqfknxOUwUzHzjg+Se4kRfe5MHKqkscD
-CmHAfebys7EjNy9l3pmi0o85/dw/YByhvRndixUCpg0rxQgKbHWVPm6uGRjK9T61
-/lLYrYEMW8rjxo8ePrT0RjZWUPNYfcNfgmLSCONMIO+WRQ4pvzrKw2bGb80f2ykm
-YXpB/dhL/jON+TQUEtBiJzHL5LZm4tdzWL1e6s6Wu3yxizBvtRADYXsP9zyOtE7L
-9MPCIlEnHNrG+t0TKCNyP1vheSDqcfcbwFz6oPG6iaugg5lZxv2EDESuFzHQ+ldh
-/Xj7h4KrQ38eHL0QHs5oUHftMO4sSmCmGR0DIhNYCwbhT02zBdickbcHHsyCekWJ
-sXymnk3UAJxDJ2uk
-=hD2L
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAluqWHkVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphXH0QAIYbK1aCNlkRyeHLiwCcU87o/2kf
+YbzjhlmDogl/0/SVRNm6eNGsauF7puDsZFoYQRrd76vq5YQy6DmoXqMlOOikLLFJ
+ffweV8Jv0sfmvXH/xTiu3VOUvprPjmILIIDBRVjFteu/M+Rdt23YDTz+xd36mzMD
+C5JQW47yWdy/VNT7ChpuEsNtSbPyBNZIQlP1tNqeK9/YeUhruj+64DFy0LWJ9p2G
+CY5U8IRpNo56UwGrGwaDZqTsx7m9kmtQTNJOu5yKAu3XUM7PLFkOukxZXFXG2NUQ
+/5NHxE7FGKjEuBkTymqETnd6U7thCwOl1fnVkga01ekQ5MxbYgyFePsHThi+3v5o
+CJqL1L3hzrEo6VhpHi/W5Cj4OaIltSW4cJFW/E0Tm3mA7gI8dSGHrifFxQ0MAZ1w
+hFLtn0i1haLtTmkFxu9ZAYIQMaOxqgDrRLDSCrLP9ClMOu+q4QHfrSH9AfT9jh4C
+kLr1F/aK3wQn+GvQ+caqii2J2Iz4Vvvf+2j9DSWjWPWmOKoItReF/JtaaXVOhcNQ
+UZAf6ICLTOAj+HNoy8rrw4Htc17dz00Di61YTwB7kbDuA5yq3aBM4ZeohBzGuOpu
+teekqWn3njwuCHOmYxPg7F60jAScVBMChLQ6nR6mnIKzw8iEE6Y9ceEEXNJws+3c
++zS2p9ptHSW0PY7l
+=bV5f
 -----END PGP SIGNATURE-----
