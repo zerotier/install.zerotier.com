@@ -42,8 +42,8 @@ node('master') {
 				sh("gcloud auth configure-docker")
 				sh("docker tag gcr.io/zerotier-central/install.zerotier.com:${env.BUILD_TAG} gcr.io/zerotier-central/install.zerotier.com:live")
 				sh("docker push gcr.io/zerotier-central/install.zerotier.com:live")
-				// sh("gcloud container clusters get-credentials ${cluster} --region ${region}")
-                // sh("kubectl set image deployment install-zerotier-com install-zerotier-com=gcr.io/zerotier-central/install.zerotier.com:${env.BUILD_TAG}")
+				sh("gcloud container clusters get-credentials ${cluster} --region ${region}")
+                sh("kubectl set image deployment install-zerotier-com install-zerotier-com=gcr.io/zerotier-central/install.zerotier.com:${env.BUILD_TAG}")
 				mattermostSend color: "#00ff00", message: "${env.JOB_NAME} #${env.BUILD_NUMBER} Deployed (<${env.BUILD_URL}|Show More...>)"
 			}
 		}
