@@ -190,17 +190,17 @@ if [ -f /etc/debian_version ]; then
     $SUDO rm -f /etc/init.d/zerotier-one /etc/systemd/system/multi-user.target.wants/zerotier-one.service /var/lib/zerotier-one/zerotier-one /usr/local/bin/zerotier-cli /usr/bin/zerotier-cli /usr/local/bin/zero
   fi
 
-  cat /dev/null | $SUDO apt-get update
-  cat /dev/null | $SUDO apt-get install -y zerotier-one
+  $SUDO apt-get update >/dev/null
+  $SUDO apt-get install -y zerotier-one >/dev/null
 elif [ -f /etc/SuSE-release ] || [ -f /etc/suse-release ] || [ -f /etc/SUSE-brand ] || [ -f /etc/SuSE-brand ] || [ -f /etc/suse-brand ]; then
   echo '*** Found SuSE, adding zypper YUM repo...'
-  cat /dev/null | $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier
-  cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
+  $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier >/dev/null
+  $SUDO rpm --import /tmp/zt-gpg-key >/dev/null
 
   echo
   echo '*** Installing zeortier-one package...'
 
-  cat /dev/null | $SUDO zypper install -y zerotier-one
+  $SUDO zypper install -y zerotier-one >/dev/null
 elif [ -d /etc/yum.repos.d ]; then
   baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
   if grep -qi fedora /etc/redhat-release; then
@@ -235,9 +235,9 @@ elif [ -d /etc/yum.repos.d ]; then
   echo '*** Installing zerotier-one package...'
 
   if [ -e /usr/bin/dnf ]; then
-    cat /dev/null | $SUDO dnf install -y zerotier-one
+    $SUDO dnf install -y zerotier-one >/dev/null
   else
-    cat /dev/null | $SUDO yum install -y zerotier-one
+    $SUDO yum install -y zerotier-one >/dev/null
   fi
 fi
 
