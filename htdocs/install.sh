@@ -160,6 +160,9 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F yakkety`" ]; then
 		echo '*** Found Ubuntu "yakkety", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/yakkety yakkety main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F disco`" ]; then
+		echo '*** Found Ubuntu "disco", creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/disco disco main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
 		echo '*** Found Debian "squeeze" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/squeeze squeeze main" >/tmp/zt-sources-list
@@ -294,18 +297,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAluqWHkVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphXH0QAIYbK1aCNlkRyeHLiwCcU87o/2kf
-YbzjhlmDogl/0/SVRNm6eNGsauF7puDsZFoYQRrd76vq5YQy6DmoXqMlOOikLLFJ
-ffweV8Jv0sfmvXH/xTiu3VOUvprPjmILIIDBRVjFteu/M+Rdt23YDTz+xd36mzMD
-C5JQW47yWdy/VNT7ChpuEsNtSbPyBNZIQlP1tNqeK9/YeUhruj+64DFy0LWJ9p2G
-CY5U8IRpNo56UwGrGwaDZqTsx7m9kmtQTNJOu5yKAu3XUM7PLFkOukxZXFXG2NUQ
-/5NHxE7FGKjEuBkTymqETnd6U7thCwOl1fnVkga01ekQ5MxbYgyFePsHThi+3v5o
-CJqL1L3hzrEo6VhpHi/W5Cj4OaIltSW4cJFW/E0Tm3mA7gI8dSGHrifFxQ0MAZ1w
-hFLtn0i1haLtTmkFxu9ZAYIQMaOxqgDrRLDSCrLP9ClMOu+q4QHfrSH9AfT9jh4C
-kLr1F/aK3wQn+GvQ+caqii2J2Iz4Vvvf+2j9DSWjWPWmOKoItReF/JtaaXVOhcNQ
-UZAf6ICLTOAj+HNoy8rrw4Htc17dz00Di61YTwB7kbDuA5yq3aBM4ZeohBzGuOpu
-teekqWn3njwuCHOmYxPg7F60jAScVBMChLQ6nR6mnIKzw8iEE6Y9ceEEXNJws+3c
-+zS2p9ptHSW0PY7l
-=bV5f
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAl1B1RUVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphoJEQAIduYbRoNdNZH5dPgHsyQtipcJnM
+A1X7Vic7cg4Hiyk+Mgdz3iAwROtgHvS9Yl4lL1yDDkOXursjETtkM4f04rn8Db8d
+SDH2ebE18o3n6UpZ+5kh9fcJyQiHxk+9Fc50FTnvhpGS5SGS0vGxgMDFloEnsT8M
+RLJYZs0BsKcQihCA3fnotv1qYw2JCntzcpX+iss/zQeGW2ejDAQJXq3CJm0zXHXi
+3ed8CslMy4XQMhTLmusDtQiE7Hp5Ccw1ZkaMOVqp49c4mF/75IHFa7k9aZ43msTj
+pX5JYdd6U4HvGjyWRpSd+UMkf8OdH2wcfTwbe94x+vc8MTJ5vOrardZWu40bsc1r
+mT6aZPTWXpNxY25Ep5Ntd67XZcs3dtmXBanpmeSPTIFt9sidyDgNj/MBWYCszaEo
+T94kX961/DNS003fnvGOkwfT7nCZo/mZ6kpBlyzN/X39DuDyYa9XMuN+LPJybMhA
+EGfxhxb+0qOmBBdL6dCJwXHlX9TbQPzPmwEAvtbX1JOyLCA91IlELAB3MKOuD3ME
+NZnxGiTPTxwZwam+G1Br7eyOjLL7pYT7Lkx2kuVfk8uuR9nBW20rd05GrpPf+96d
++EfdOOy4npqPErP9AilhzLn/lYkUagD25Ad9yD3iLEtXkIHrYHcWeBgwCYKmlPF4
+4Tb6ZDQHeT+bW7hM
+=OeC/
 -----END PGP SIGNATURE-----
