@@ -136,7 +136,10 @@ if [ -f /etc/debian_version ]; then
 	dvers=`cat /etc/debian_version | cut -d '.' -f 1 | cut -d '/' -f 1`
 	$SUDO rm -f /tmp/zt-sources-list
 
-	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
+	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F -i LinuxMint`" ]; then
+		echo '*** Found Linux Mint (using Ubuntu Xenial packages), creating /etc/apt/sources.list.d/zerotier.list`
+		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
 		echo '*** Found Ubuntu "trusty", creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/trusty trusty main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F wily`" ]; then
@@ -297,18 +300,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAl1B1RUVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphoJEQAIduYbRoNdNZH5dPgHsyQtipcJnM
-A1X7Vic7cg4Hiyk+Mgdz3iAwROtgHvS9Yl4lL1yDDkOXursjETtkM4f04rn8Db8d
-SDH2ebE18o3n6UpZ+5kh9fcJyQiHxk+9Fc50FTnvhpGS5SGS0vGxgMDFloEnsT8M
-RLJYZs0BsKcQihCA3fnotv1qYw2JCntzcpX+iss/zQeGW2ejDAQJXq3CJm0zXHXi
-3ed8CslMy4XQMhTLmusDtQiE7Hp5Ccw1ZkaMOVqp49c4mF/75IHFa7k9aZ43msTj
-pX5JYdd6U4HvGjyWRpSd+UMkf8OdH2wcfTwbe94x+vc8MTJ5vOrardZWu40bsc1r
-mT6aZPTWXpNxY25Ep5Ntd67XZcs3dtmXBanpmeSPTIFt9sidyDgNj/MBWYCszaEo
-T94kX961/DNS003fnvGOkwfT7nCZo/mZ6kpBlyzN/X39DuDyYa9XMuN+LPJybMhA
-EGfxhxb+0qOmBBdL6dCJwXHlX9TbQPzPmwEAvtbX1JOyLCA91IlELAB3MKOuD3ME
-NZnxGiTPTxwZwam+G1Br7eyOjLL7pYT7Lkx2kuVfk8uuR9nBW20rd05GrpPf+96d
-+EfdOOy4npqPErP9AilhzLn/lYkUagD25Ad9yD3iLEtXkIHrYHcWeBgwCYKmlPF4
-4Tb6ZDQHeT+bW7hM
-=OeC/
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAl1gK90VHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphLGsP/2YE6DCRie/Ys1K6jIzJVra6RSqb
+s+QYuBquuXWWnratge7M7vc/j7ek2Vf3IuwIq+BkhJl05m9EESTsRFx3xHn5ABZd
+cTdKS/zUzf/Z9e9eOZwxasVafnIMiPvTDWFEc3ceoPkwbMQE1Mj0GVtRLjzB/M+g
+6tsLCmzmwRA7PpW8RlJHW/4XsXd1Cxp+1k1RZbdW2KnGHZJMAAajM+Etx658uJq3
+GSw9Acu8orCNpkrOr4Q6ksHaH+2uKGyBMxgoFORr5tf8AUY0it0WPX1HlqPj1fEp
+ikKjrT1qOWnqdbR6WbjI4w1O24BLYxXMdinUW683103Xn3zvIZ5ja12c7V4NbBdU
+mQKqHjW2XiiprCcmp1A+RQ1cc+TQBxON7oRyZ+ADI2SWo/H7iRpXKHz+A/GfL//r
+yEn1z10pWwwCjpEYjJAiqnHgOtqplUBYYnHYUP7nuDludERfrbNm7UHzkOa80pS/
+9b5+wg7gd9oArJtlwdkwtnjdqNnJZhZQV3BaX7Cfk4WMUGzHXaoTBNzy2HPHY9Mf
+CZL6YwAZ3MRvKDeqnwdeIh0JwsCTfW0nTrqTEZ1kvkWygmJT9FysdLPkev42BhWO
+CEZIIolL+8EwmWtIUkbqwak5Z8dhZyPeekzLBF+d7zk4GWAMUFLkmFgn01fcaaaF
+Off9QtdXLylpfkjd
+=T+D3
 -----END PGP SIGNATURE-----
