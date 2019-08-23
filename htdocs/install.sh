@@ -137,7 +137,7 @@ if [ -f /etc/debian_version ]; then
 	$SUDO rm -f /tmp/zt-sources-list
 
 	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F -i LinuxMint`" ]; then
-		echo '*** Found Linux Mint (using Ubuntu Xenial packages), creating /etc/apt/sources.list.d/zerotier.list`
+		echo '*** Found Linux Mint (using Ubuntu Xenial packages), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
 		echo '*** Found Ubuntu "trusty", creating /etc/apt/sources.list.d/zerotier.list'
@@ -300,18 +300,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAl1gK90VHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphLGsP/2YE6DCRie/Ys1K6jIzJVra6RSqb
-s+QYuBquuXWWnratge7M7vc/j7ek2Vf3IuwIq+BkhJl05m9EESTsRFx3xHn5ABZd
-cTdKS/zUzf/Z9e9eOZwxasVafnIMiPvTDWFEc3ceoPkwbMQE1Mj0GVtRLjzB/M+g
-6tsLCmzmwRA7PpW8RlJHW/4XsXd1Cxp+1k1RZbdW2KnGHZJMAAajM+Etx658uJq3
-GSw9Acu8orCNpkrOr4Q6ksHaH+2uKGyBMxgoFORr5tf8AUY0it0WPX1HlqPj1fEp
-ikKjrT1qOWnqdbR6WbjI4w1O24BLYxXMdinUW683103Xn3zvIZ5ja12c7V4NbBdU
-mQKqHjW2XiiprCcmp1A+RQ1cc+TQBxON7oRyZ+ADI2SWo/H7iRpXKHz+A/GfL//r
-yEn1z10pWwwCjpEYjJAiqnHgOtqplUBYYnHYUP7nuDludERfrbNm7UHzkOa80pS/
-9b5+wg7gd9oArJtlwdkwtnjdqNnJZhZQV3BaX7Cfk4WMUGzHXaoTBNzy2HPHY9Mf
-CZL6YwAZ3MRvKDeqnwdeIh0JwsCTfW0nTrqTEZ1kvkWygmJT9FysdLPkev42BhWO
-CEZIIolL+8EwmWtIUkbqwak5Z8dhZyPeekzLBF+d7zk4GWAMUFLkmFgn01fcaaaF
-Off9QtdXLylpfkjd
-=T+D3
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAl1gLlQVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphDQAP/03gpMfoLSmcJkn0QAUleZkXkzMh
+HA4wxi4vp4JI79yBE2/01GyCUKmXr03gv2tJRf7Sl0rkYDcy9wYmdw+x9jlzNSG3
+zkPbRTYbLIygIqn0OjcvHoyKl0HpYuR6p6613wKsJuGuvBNmvB705oAv2B8JmbPa
+bmYcB7uhFISvQmF1ZT3BrcjMSFBIhfB5EBSys6MQFO74iGQEfaELMvgLP+Iw/wqV
+vaJk8IPaa+WEz4i8a3PLPUJtkLjv3Kk+W3z71SD0gRNm0xCX6SvqLKhpMq3CC0A0
+W6WCM20IuFLUEgOyYSkeSUuOL237OLqNTmZEd0hiA8VFKAYiVLbCVIB+PnVYTsz+
+XaNZxyxE2UMWhOFpsvU3l9wsJtNIaaJ7qqmeO7S0rilhetcHXKI9lxB4HdGalJju
+jAFOKdKSZO0evxFedciLhIIA5x3H+GCGgP5T2lwlsd2dOAphCKr8tbSJFBpzr4v9
+dYnoreYPLYXNoOGX29ycZMIvUmvCnD3gE8hMxoCB51Y9yzHnbm/IhO5ujKFsxR/f
+lA1o0R0OKnSggOtgtWLmLgFfvC5l/PmO1/Ua/4rYvJoDm1f06zlCecJUqcxuaiuk
+VAMkfyEJLGIp6Hz2Unk5rQ52KbEpMXJaWd145BFa1TUhVyODE8oVswTspYtxmXka
+/WZqubLEN5AO257x
+=zsq+
 -----END PGP SIGNATURE-----

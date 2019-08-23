@@ -132,7 +132,7 @@ if [ -f /etc/debian_version ]; then
 	$SUDO rm -f /tmp/zt-sources-list
 
 	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F -i LinuxMint`" ]; then
-		echo '*** Found Linux Mint (using Ubuntu Xenial packages), creating /etc/apt/sources.list.d/zerotier.list`
+		echo '*** Found Linux Mint (using Ubuntu Xenial packages), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
 		echo '*** Found Ubuntu "trusty", creating /etc/apt/sources.list.d/zerotier.list'
