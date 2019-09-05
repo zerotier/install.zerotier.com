@@ -178,7 +178,7 @@ if [ -f /etc/debian_version ]; then
 	elif [ "$dvers" = "9" -o "$dvers" = "stretch" ]; then
 		echo '*** Found Debian "stretch" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/stretch stretch main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "10" -o "$dvers" = "11" -o "$dvers" = "sid" -o "$dvers" = "buster" -o "$dvers" = "bullseye" ]; then
+	elif [ "$dvers" = "10" -o "$dvers" = "11" -o "$dvers" = "sid" -o "$dvers" = "buster" -o "$dvers" = "bullseye" -o "$dvers" = "parrot" ]; then
 		echo '*** Found Debian "buster", or "sid" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
 	else
@@ -300,18 +300,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAl1oVWIVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph2k0P/0RD+hYgsroX02z2wAssJUDc8CAU
-K6/nFOj8+WhmycVnQNgJCNLqtotLQpxGY0IIsqwdqCIEcT5bMmgQ1pjY3ifKeoAC
-N/BhOp5Myb6DcxJhBid0vhaiuhRHPvKa/8PYTwX/UOoBEsyxmhdoebJvCK8I2F2U
-FJqUbFw2+8lymchl7PRClMz+soICC6bEsFmYNtoYiEfwZ4rmVKOE1LxRLLH+oOWG
-+ldzAsAQdRQRp0agKtZgnShO5kGuFmO22kdeDGQmZ8t1zUGvNUNDAbJrdz2BtYpY
-3lQfgPiRzc0IzDIiwbJfpos42qMI2rCMNPMtuqdvbz15E1mBcPEIm6h9bT3TvLWv
-hjIGUhwQX37fsyi6X8ML2Hd4fN+WTVVg7r48DXtrONzdFkK66KPq533d78/1ylo9
-s6Ma7CfemlMIvgbOdbuvEckaA7iGuF5Ax5dfkAURWrmE0Z9Ccuf3W/f/4q/hsHl2
-boaTUZUdgrHryk5Lm7l6lXaVuWO98XNi8V1PMW0y8+Y6Ef9wQvzQCZ13hXgr4hiE
-A+wgpVWEdwk7sC6dUYPy7Zxlczvev88p02QREc5aBIe5e4MuDb8gQutclwbNbkdb
-6GQvPaX0so90P9q8UIln5AlmicmyZ7Ig52YIWWlhyNW7PJozNtfzDYiULIq+ETDP
-80bC/oFeN9raS56i
-=NYek
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAl1xWtcVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphwG0P/ivxhHR3pdh4JllFVUcw6JM0zbzQ
+eeURN0edizgjXMSIW1OIJ2oDTnTHbc3nxYXurfM2DNakGW6xs0aHgPTvTziZj7XN
+xu5AMMmigaqwbODLgtyy8aPOeDbwKRJCm9o/V1XZ+Cj8tTE6B/I2A+UA0eIit7ue
+iNNbZjYiUavPJlrbqpwsm5wlDygGIM1K838HLd8EJtgay95A2UQET9ZYLVztNuUx
+Ar6ppxDV/pSJo7IFd+012pC5RZUWFslDhATXTI+MEIE+qQRzjk5jDOVUEoKmY+0f
+VNK6o/6wPbzmbb540RahmdW86PKcFcx2Qk+b0qK2QL9eHbrAo8QfukVOQOfSMGzw
+etnXVP0ugYxcs76CmjjuGB0dXn+5NAeOAj4RbmXw5ImsH5jCWrqvNgirMs86PAiS
+QZt2N27LocNkzvVMfRp8NQnr/u+K2ieVUzxyhVZh0pVQhaghcxJFPTy0QHjM8+Rx
+6dCXcpA2jmxiLFecYhs3FbwvmDxIKd5vW30fVHgwBObyl0/8udd7xjledNoZ6U7N
+GAbbrLAeeqDOTaFH4cGtLpG3i4A2aNF1Y/6BMFcRiCjd2i7IKSx7hfUmELAHCdkO
+lY3ziuqG8d68Qi8Cs8tDQNWFGlzzCNGtg/GVz69C86walkQQhdW/g4jTaPyh0yca
+wcrBUY3kl8s0/g7x
+=uxUj
 -----END PGP SIGNATURE-----
