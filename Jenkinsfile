@@ -9,7 +9,7 @@ node('linux-centos8') {
         def project = 'zerotier-central'
 
 		stage('Build Docker Image') {
-			sh("docker build -t gcr.io/zerotier-central/install.zerotier.com:${env.BUILD_TAG} .")
+			sh("docker build -t registry.zerotier.com/zerotier/install.zerotier.com:${env.BUILD_TAG} .")
 		}
 
 		def shouldContinue = true
@@ -32,18 +32,15 @@ node('linux-centos8') {
 
 		if (shouldContinue) {
 			stage("Push Docker Image") {
-				sh("export CLOUDSDK_CORE_DISABLE_PROMPTS=1")
-				sh("gcloud auth configure-docker")
-				sh("docker push gcr.io/zerotier-central/install.zerotier.com:${env.BUILD_TAG}")
+				sh("docker push registry.zerotier.com/zerotier/install.zerotier.com:${env.BUILD_TAG}")
 			}
 
 			stage("Deploy to Production") {
 				sh("export CLOUDSDK_CORE_DISABLE_PROMPTS=1")
-				sh("gcloud auth configure-docker")
-				sh("docker tag gcr.io/zerotier-central/install.zerotier.com:${env.BUILD_TAG} gcr.io/zerotier-central/install.zerotier.com:live")
-				sh("docker push gcr.io/zerotier-central/install.zerotier.com:live")
+				sh("docker tag registry.zerotier.com/zerotier/install.zerotier.com:${env.BUILD_TAG} registry.zerotier.com/zerotier/install.zerotier.com:live")
+				sh("docker push registry.zerotier.com/zerotier/install.zerotier.com:live")
 				sh("gcloud container clusters get-credentials ${cluster} --region ${region}")
-                sh("kubectl set image deployment install-zerotier-com install-zerotier-com=gcr.io/zerotier-central/install.zerotier.com:${env.BUILD_TAG}")
+                sh("kubectl set image deployment install-zerotier-com install-zerotier-com=registry.zerotier.com/zerotier/install.zerotier.com:${env.BUILD_TAG}")
 				mattermostSend color: "#00ff00", message: "${env.JOB_NAME} #${env.BUILD_NUMBER} Deployed (<${env.BUILD_URL}|Show More...>)"
 			}
 		}
