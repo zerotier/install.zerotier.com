@@ -21,15 +21,19 @@ ZT_BASE_URL_HTTPS='https://download.zerotier.com/'
 ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 
 echo
-echo '*** ZeroTier One Quick Install for Unix-like Systems'
+echo '*** ZeroTier Service Quick Install for Unix-like Systems'
 echo
-echo '*** Tested distributions and architectures:'
-echo '***   MacOS (10.7+) on x86_64 (just installs ZeroTier One.pkg)'
-echo '***   Debian (7+) on x86_64, x86, arm, and arm64'
-echo '***   RedHat/CentOS (6+) on x86_64 and x86'
-echo '***   Fedora (16+) on x86_64 and x86'
-echo '***   SuSE (12+) on x86_64 and x86'
-echo '***   Mint (18+) on x86_64, x86, arm, and arm64'
+echo '*** Tested OSes / distributions:'
+echo
+echo '***   MacOS (10.13+) (just installs ZeroTier One.pkg)'
+echo '***   Debian Linux (7+)'
+echo '***   RedHat/CentOS Linux (6+)'
+echo '***   Fedora Linux (16+)'
+echo '***   SuSE Linux (12+)'
+echo '***   Mint Linux (18+)'
+echo
+echo '*** Supported architectures vary by OS / distribution. We try to support'
+echo '*** every system architecture supported by the target.'
 echo
 echo '*** Please report problems to contact@zerotier.com and we will try to fix.'
 echo
@@ -69,7 +73,7 @@ fi
 
 # Detect already-installed on Linux
 if [ -f /usr/sbin/zerotier-one ]; then
-	echo '*** ZeroTier One appears to already be installed.'
+	echo '*** ZeroTier appears to already be installed.'
 	exit 0
 fi
 
@@ -137,53 +141,89 @@ if [ -f /etc/debian_version ]; then
 	$SUDO rm -f /tmp/zt-sources-list
 
 	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F -i LinuxMint`" ]; then
-		echo '*** Found Linux Mint (using Ubuntu Xenial packages), creating /etc/apt/sources.list.d/zerotier.list'
+		# Linux Mint -> Ubuntu 'xenial'
+		echo '*** Found Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
-		echo '*** Found Ubuntu "trusty", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'trusty'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/trusty trusty main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F wily`" ]; then
-		echo '*** Found Ubuntu "wily", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'wily'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/wily wily main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F xenial`" ]; then
-		echo '*** Found Ubuntu "xenial", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'xenial'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F zesty`" ]; then
-		echo '*** Found Ubuntu "zesty", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'zesty'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/zesty zesty main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F precise`" ]; then
-		echo '*** Found Ubuntu "precise", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'precise'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/precise precise main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F artful`" ]; then
-		echo '*** Found Ubuntu "artful", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'artful'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/artful artful main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F bionic`" ]; then
-		echo '*** Found Ubuntu "bionic", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'bionic'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F yakkety`" ]; then
-		echo '*** Found Ubuntu "yakkety", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'yakkety'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/yakkety yakkety main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F disco`" ]; then
-		echo '*** Found Ubuntu "disco", creating /etc/apt/sources.list.d/zerotier.list'
+		# Ubuntu 'disco'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/disco disco main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F focal`" ]; then
+		# Ubuntu 'focal' -> Ubuntu 'bionic' (for now)
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F hirsute`" ]; then
+		# Ubuntu 'hirsute' -> Ubuntu 'bionic' (for now)
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F impish`" ]; then
+		# Ubuntu 'impish' -> Ubuntu 'bionic' (for now)
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
-		echo '*** Found Debian "squeeze" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		# Debian 'squeeze'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/squeeze squeeze main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
-		echo '*** Found Debian "wheezy" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		# Debian 'wheezy'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/wheezy wheezy main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "8" -o "$dvers" = "jessie" ]; then
-		echo '*** Found Debian "jessie" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		# Debian 'jessie'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/jessie jessie main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "9" -o "$dvers" = "stretch" ]; then
-		echo '*** Found Debian "stretch" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+		# Debian 'stretch'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/stretch stretch main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "10" -o "$dvers" = "11" -o "$dvers" = "sid" -o "$dvers" = "buster" -o "$dvers" = "bullseye" -o "$dvers" = "parrot" ]; then
-		echo '*** Found Debian "buster", or "sid" (or similar), creating /etc/apt/sources.list.d/zerotier.list'
+	elif [ "$dvers" = "10" -o "$dvers" = "buster" -o "$dvers" = "parrot" ]; then
+		# Debian 'buster'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
+	elif [ "$dvers" = "11" -o "$dvers" = "bullseye" ]; then
+		# Debian 'bullseye'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bullseye bullseye main" >/tmp/zt-sources-list
+	elif [ "$dvers" = "testing" -o "$dvers" = "sid" -o "$dvers" = "bookworm" ]; then
+		# Debian 'testing', 'sid', and 'bookworm' -> Debian 'bookworm'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
 	else
-		echo "*** FAILED: unrecognized or ancient distribution: $dvers"
-		exit 1
+		# Use Debian "buster" for unrecognized Debians
+		echo '*** Found Debian or Debian derivative, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
 	fi
 
 	$SUDO mv -f /tmp/zt-sources-list /etc/apt/sources.list.d/zerotier.list
@@ -244,7 +284,7 @@ elif [ -d /etc/yum.repos.d ]; then
 	$SUDO chgrp 0 /etc/yum.repos.d/zerotier.repo
 
 	echo
-	echo '*** Installing zerotier-one package...'
+	echo '*** Installing ZeroTier service package...'
 
 	if [ -e /usr/bin/dnf ]; then
 		cat /dev/null | $SUDO dnf install -y zerotier-one
@@ -265,7 +305,7 @@ if [ ! -e /usr/sbin/zerotier-one ]; then
 fi
 
 echo
-echo '*** Enabling and starting zerotier-one service...'
+echo '*** Enabling and starting ZeroTier service...'
 
 if [ -e /usr/bin/systemctl -o -e /usr/sbin/systemctl -o -e /sbin/systemctl -o -e /bin/systemctl ]; then
 	$SUDO systemctl enable zerotier-one
@@ -300,18 +340,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAl1xWtcVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphwG0P/ivxhHR3pdh4JllFVUcw6JM0zbzQ
-eeURN0edizgjXMSIW1OIJ2oDTnTHbc3nxYXurfM2DNakGW6xs0aHgPTvTziZj7XN
-xu5AMMmigaqwbODLgtyy8aPOeDbwKRJCm9o/V1XZ+Cj8tTE6B/I2A+UA0eIit7ue
-iNNbZjYiUavPJlrbqpwsm5wlDygGIM1K838HLd8EJtgay95A2UQET9ZYLVztNuUx
-Ar6ppxDV/pSJo7IFd+012pC5RZUWFslDhATXTI+MEIE+qQRzjk5jDOVUEoKmY+0f
-VNK6o/6wPbzmbb540RahmdW86PKcFcx2Qk+b0qK2QL9eHbrAo8QfukVOQOfSMGzw
-etnXVP0ugYxcs76CmjjuGB0dXn+5NAeOAj4RbmXw5ImsH5jCWrqvNgirMs86PAiS
-QZt2N27LocNkzvVMfRp8NQnr/u+K2ieVUzxyhVZh0pVQhaghcxJFPTy0QHjM8+Rx
-6dCXcpA2jmxiLFecYhs3FbwvmDxIKd5vW30fVHgwBObyl0/8udd7xjledNoZ6U7N
-GAbbrLAeeqDOTaFH4cGtLpG3i4A2aNF1Y/6BMFcRiCjd2i7IKSx7hfUmELAHCdkO
-lY3ziuqG8d68Qi8Cs8tDQNWFGlzzCNGtg/GVz69C86walkQQhdW/g4jTaPyh0yca
-wcrBUY3kl8s0/g7x
-=uxUj
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmGSoDoVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph2HsQAMAf1bFP+vXfnANSell9btfsxr3b
+1Sxk9SyFgjADssgBTHURzTQmcEXJ2hT9SmsXL+6Ug1JRjivDNcMcf5PuoBQuAgX1
+UdSDU/USQBoQaEFzmjgjxWbhbzEZUVmU7FVY54nRWK/XbnII5rK+V4+jUJgvG3bl
+H1Xeoo6Gt73KKmpJYzAC5ACngf1+bqq4PBqf5wh+HgI65NSHjd4bCQ4Z8nUIrc+9
+Ur+5W7s5lFvC1kTl8eTgVBS/BsOI9ertvZGQrn9RbuOB4yr1xhXGeFYEf3yrFj0v
+L7grArJNvG+u0WZkQQod4KTbXfHW4UUXK966nb/azgIIB0ryLALhU+B7SZHNEmtQ
+ZlgX9BAqijyj93hR7Bg4x2PJE4kh4ZeJtnnyFUyg35PJ9VBqH0YtCtk0Xjeo3iTW
+HCQgEZOpkvuESEvOZXRs3zTky5D+9+/c/Gj0QgwIH2q56WeYBB+dbw9a7OtksD5A
+PMbG50GBF7PNxLOGmW3+cDzhtzhLe9t3FMf5zX13nB4Ry1EAZoNlyu2ijMd2M4Xz
+MVf/cPEx3YWIyD++smJap+sNuSXT8C81FgIFU7SWVDD28tX3C0mrmTBs5vOCo48+
+G720GvvOkkCmryPSKQ0EDe8uL8//6pH6WFspQZdSrz7R3Uv9XhlLBB8jOMxk5gFE
+sGpql03SNNLGd04P
+=VNrw
 -----END PGP SIGNATURE-----
