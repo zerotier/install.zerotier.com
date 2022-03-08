@@ -211,8 +211,8 @@ elif [ -d /etc/yum.repos.d ]; then
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
-	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" ]; then
-		echo "*** Found RHEL/CentOS, creating /etc/yum.repos.d/zerotier.repo"
+	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i rocky`" ]; then
+		echo "*** Found RHEL/CentOS/Rocky, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
