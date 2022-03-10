@@ -176,9 +176,9 @@ if [ -f /etc/debian_version ]; then
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/disco disco main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F focal`" ]; then
-		# Ubuntu 'focal' -> Ubuntu 'bionic' (for now)
+		# Ubuntu 'focal'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/focal focal main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F hirsute`" ]; then
 		# Ubuntu 'hirsute' -> Ubuntu 'bionic' (for now)
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
@@ -250,7 +250,12 @@ elif [ -d /etc/yum.repos.d ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
-		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
+		fedora_release="`cat /etc/os-release | grep -F VERSION_ID= | cut -d = -f 2`"
+		if [ -n "$fedora_release" ]; then
+			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/$fedora_release"
+		else
+			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
+		fi
 	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" ]; then
 		echo "*** Found RHEL/CentOS, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"

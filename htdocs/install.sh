@@ -181,9 +181,9 @@ if [ -f /etc/debian_version ]; then
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/disco disco main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F focal`" ]; then
-		# Ubuntu 'focal' -> Ubuntu 'bionic' (for now)
+		# Ubuntu 'focal'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/focal focal main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F hirsute`" ]; then
 		# Ubuntu 'hirsute' -> Ubuntu 'bionic' (for now)
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
@@ -255,7 +255,12 @@ elif [ -d /etc/yum.repos.d ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
-		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
+		fedora_release="`cat /etc/os-release | grep -F VERSION_ID= | cut -d = -f 2`"
+		if [ -n "$fedora_release" ]; then
+			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/$fedora_release"
+		else
+			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
+		fi
 	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" ]; then
 		echo "*** Found RHEL/CentOS, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
@@ -340,18 +345,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmGSoDoVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph2HsQAMAf1bFP+vXfnANSell9btfsxr3b
-1Sxk9SyFgjADssgBTHURzTQmcEXJ2hT9SmsXL+6Ug1JRjivDNcMcf5PuoBQuAgX1
-UdSDU/USQBoQaEFzmjgjxWbhbzEZUVmU7FVY54nRWK/XbnII5rK+V4+jUJgvG3bl
-H1Xeoo6Gt73KKmpJYzAC5ACngf1+bqq4PBqf5wh+HgI65NSHjd4bCQ4Z8nUIrc+9
-Ur+5W7s5lFvC1kTl8eTgVBS/BsOI9ertvZGQrn9RbuOB4yr1xhXGeFYEf3yrFj0v
-L7grArJNvG+u0WZkQQod4KTbXfHW4UUXK966nb/azgIIB0ryLALhU+B7SZHNEmtQ
-ZlgX9BAqijyj93hR7Bg4x2PJE4kh4ZeJtnnyFUyg35PJ9VBqH0YtCtk0Xjeo3iTW
-HCQgEZOpkvuESEvOZXRs3zTky5D+9+/c/Gj0QgwIH2q56WeYBB+dbw9a7OtksD5A
-PMbG50GBF7PNxLOGmW3+cDzhtzhLe9t3FMf5zX13nB4Ry1EAZoNlyu2ijMd2M4Xz
-MVf/cPEx3YWIyD++smJap+sNuSXT8C81FgIFU7SWVDD28tX3C0mrmTBs5vOCo48+
-G720GvvOkkCmryPSKQ0EDe8uL8//6pH6WFspQZdSrz7R3Uv9XhlLBB8jOMxk5gFE
-sGpql03SNNLGd04P
-=VNrw
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmIqiyoVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphobQP/Anjm4QIc47P9nJpbGD/LFJ41HJY
+uXs2uYcIOGuoZapbwwEO374koHP2HZqLs8Rm7O73zW6/JDYI6Qb/GPXlBAzY01Ws
+TDQ9kdMyTdZIq+Et6/Mq3JYKwXmBKXwaFoByVs+qm2df0t5VjJKs7nrvbmR/s5Z6
+4wmwqtxVVhfruC0CqbRSzcA3vGcs2t1mNuQjU3Uw95qKBZmWkPZBPYCF6qvYJUOh
+DKIR/jqJ+QVM8yzipPgKzEfXUdxdNfB95xKiRPNjq/lVmAIxqK13xBimNXdW4HY1
+aLqUzq5KtmP/KRdwADemSBjgV7qn7cCz1Byw/gYh80gXH7ihB8yk2h28hNdxTFZ5
+w646mIyrgogx4OiKJtGTNaAS3iMqdvG6NOTfxHpYw8uDUgub+Hw06VQVyknnOCp2
+imXte1rf90xdYMIFy4cOV3aDKJoixQfjBv1QV1tdLzVTwXBCbvd4zoVWGin5gwzj
+v4OVRkEURYB+AU5l6mMnA7QPTG3/rOzQvIlN6212u7lGBDjnBciFPW2jv1bXSsWk
+2pRh3XvRjit20G36PAvdkWRBCEghJzIXazmyIrRg9IWy9qZdp0/Sc4VJQNosqbcz
+E2zn+8/uFLCpqUfunjNVpHjOFA3COjlR3LVnznMRXxhjqKQYYV+4QNnb39ysIYCO
+M/7LDSAsUjxT4RHQ
+=4fMH
 -----END PGP SIGNATURE-----
