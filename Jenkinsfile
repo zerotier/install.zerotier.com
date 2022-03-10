@@ -4,8 +4,8 @@ node('linux-centos8') {
 		def changelog = getChangeLog currentBuild
 		mattermostSend "Building ${env.JOB_NAME} #${env.BUILD_NUMBER} \n Change Log: \n ${changelog}"
 
-		def cluster = 'ztc-controller'
-        def region = 'us-west2'
+		def cluster = 'ztc-controller-us-central'
+        def region = 'us-central1'
         def project = 'zerotier-central'
 
 		stage('Build Docker Image') {
