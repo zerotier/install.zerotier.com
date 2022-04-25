@@ -180,13 +180,17 @@ if [ -f /etc/debian_version ]; then
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/focal focal main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F hirsute`" ]; then
-		# Ubuntu 'hirsute' -> Ubuntu 'bionic' (for now)
+		# Ubuntu 'hirsute'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F impish`" ]; then
-		# Ubuntu 'impish' -> Ubuntu 'bionic' (for now)
+		# Ubuntu 'impish'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" ]; then
+		# Ubuntu 'jammy'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/focal focal main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
 		# Debian 'squeeze'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
