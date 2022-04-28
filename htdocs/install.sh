@@ -195,7 +195,7 @@ if [ -f /etc/debian_version ]; then
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" ]; then
 		# Ubuntu 'jammy'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/focal focal main" >/tmp/zt-sources-list
+		echo "deb ${ZT_BASE_URL_HTTP}debian/jammy jammy main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
 		# Debian 'squeeze'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
@@ -349,18 +349,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmJm7qEVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph7FEQALC7M5t5PEs5bLJVsXX/zK3P/i2v
-/NwXsuiHn1TWk4o6bFsFKInJpoLlwro/kYJPTVCSK3/E486sgv5zuAyk01zPUlMu
-u228Z/LGSh/mQnjQ7z+hW1Lg6//WSul7ffh1C5v2gVjCF062LvClXn2ENR3lwGRg
-iIynFdwIp6d+C3nBOD+qELr/YUIyXHpCMX2kGhkRKoylZhVRpU4kM8DXX8HN1d9m
-Gjllh18Jjc3DWsihPUKHMAJZTJRoBobuyoJ6GFzDXzdTga+wWcyjdijfnJ8/yhGZ
-DXLobtI5OpiCBGSQHUU8oz/V7/QNyrsHVDqThEH12k9t1fZHUNgODI4nuim8Zmis
-91cAQsU/j4SgQz20QPOtirRG57zhaE8pXv+e5A5VIoy6aEaEXn5KKYZ+m2mDGJJs
-3tsPiOk5T0mBz1golFt5KhZ6Tbd62b0zlxJzwOSSbkjQrwLiFLKfHXjRDHzdIXzH
-V9nmwN/JrBBceWtsTCTbGaKyvOKxUoO4wh0ZdwztfMTFge6V0ZAnjyR0iZQK8tdB
-7BXpIudaXyDjVr4Vjwxj1ZhuY41O/2fU+eA6zM3dH2qYHPBg3G+K9vXxfSS6l/Bg
-RXNNgKKYYe62VhSBXjCEVpmJAGL81wC/doSZl5Rkukt8ix9IjXrHzJ+AlfEPmwGR
-PCHUrmB9481mgDvB
-=Yx2y
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmJrIYIVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphFE0QAJ9yqq6NDKf452FlbPamiS3PeOUs
++y3KUPrqm1Cgql+76AcofoU37wpyYzVmETgTs6r3Y82/vAiHMGBCLQgwa813d1PA
+SQR6ILdLqHvG9BZawsPHzPkKNeutSlQKLvjwJW+xc6fsgdbYbtvQtPFDi6u1iJnu
+U1W21FBR3hcETMHAKQxv7Ikyf5jATnEzR1kVDLV4kFASOuymFVvRaC4NVJv08R4O
+ixmdrypjlkodAx2+7zM7TUX5WT3AI1KnGVreTrzmhcd8AO96x5a2bLAauxBSjR/l
+z5FfGAYilFEZhDu0v3EAUxby8UO2zJKiWmRGyIheeCCSbB24aXmIajE5NwRMifBY
+mf6xRRXSZHvZfOak9oqUjIYZeKT7rR3QfeePlEJp3C6IoBZJOrCotM6g5O1KvDav
+fQABLcSjiysXqstuaa6cNPuWoGmiqeZCRpiFW4wBtIORDNY3b0+eWYw5APg6X27F
+jfakiNROXU1+31HbGQ32lBIuEC0QOcCdIE6zoQ0ZvmYYPzmfAKcH8/VevsmKH+8D
+27jH9GxFqil1xaMrLNcYBJ1AnHk3lF+bPF2WSjaMcQxcSTgNl4k/GkKy8uYjTRrG
+P0ghsiA3bi4mOP1TKIpLql9Kd5azg/nn2v6KiZnnN/baXDOmdhOFvkkMx0toY3te
+mVoZ6SXkFWOF4dai
+=ENR3
 -----END PGP SIGNATURE-----
