@@ -4,7 +4,7 @@ node('ubuntu-2204') {
 		def changelog = getChangeLog currentBuild
 		mattermostSend "Building ${env.JOB_NAME} #${env.BUILD_NUMBER} \n Change Log: \n ${changelog}"
 
-		def cluster = 'ztc-controller-us-central'
+        def cluster = 'ztc-controller-us-central'
         def region = 'us-central1'
         def project = 'zerotier-central'
 
@@ -39,7 +39,7 @@ node('ubuntu-2204') {
 				sh("export CLOUDSDK_CORE_DISABLE_PROMPTS=1")
 				sh("docker tag registry.zerotier.com/zerotier/install.zerotier.com:${env.BUILD_TAG} registry.zerotier.com/zerotier/install.zerotier.com:live")
 				sh("docker push registry.zerotier.com/zerotier/install.zerotier.com:live")
-				sh("gcloud container clusters get-credentials ${cluster} --region ${region}")
+				sh("gcloud container clusters get-credentials ${cluster} --project ${project} --region ${region}")
                 sh("kubectl set image deployment install-zerotier-com install-zerotier-com=registry.zerotier.com/zerotier/install.zerotier.com:${env.BUILD_TAG}")
 				mattermostSend color: "#00ff00", message: "${env.JOB_NAME} #${env.BUILD_NUMBER} Deployed (<${env.BUILD_URL}|Show More...>)"
 			}
