@@ -1,4 +1,4 @@
-node('linux-centos8') {
+node('ubuntu-2204') {
 	try {
 		checkout scm
 		def changelog = getChangeLog currentBuild
