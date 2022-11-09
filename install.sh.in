@@ -187,8 +187,8 @@ if [ -f /etc/debian_version ]; then
 		# Ubuntu 'impish'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" ]; then
-		# Ubuntu 'jammy'
+	elif [ -f /etc/lsb-release -a '(' -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" -o -n "`cat /etc/lsb-release 2>/dev/null | grep -F kinetic`" ')' ]; then
+		# Ubuntu 'jammy' or 'kinetic'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/jammy jammy main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
@@ -225,10 +225,18 @@ if [ -f /etc/debian_version ]; then
 		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
 	fi
 
+	$sudo apt-get update -y
+	$SUDO apt-get install -y gpg
 	$SUDO mv -f /tmp/zt-sources-list /etc/apt/sources.list.d/zerotier.list
 	$SUDO chown 0 /etc/apt/sources.list.d/zerotier.list
 	$SUDO chgrp 0 /etc/apt/sources.list.d/zerotier.list
-	$SUDO apt-key add /tmp/zt-gpg-key
+
+	if [ -d /etc/apt/trusted.gpg.d ]; then
+		$SUDO gpg --dearmor < /tmp/zt-gpg-key > /etc/apt/trusted.gpg.d/zerotier-debian-package-key.gpg
+	else
+		$SUDO apt-key add /tmp/zt-gpg-key
+	fi
+	$SUDO rm -f /tmp/zt-gpg-key
 
 	echo
 	echo '*** Installing zerotier-one package...'

@@ -192,8 +192,8 @@ if [ -f /etc/debian_version ]; then
 		# Ubuntu 'impish'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" ]; then
-		# Ubuntu 'jammy'
+	elif [ -f /etc/lsb-release -a '(' -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" -o -n "`cat /etc/lsb-release 2>/dev/null | grep -F kinetic`" ')' ]; then
+		# Ubuntu 'jammy' or 'kinetic'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/jammy jammy main" >/tmp/zt-sources-list
 	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
@@ -230,10 +230,18 @@ if [ -f /etc/debian_version ]; then
 		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
 	fi
 
+	$sudo apt-get update -y
+	$SUDO apt-get install -y gpg
 	$SUDO mv -f /tmp/zt-sources-list /etc/apt/sources.list.d/zerotier.list
 	$SUDO chown 0 /etc/apt/sources.list.d/zerotier.list
 	$SUDO chgrp 0 /etc/apt/sources.list.d/zerotier.list
-	$SUDO apt-key add /tmp/zt-gpg-key
+
+	if [ -d /etc/apt/trusted.gpg.d ]; then
+		$SUDO gpg --dearmor < /tmp/zt-gpg-key > /etc/apt/trusted.gpg.d/zerotier-debian-package-key.gpg
+	else
+		$SUDO apt-key add /tmp/zt-gpg-key
+	fi
+	$SUDO rm -f /tmp/zt-gpg-key
 
 	echo
 	echo '*** Installing zerotier-one package...'
@@ -349,18 +357,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmJrIYIVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphFE0QAJ9yqq6NDKf452FlbPamiS3PeOUs
-+y3KUPrqm1Cgql+76AcofoU37wpyYzVmETgTs6r3Y82/vAiHMGBCLQgwa813d1PA
-SQR6ILdLqHvG9BZawsPHzPkKNeutSlQKLvjwJW+xc6fsgdbYbtvQtPFDi6u1iJnu
-U1W21FBR3hcETMHAKQxv7Ikyf5jATnEzR1kVDLV4kFASOuymFVvRaC4NVJv08R4O
-ixmdrypjlkodAx2+7zM7TUX5WT3AI1KnGVreTrzmhcd8AO96x5a2bLAauxBSjR/l
-z5FfGAYilFEZhDu0v3EAUxby8UO2zJKiWmRGyIheeCCSbB24aXmIajE5NwRMifBY
-mf6xRRXSZHvZfOak9oqUjIYZeKT7rR3QfeePlEJp3C6IoBZJOrCotM6g5O1KvDav
-fQABLcSjiysXqstuaa6cNPuWoGmiqeZCRpiFW4wBtIORDNY3b0+eWYw5APg6X27F
-jfakiNROXU1+31HbGQ32lBIuEC0QOcCdIE6zoQ0ZvmYYPzmfAKcH8/VevsmKH+8D
-27jH9GxFqil1xaMrLNcYBJ1AnHk3lF+bPF2WSjaMcQxcSTgNl4k/GkKy8uYjTRrG
-P0ghsiA3bi4mOP1TKIpLql9Kd5azg/nn2v6KiZnnN/baXDOmdhOFvkkMx0toY3te
-mVoZ6SXkFWOF4dai
-=ENR3
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmNr/KYVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5Sphf84QALWIx0FJKfdq8hkQPodtkqgnTkxF
++UKvUzqGBs92VdG5xc8GAG12L1Vryp9bl7gBNH794YErqr3EsBLAAKqOUc7rBrtn
+GLzZF5dVPnsivfjgRMKaZ9KO3OoYRbNTXB9RI1KfqTDOkTX2njW+CgDJlsrfq2Ay
+Yx5JrxXPD3qXHxO9EFhTQ7zAXoqG3loVi+835cM6QyjhDgyNlXDASEZB2h1/j+Fw
+QaZQ72N7syH5/TqM9iX2IkMJzYI5ISLN2oXYhBEStckEacvfW6MoK5j1HnUjoOgv
+22shzrsmIFdzVHTYJOZBlBEaoY8/6Fk6trazDGkAwAFMRrRaRMfEK0KXf52bajsR
+o9yF1uH7aGS0OsRv3LKWBZvnFewqOCYL0aPZrWTZOZSlcKq13cIQoZfVUeEy4pWY
+b3JGIhJewILEwF4RIoJZiieIffQURvVoNxC/qHxjlOvbpm5YlkxNSG2KfIYw6yTC
+w1gJrphf7z2rlxhLeUcBzNvBcyI2pOeRwbk1ftw7wSVWTMinc/ZvY2uImFkrz+te
+vfZ8KU4t1JOqboun0hQq20gYCpWHy7yq/5wM7ePlXGMwrUmDHNnSMtqRP4T1hsHe
+oF9wOKv5i+wqKmBEz55CTjDxQrjgE4UItbCCsyPNlU9QFC9eP5mUhUPmXC2aisXK
+Vpr1lbkcebKy7ufb
+=0yt8
 -----END PGP SIGNATURE-----
