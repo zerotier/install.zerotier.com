@@ -230,7 +230,7 @@ if [ -f /etc/debian_version ]; then
 		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
 	fi
 
-	$sudo apt-get update -y
+	$SUDO apt-get update -y
 	$SUDO apt-get install -y gpg
 	$SUDO mv -f /tmp/zt-sources-list /etc/apt/sources.list.d/zerotier.list
 	$SUDO chown 0 /etc/apt/sources.list.d/zerotier.list
@@ -358,18 +358,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmN3xUkVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphgiQQAKsjfFsgXrzsMT5NHmL4X02DJfIn
-wmfZowSFmt+86cG1ajE+u//RIPTJlsL8ORiw+e9zLQP0ix3BOiU1a6C5TJ4+vOS3
-ZcfV/sCP0vgsz4iiwivF7UTqhuDKxH6ZDelBG35+jp/my91qpudsUrcVCFb1gWuF
-tOvFbl6iFlOThI4ZiG7dHyTUkKdi2oJLvuZfEALbaak1herBg0LBo8Zr7J9MRsZ5
-oaJMyIePolfv4iczTaxAiq6Q3JC8f5kLiSq/RzjV7L85QLLEypYq/KFb+QbCt0p7
-ESCbSqaWBpJxu0pDp/v2S80Ae8g7fzqh2X48zKofqXTlkioyg1aczIoC7tl+A4kh
-0VMOEgG18XjYXgpV84r1u6IsIxf9bmLz5E6X4eENPEEL68u5CrIY0xM9yhc1e9uu
-9izgKlXWnCStj9o6BcN+jG5+Ykqs7MOXEwtAA9uEvhXYCCSOVJDcfHcMJ27dyJTm
-M+KNA2ukXqCW3QnUN8Io8V7XS6cThmVkQHgWt778yQvOArkRCFMP+55M0wszTrTS
-VhduzQ0EN9hHpxTQExh2wTysjcIScMDL4o2ggTQ8aImyZ7AA2GMrEw+mwOzMQLjb
-0YV7UP0maOQZB3Smrclas1Z7tF0Q+TngfjjksPihv+Vj7p0MWIn/4IQeXeOBMPB1
-qHmaGotEfZ98+Fpc
-=DMjk
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmN3xcoVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph6pkP/R8rfdgtJ+2B5nJ8fciSzrq2hCE+
+FfTvKsV6k8c+X38QLfU8kwjBNVGrAG+9kswnZPE5Gzg7Af0lIxZudQNgfVa6jfhj
++tyWTGu+LhLhRKfpjderpBO+2SoksVMwY3U+F0T5ueFwgheSC66s/WK7SwHM9ZDE
+j4b032k7EGAUh4phQ4xhoqlyLnkBqvKIeJmW1a/HxVJ3qEotCDL+AU25lWHVrJ9v
+Il9PJBhtQw43crVIy6Ipu9oNTXhiJVpjJk3K39pVZj1lqg2EwRCBTDDnI+qN2AT4
+FAxp5PPzC3+26X9CCjGDn3adxOkY8+SUQTi10SpJLCazi9qteZPnEtn8UgPFQUMN
+LxxCJIyAzAiYvzlxj7UNSBunbhnTLtSsMeZ37kVX3h9rYexrqOW8RM9rlHMITeep
+tOATZoxm5kMIvulmGVYhDzv7m6rJu8lbwQPOF+Hw/e4ZSUdTPLx/dNUNb0cXYPFF
+8f7z7p8P9qItWZTCcw8lG/YBjEBGyAuEajF8qq2rZm41ZL4esj+ThaH15OQW2qIj
+tsESY6ypk3DH2WXzoAaBaP3sZPOKL8BjnkQEWOO2xwSJFsDPVWHpP84Sc/oQNgM9
+YaNkeb01Akdedi0QWEAnUIVoxgKGYkZ5FeHiBDdPXOIAplQEOQtQMub4eVqzisa7
+3mJESd3mq+3T9m19
+=iE9H
 -----END PGP SIGNATURE-----
