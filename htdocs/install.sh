@@ -236,6 +236,7 @@ if [ -f /etc/debian_version ]; then
 	$SUDO chown 0 /etc/apt/sources.list.d/zerotier.list
 	$SUDO chgrp 0 /etc/apt/sources.list.d/zerotier.list
 
+	$SUDO chmod a+r /tmp/zt-gpg-key
 	if [ -d /etc/apt/trusted.gpg.d ]; then
 		$SUDO gpg --dearmor < /tmp/zt-gpg-key > /etc/apt/trusted.gpg.d/zerotier-debian-package-key.gpg
 	else
@@ -357,18 +358,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmNr/KYVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sphf84QALWIx0FJKfdq8hkQPodtkqgnTkxF
-+UKvUzqGBs92VdG5xc8GAG12L1Vryp9bl7gBNH794YErqr3EsBLAAKqOUc7rBrtn
-GLzZF5dVPnsivfjgRMKaZ9KO3OoYRbNTXB9RI1KfqTDOkTX2njW+CgDJlsrfq2Ay
-Yx5JrxXPD3qXHxO9EFhTQ7zAXoqG3loVi+835cM6QyjhDgyNlXDASEZB2h1/j+Fw
-QaZQ72N7syH5/TqM9iX2IkMJzYI5ISLN2oXYhBEStckEacvfW6MoK5j1HnUjoOgv
-22shzrsmIFdzVHTYJOZBlBEaoY8/6Fk6trazDGkAwAFMRrRaRMfEK0KXf52bajsR
-o9yF1uH7aGS0OsRv3LKWBZvnFewqOCYL0aPZrWTZOZSlcKq13cIQoZfVUeEy4pWY
-b3JGIhJewILEwF4RIoJZiieIffQURvVoNxC/qHxjlOvbpm5YlkxNSG2KfIYw6yTC
-w1gJrphf7z2rlxhLeUcBzNvBcyI2pOeRwbk1ftw7wSVWTMinc/ZvY2uImFkrz+te
-vfZ8KU4t1JOqboun0hQq20gYCpWHy7yq/5wM7ePlXGMwrUmDHNnSMtqRP4T1hsHe
-oF9wOKv5i+wqKmBEz55CTjDxQrjgE4UItbCCsyPNlU9QFC9eP5mUhUPmXC2aisXK
-Vpr1lbkcebKy7ufb
-=0yt8
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmN3xUkVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphgiQQAKsjfFsgXrzsMT5NHmL4X02DJfIn
+wmfZowSFmt+86cG1ajE+u//RIPTJlsL8ORiw+e9zLQP0ix3BOiU1a6C5TJ4+vOS3
+ZcfV/sCP0vgsz4iiwivF7UTqhuDKxH6ZDelBG35+jp/my91qpudsUrcVCFb1gWuF
+tOvFbl6iFlOThI4ZiG7dHyTUkKdi2oJLvuZfEALbaak1herBg0LBo8Zr7J9MRsZ5
+oaJMyIePolfv4iczTaxAiq6Q3JC8f5kLiSq/RzjV7L85QLLEypYq/KFb+QbCt0p7
+ESCbSqaWBpJxu0pDp/v2S80Ae8g7fzqh2X48zKofqXTlkioyg1aczIoC7tl+A4kh
+0VMOEgG18XjYXgpV84r1u6IsIxf9bmLz5E6X4eENPEEL68u5CrIY0xM9yhc1e9uu
+9izgKlXWnCStj9o6BcN+jG5+Ykqs7MOXEwtAA9uEvhXYCCSOVJDcfHcMJ27dyJTm
+M+KNA2ukXqCW3QnUN8Io8V7XS6cThmVkQHgWt778yQvOArkRCFMP+55M0wszTrTS
+VhduzQ0EN9hHpxTQExh2wTysjcIScMDL4o2ggTQ8aImyZ7AA2GMrEw+mwOzMQLjb
+0YV7UP0maOQZB3Smrclas1Z7tF0Q+TngfjjksPihv+Vj7p0MWIn/4IQeXeOBMPB1
+qHmaGotEfZ98+Fpc
+=DMjk
 -----END PGP SIGNATURE-----

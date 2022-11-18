@@ -231,6 +231,7 @@ if [ -f /etc/debian_version ]; then
 	$SUDO chown 0 /etc/apt/sources.list.d/zerotier.list
 	$SUDO chgrp 0 /etc/apt/sources.list.d/zerotier.list
 
+	$SUDO chmod a+r /tmp/zt-gpg-key
 	if [ -d /etc/apt/trusted.gpg.d ]; then
 		$SUDO gpg --dearmor < /tmp/zt-gpg-key > /etc/apt/trusted.gpg.d/zerotier-debian-package-key.gpg
 	else
