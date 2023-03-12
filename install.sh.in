@@ -1,3 +1,4 @@
+#!/bin/bash
 ENDOFSIGSTART=
 
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
@@ -35,7 +36,7 @@ echo
 
 SUDO=
 if [ "$UID" != "0" ]; then
-	if [ -e /usr/bin/sudo -o -e /bin/sudo ]; then
+	if [ -e /usr/bin/sudo ] || [ -e /bin/sudo ]; then
 		SUDO=sudo
 	else
 		echo '*** This quick installer script requires root privileges.'
@@ -45,7 +46,7 @@ fi
 
 # Detect MacOS and install .pkg file there
 if [ -e /usr/bin/uname ]; then
-	if [ "`/usr/bin/uname -s`" = "Darwin" ]; then
+	if [ "$(/usr/bin/uname -s)" = "Darwin" ]; then
 		echo '*** Detected MacOS / Darwin, downloading and installing Mac .pkg...'
 		$SUDO rm -f "/tmp/ZeroTier One.pkg"
 		curl -s ${ZT_BASE_URL_HTTPS}dist/ZeroTier%20One.pkg >"/tmp/ZeroTier One.pkg"
@@ -59,7 +60,7 @@ if [ -e /usr/bin/uname ]; then
 		done
 
 		echo
-		echo "*** Success! You are connected to port `cat '/Library/Application Support/ZeroTier/One/identity.public' | cut -d : -f 1` of Earth's planetary smart switch."
+		echo "*** Success! You are connected to port $(cut -d : -f 1 '/Library/Application Support/ZeroTier/One/identity.public') of Earth's planetary smart switch."
 		echo
 
 		exit 0
@@ -132,90 +133,90 @@ echo '*** Detecting Linux Distribution'
 echo
 
 if [ -f /etc/debian_version ]; then
-	dvers=`cat /etc/debian_version | cut -d '.' -f 1 | cut -d '/' -f 1`
+	dvers=$(cut -d '.' -f 1 /etc/debian_version | cut -d '/' -f 1)
 	$SUDO rm -f /tmp/zt-sources-list
 
-	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F -i LinuxMint`" ]; then
+	if grep -q -F -i LinuxMint /etc/lsb-release ; then
 		# Linux Mint -> Ubuntu 'xenial'
 		echo '*** Found Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
+	elif grep -q -F trusty /etc/lsb-release ; then
 		# Ubuntu 'trusty'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/trusty trusty main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F wily`" ]; then
+	elif grep -q -F wily /etc/lsb-release ; then
 		# Ubuntu 'wily'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/wily wily main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F xenial`" ]; then
+	elif grep -q -F xenial /etc/lsb-release ; then
 		# Ubuntu 'xenial'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F zesty`" ]; then
+	elif grep -q -F zesty /etc/lsb-release ; then
 		# Ubuntu 'zesty'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/zesty zesty main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F precise`" ]; then
+	elif grep -q -F precise /etc/lsb-release ; then
 		# Ubuntu 'precise'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/precise precise main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F artful`" ]; then
+	elif grep -q -F artful /etc/lsb-release ; then
 		# Ubuntu 'artful'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/artful artful main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F bionic`" ]; then
+	elif grep -q -F bionic /etc/lsb-release ; then
 		# Ubuntu 'bionic'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F yakkety`" ]; then
+	elif grep -q -F yakkety /etc/lsb-release ; then
 		# Ubuntu 'yakkety'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/yakkety yakkety main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F disco`" ]; then
+	elif grep -q -F disco /etc/lsb-release ; then
 		# Ubuntu 'disco'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/disco disco main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F focal`" ]; then
+	elif grep -q -F focal /etc/lsb-release ; then
 		# Ubuntu 'focal'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/focal focal main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F hirsute`" ]; then
+	elif grep -q -F hirsute /etc/lsb-release ; then
 		# Ubuntu 'hirsute'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F impish`" ]; then
+	elif grep -q -F implish /etc/lsb-release ; then
 		# Ubuntu 'impish'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a '(' -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" -o -n "`cat /etc/lsb-release 2>/dev/null | grep -F kinetic`" ')' ]; then
+	elif grep -q -E "jammy|kinetic" /etc/lsb-release ; then
 		# Ubuntu 'jammy' or 'kinetic'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/jammy jammy main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
+	elif [ "$dvers" = "6" ] || [ "$dvers" = "squeeze" ]; then
 		# Debian 'squeeze'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/squeeze squeeze main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
+	elif [ "$dvers" = "7" ] || [ "$dvers" = "wheezy" ]; then
 		# Debian 'wheezy'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/wheezy wheezy main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "8" -o "$dvers" = "jessie" ]; then
+	elif [ "$dvers" = "8" ] || [ "$dvers" = "jessie" ]; then
 		# Debian 'jessie'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/jessie jessie main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "9" -o "$dvers" = "stretch" ]; then
+	elif [ "$dvers" = "9" ] || [ "$dvers" = "stretch" ]; then
 		# Debian 'stretch'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/stretch stretch main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "10" -o "$dvers" = "buster" -o "$dvers" = "parrot" ]; then
+	elif [ "$dvers" = "10" ] || [ "$dvers" = "buster" ] || [ "$dvers" = "parrot" ]; then
 		# Debian 'buster'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "11" -o "$dvers" = "bullseye" ]; then
+	elif [ "$dvers" = "11" ] || [ "$dvers" = "bullseye" ]; then
 		# Debian 'bullseye'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bullseye bullseye main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "testing" -o "$dvers" = "sid" -o "$dvers" = "bookworm" ]; then
+	elif [ "$dvers" = "testing" ] || [ "$dvers" = "sid" ] || [ "$dvers" = "bookworm" ]; then
 		# Debian 'testing', 'sid', and 'bookworm' -> Debian 'bookworm'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
@@ -248,33 +249,28 @@ if [ -f /etc/debian_version ]; then
 		$SUDO rm -f /etc/init.d/zerotier-one /etc/systemd/system/multi-user.target.wants/zerotier-one.service /var/lib/zerotier-one/zerotier-one /usr/local/bin/zerotier-cli /usr/bin/zerotier-cli /usr/local/bin/zero
 	fi
 
-	cat /dev/null | $SUDO apt-get update
-	cat /dev/null | $SUDO apt-get install -y zerotier-one
-elif [ -f /etc/SuSE-release -o -f /etc/suse-release -o -f /etc/SUSE-brand -o -f /etc/SuSE-brand -o -f /etc/suse-brand ]; then
+	$SUDO apt-get update </dev/null
+	$SUDO apt-get install -y zerotier-one </dev/null
+elif [ -f /etc/SuSE-release ] || [ -f /etc/suse-release ] || [ -f /etc/SUSE-brand ] || [ -f /etc/SuSE-brand ] || [ -f /etc/suse-brand ]; then
 	echo '*** Found SuSE, adding zypper YUM repo...'
-	cat /dev/null | $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier
-	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
+	$SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier </dev/null
+	$SUDO rpm --import /tmp/zt-gpg-key </dev/null
 
 	echo
 	echo '*** Installing zeortier-one package...'
 
-	cat /dev/null | $SUDO zypper install -y zerotier-one
+	$SUDO zypper install -y zerotier-one </dev/null
 elif [ -d /etc/yum.repos.d ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
-	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
+	if grep -q -i fedora /etc/redhat-releas ; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
-		fedora_release="`cat /etc/os-release | grep -F VERSION_ID= | cut -d = -f 2`"
-		if [ -n "$fedora_release" ]; then
-			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/$fedora_release"
-		else
-			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
-		fi
-	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i rocky`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i alma`" ]; then
-		echo "*** Found RHEL/CentOS/Rocky, creating /etc/yum.repos.d/zerotier.repo"
+		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/\$releasever"
+	elif grep -q -E -i "centos|enterprise|rocky|alma" /etc/redhat-release ; then
+		echo "*** Found RHEL/CentOS/Rocky/Alma, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
-	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
+	elif grep -q -i amazon /etc/system-release ; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
-		if [ -n "`cat /etc/system-release 2>/dev/null | grep -F 'Amazon Linux 2'`" ]; then
+		if grep -q -F 'Amazon Linux 2' /etc/system-release ; then
 			baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 		else
 			baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
@@ -300,9 +296,9 @@ elif [ -d /etc/yum.repos.d ]; then
 	echo '*** Installing ZeroTier service package...'
 
 	if [ -e /usr/bin/dnf ]; then
-		cat /dev/null | $SUDO dnf install -y zerotier-one
+		$SUDO dnf install -y zerotier-one </dev/null
 	else
-		cat /dev/null | $SUDO yum install -y zerotier-one
+		$SUDO yum install -y zerotier-one </dev/null
 	fi
 fi
 
@@ -320,7 +316,7 @@ fi
 echo
 echo '*** Enabling and starting ZeroTier service...'
 
-if [ -e /usr/bin/systemctl -o -e /usr/sbin/systemctl -o -e /sbin/systemctl -o -e /bin/systemctl ]; then
+if [ -e /usr/bin/systemctl ] || [ -e /usr/sbin/systemctl ] || [ -e /sbin/systemctl ] || [ -e /bin/systemctl ]; then
 	$SUDO systemctl enable zerotier-one
 	$SUDO systemctl start zerotier-one
 	if [ "$?" != "0" ]; then
@@ -331,7 +327,7 @@ if [ -e /usr/bin/systemctl -o -e /usr/sbin/systemctl -o -e /sbin/systemctl -o -e
 		exit 1
 	fi
 else
-	if [ -e /sbin/update-rc.d -o -e /usr/sbin/update-rc.d -o -e /bin/update-rc.d -o -e /usr/bin/update-rc.d ]; then
+	if [ -e /sbin/update-rc.d ] || [ -e /usr/sbin/update-rc.d ] || [ -e /bin/update-rc.d ] || [ -e /usr/bin/update-rc.d ]; then
 		$SUDO update-rc.d zerotier-one defaults
 	else
 		$SUDO chkconfig zerotier-one on
@@ -347,7 +343,7 @@ while [ ! -f /var/lib/zerotier-one/identity.secret ]; do
 done
 
 echo
-echo "*** Success! You are ZeroTier address [ `cat /var/lib/zerotier-one/identity.public | cut -d : -f 1` ]."
+echo "*** Success! You are ZeroTier address [ $(cut -d : -f 1 /var/lib/zerotier-one/identity.public) ]."
 echo
 
 exit 0
