@@ -220,7 +220,11 @@ if [ -f /etc/debian_version ]; then
 		# Debian 'bullseye'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bullseye bullseye main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "testing" -o "$dvers" = "sid" -o "$dvers" = "bookworm" ]; then
+	elif [ "$dvers" = "12" -o "$dvers" = "bookworm" ]; then
+		# Debian 'bookworm'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
+	elif [ "$dvers" = "testing" -o "$dvers" = "sid" ]; then
 		# Debian 'testing', 'sid', and 'bookworm' -> Debian 'bookworm'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
@@ -274,7 +278,7 @@ elif [ -d /etc/yum.repos.d ]; then
 		else
 			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
 		fi
-	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i rocky`" ]; then
+	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i rocky`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i alma`" ]; then
 		echo "*** Found RHEL/CentOS/Rocky, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
@@ -358,18 +362,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmN3xcoVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph6pkP/R8rfdgtJ+2B5nJ8fciSzrq2hCE+
-FfTvKsV6k8c+X38QLfU8kwjBNVGrAG+9kswnZPE5Gzg7Af0lIxZudQNgfVa6jfhj
-+tyWTGu+LhLhRKfpjderpBO+2SoksVMwY3U+F0T5ueFwgheSC66s/WK7SwHM9ZDE
-j4b032k7EGAUh4phQ4xhoqlyLnkBqvKIeJmW1a/HxVJ3qEotCDL+AU25lWHVrJ9v
-Il9PJBhtQw43crVIy6Ipu9oNTXhiJVpjJk3K39pVZj1lqg2EwRCBTDDnI+qN2AT4
-FAxp5PPzC3+26X9CCjGDn3adxOkY8+SUQTi10SpJLCazi9qteZPnEtn8UgPFQUMN
-LxxCJIyAzAiYvzlxj7UNSBunbhnTLtSsMeZ37kVX3h9rYexrqOW8RM9rlHMITeep
-tOATZoxm5kMIvulmGVYhDzv7m6rJu8lbwQPOF+Hw/e4ZSUdTPLx/dNUNb0cXYPFF
-8f7z7p8P9qItWZTCcw8lG/YBjEBGyAuEajF8qq2rZm41ZL4esj+ThaH15OQW2qIj
-tsESY6ypk3DH2WXzoAaBaP3sZPOKL8BjnkQEWOO2xwSJFsDPVWHpP84Sc/oQNgM9
-YaNkeb01Akdedi0QWEAnUIVoxgKGYkZ5FeHiBDdPXOIAplQEOQtQMub4eVqzisa7
-3mJESd3mq+3T9m19
-=iE9H
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmSIt9YVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphFWIP/3krOq4kW89uYB/USiqbxeM7MRpu
+7E6dy1UeM1EdtWs5u0m1XOY7W372/1KB5HF+DNM9PnsMGtwdnI5XQWEAIZU06SIg
+p52n15ODeHkmK1tTXuNkKrIOT47UMvmygZei0MafgxtxXduRSPJKbYhuoSGU3gQN
+5zOYZqPzuMqQTYun25tHJ40OouXdMzg14vt+c5NudcF3caxM+kqbXTEoufM/7gP0
+eP1hM6e3lR+WeCrV89uOfDEUVuMkkaPohlbzwpWzY/46xHnSfkPi8BH4/sEpuNOc
+YaV4ChBjNlcMgPlIYliCbJzmP/I0vegIS4AoEqRAlSF5ofrDBNGq6TsDek+qCHXr
+dyXxfvdCPOcOL3xMWlNF3fl7yqPRxHdBQiZvIjTwhSI+zFmF4gMU2kuqZMbVycd6
+QQfer7SlquABI9AE5lWBggn8pIG/kotge8rCKyfMWmggzAVvVGJA+uqfBtDgk+lv
+Xafc+ZlNeE1TwB34b/m+S4oWIaVCG/mqHXGNq/Ngyl1uSUDCSY9fwyHBdzIGgZGC
+t9vNvnmxJEsu6dlGRy5vAn9gnbxuradKQBIF2sPgin6GiG9txALVRWNoz/seGqFp
+eGN0+AUfNTe1+f3CfzbUooiv6S+tdxNibTYZucWFPn1WJUGBKV36knhCoR64RZF1
+Q2lrixzZnvjukh0w
+=Uw+D
 -----END PGP SIGNATURE-----

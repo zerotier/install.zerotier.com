@@ -215,7 +215,11 @@ if [ -f /etc/debian_version ]; then
 		# Debian 'bullseye'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bullseye bullseye main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "testing" -o "$dvers" = "sid" -o "$dvers" = "bookworm" ]; then
+	elif [ "$dvers" = "12" -o "$dvers" = "bookworm" ]; then
+		# Debian 'bookworm'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
+	elif [ "$dvers" = "testing" -o "$dvers" = "sid" ]; then
 		# Debian 'testing', 'sid', and 'bookworm' -> Debian 'bookworm'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
