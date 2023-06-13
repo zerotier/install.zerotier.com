@@ -220,7 +220,11 @@ if [ -f /etc/debian_version ]; then
 		# Debian 'bullseye'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bullseye bullseye main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "testing" -o "$dvers" = "sid" -o "$dvers" = "bookworm" ]; then
+	elif [ "$dvers" = "12" -o "$dvers" = "bookworm" ]; then
+		# Debian 'bookworm'
+		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
+	elif [ "$dvers" = "testing" -o "$dvers" = "sid" ]; then
 		# Debian 'testing', 'sid', and 'bookworm' -> Debian 'bookworm'
 		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
@@ -358,18 +362,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmN3xcoVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph6pkP/R8rfdgtJ+2B5nJ8fciSzrq2hCE+
-FfTvKsV6k8c+X38QLfU8kwjBNVGrAG+9kswnZPE5Gzg7Af0lIxZudQNgfVa6jfhj
-+tyWTGu+LhLhRKfpjderpBO+2SoksVMwY3U+F0T5ueFwgheSC66s/WK7SwHM9ZDE
-j4b032k7EGAUh4phQ4xhoqlyLnkBqvKIeJmW1a/HxVJ3qEotCDL+AU25lWHVrJ9v
-Il9PJBhtQw43crVIy6Ipu9oNTXhiJVpjJk3K39pVZj1lqg2EwRCBTDDnI+qN2AT4
-FAxp5PPzC3+26X9CCjGDn3adxOkY8+SUQTi10SpJLCazi9qteZPnEtn8UgPFQUMN
-LxxCJIyAzAiYvzlxj7UNSBunbhnTLtSsMeZ37kVX3h9rYexrqOW8RM9rlHMITeep
-tOATZoxm5kMIvulmGVYhDzv7m6rJu8lbwQPOF+Hw/e4ZSUdTPLx/dNUNb0cXYPFF
-8f7z7p8P9qItWZTCcw8lG/YBjEBGyAuEajF8qq2rZm41ZL4esj+ThaH15OQW2qIj
-tsESY6ypk3DH2WXzoAaBaP3sZPOKL8BjnkQEWOO2xwSJFsDPVWHpP84Sc/oQNgM9
-YaNkeb01Akdedi0QWEAnUIVoxgKGYkZ5FeHiBDdPXOIAplQEOQtQMub4eVqzisa7
-3mJESd3mq+3T9m19
-=iE9H
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmSItdMVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5Sphkz8P/0TpxjZEyQ8kqGCAf+OBpWnEcG1n
+z2dAycRugmNz5gwtzCUUELMGUhyHi++LhH5QAR9uw+GNlLikZxCj5BIsf0pikJ6t
+tY4snnCSeRjKn1oRwrkY4eC4jznDryBOLKfQtgmSVZ16KBRuy4pj9p2G8WwyRFe3
+hiS7XsVY4pHrddHSpOMl2q8nyJdIKd9w9Ksv6yavjgfmPoY9zftsS6+h68sMSp13
+Eo0c9ckYll59H5v8brRlt3o8b+x2SQozFOkJn78KIs/yy8hTuxNR1Xfqs4r7xkQC
+QTazWSkIE9VnBYXAaZH8LUVGU+4znLI3hvOf+EeKFDGG3a4oY9awLnDVB//4qwB8
+8nZrD31o7mFJhuiyNkL57noIP1gf2dYhUtf4P42CF/78wiL5R6rdSV692mk+He5+
+NzpbaWw2NkQIw5T2+lkKB3LfCwdbTOnRvRA8IWk494g36Fz39quMYxCrq0IDuaFy
+8BFSsFZXZcOsaYJzEgauGhwbLzcV7unWPsAtZLkiVbB+LODqE5lSCVpb/WehPdoC
+8pijBIgD3nSWsDg6MIkfl34ZBtfbJy6unbjFGU5jNzC0ORoILp9jbLfSyq7gX+k1
+8aRh24P3lthLJZRCi/+oitIDFqJC1mHCQwkyu12vWDhojdxgqqr1lhx135le+O2P
+N86QF/vbDYTHOjRF
+=T0IV
 -----END PGP SIGNATURE-----
