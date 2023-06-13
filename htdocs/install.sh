@@ -278,7 +278,7 @@ elif [ -d /etc/yum.repos.d ]; then
 		else
 			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
 		fi
-	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i rocky`" ]; then
+	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i rocky`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i alma`" ]; then
 		echo "*** Found RHEL/CentOS/Rocky, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
@@ -362,18 +362,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmSItdMVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sphkz8P/0TpxjZEyQ8kqGCAf+OBpWnEcG1n
-z2dAycRugmNz5gwtzCUUELMGUhyHi++LhH5QAR9uw+GNlLikZxCj5BIsf0pikJ6t
-tY4snnCSeRjKn1oRwrkY4eC4jznDryBOLKfQtgmSVZ16KBRuy4pj9p2G8WwyRFe3
-hiS7XsVY4pHrddHSpOMl2q8nyJdIKd9w9Ksv6yavjgfmPoY9zftsS6+h68sMSp13
-Eo0c9ckYll59H5v8brRlt3o8b+x2SQozFOkJn78KIs/yy8hTuxNR1Xfqs4r7xkQC
-QTazWSkIE9VnBYXAaZH8LUVGU+4znLI3hvOf+EeKFDGG3a4oY9awLnDVB//4qwB8
-8nZrD31o7mFJhuiyNkL57noIP1gf2dYhUtf4P42CF/78wiL5R6rdSV692mk+He5+
-NzpbaWw2NkQIw5T2+lkKB3LfCwdbTOnRvRA8IWk494g36Fz39quMYxCrq0IDuaFy
-8BFSsFZXZcOsaYJzEgauGhwbLzcV7unWPsAtZLkiVbB+LODqE5lSCVpb/WehPdoC
-8pijBIgD3nSWsDg6MIkfl34ZBtfbJy6unbjFGU5jNzC0ORoILp9jbLfSyq7gX+k1
-8aRh24P3lthLJZRCi/+oitIDFqJC1mHCQwkyu12vWDhojdxgqqr1lhx135le+O2P
-N86QF/vbDYTHOjRF
-=T0IV
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmSIt9YVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphFWIP/3krOq4kW89uYB/USiqbxeM7MRpu
+7E6dy1UeM1EdtWs5u0m1XOY7W372/1KB5HF+DNM9PnsMGtwdnI5XQWEAIZU06SIg
+p52n15ODeHkmK1tTXuNkKrIOT47UMvmygZei0MafgxtxXduRSPJKbYhuoSGU3gQN
+5zOYZqPzuMqQTYun25tHJ40OouXdMzg14vt+c5NudcF3caxM+kqbXTEoufM/7gP0
+eP1hM6e3lR+WeCrV89uOfDEUVuMkkaPohlbzwpWzY/46xHnSfkPi8BH4/sEpuNOc
+YaV4ChBjNlcMgPlIYliCbJzmP/I0vegIS4AoEqRAlSF5ofrDBNGq6TsDek+qCHXr
+dyXxfvdCPOcOL3xMWlNF3fl7yqPRxHdBQiZvIjTwhSI+zFmF4gMU2kuqZMbVycd6
+QQfer7SlquABI9AE5lWBggn8pIG/kotge8rCKyfMWmggzAVvVGJA+uqfBtDgk+lv
+Xafc+ZlNeE1TwB34b/m+S4oWIaVCG/mqHXGNq/Ngyl1uSUDCSY9fwyHBdzIGgZGC
+t9vNvnmxJEsu6dlGRy5vAn9gnbxuradKQBIF2sPgin6GiG9txALVRWNoz/seGqFp
+eGN0+AUfNTe1+f3CfzbUooiv6S+tdxNibTYZucWFPn1WJUGBKV36knhCoR64RZF1
+Q2lrixzZnvjukh0w
+=Uw+D
 -----END PGP SIGNATURE-----
