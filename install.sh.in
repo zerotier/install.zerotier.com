@@ -187,6 +187,10 @@ if [ -f /etc/debian_version ]; then
 		# Ubuntu 'impish'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F mantic`" ]; then
+		# Ubuntu 'mantic'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/mantic mantic main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a '(' -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" -o -n "`cat /etc/lsb-release 2>/dev/null | grep -F kinetic`" ')' ]; then
 		# Ubuntu 'jammy' or 'kinetic'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'

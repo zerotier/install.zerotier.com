@@ -192,6 +192,10 @@ if [ -f /etc/debian_version ]; then
 		# Ubuntu 'impish'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F mantic`" ]; then
+		# Ubuntu 'mantic'
+		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/mantic mantic main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a '(' -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" -o -n "`cat /etc/lsb-release 2>/dev/null | grep -F kinetic`" ')' ]; then
 		# Ubuntu 'jammy' or 'kinetic'
 		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
@@ -362,18 +366,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmSIt9YVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphFWIP/3krOq4kW89uYB/USiqbxeM7MRpu
-7E6dy1UeM1EdtWs5u0m1XOY7W372/1KB5HF+DNM9PnsMGtwdnI5XQWEAIZU06SIg
-p52n15ODeHkmK1tTXuNkKrIOT47UMvmygZei0MafgxtxXduRSPJKbYhuoSGU3gQN
-5zOYZqPzuMqQTYun25tHJ40OouXdMzg14vt+c5NudcF3caxM+kqbXTEoufM/7gP0
-eP1hM6e3lR+WeCrV89uOfDEUVuMkkaPohlbzwpWzY/46xHnSfkPi8BH4/sEpuNOc
-YaV4ChBjNlcMgPlIYliCbJzmP/I0vegIS4AoEqRAlSF5ofrDBNGq6TsDek+qCHXr
-dyXxfvdCPOcOL3xMWlNF3fl7yqPRxHdBQiZvIjTwhSI+zFmF4gMU2kuqZMbVycd6
-QQfer7SlquABI9AE5lWBggn8pIG/kotge8rCKyfMWmggzAVvVGJA+uqfBtDgk+lv
-Xafc+ZlNeE1TwB34b/m+S4oWIaVCG/mqHXGNq/Ngyl1uSUDCSY9fwyHBdzIGgZGC
-t9vNvnmxJEsu6dlGRy5vAn9gnbxuradKQBIF2sPgin6GiG9txALVRWNoz/seGqFp
-eGN0+AUfNTe1+f3CfzbUooiv6S+tdxNibTYZucWFPn1WJUGBKV36knhCoR64RZF1
-Q2lrixzZnvjukh0w
-=Uw+D
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmU//voVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphbIgP/3tT9ATG9mz9uDzmlJyx/JdzazqM
+1lp+mmEUUqrPRKHCcRLtreRm1iNzz6kCwLWsT23R5xdx6Izx0I7zHrGCoB95jBWj
+OgS1oTTTQbpD//eVO9FFQega/A4Pnlz3yBoV0MOjB5G3fFv0PQkNiAk0QaJMCBKV
+MgNBRLXWkq6VGLCJF4mePYIlhlXl8P9Knq/ehy4efqE9PabVj4yDyo5gb2vUNSxJ
+kcAVkcw4N5C+IHOQeucuetkRnXLWPnb+YWavj+4P3KPebghyMho+vtTqxYj8yyvL
+Uv+UbRTm06mLtky27EJJdgrSRf542w5GH+JtjWLZ0tNodf6O3yWPQmIfQI4YLzhv
+aXkEIfmXEEtFnUGx2+O/1q42bELuB2dYjqFzeehhCsHRtDNbIyYugjWgU6Jyswvm
+qpnej2mTeV5aqaG3MEVHc2a3xo6G27UiNZM2ZLPbxv58FpXKjnJRdFWtWJB8PW5/
+l4UeZDYlIJarrZrz+J0u9eaBEkP2dLDuG3a6TCVMdGJLR0WHMMypwQEAM6Pjk9+6
+vOvgZJX1x9VfcNZvnrsqyyoYe4xKSfgflDLr1TBW0KL5QLFQ2odEh3gJylFQ/LmG
+IZ8wFyaFmdmEK08b0gewjmE/sxm0onsIcWg79IpgHvDw/evPlK1wZuHGn6a0SdY+
+g66QgLwZXbrAWbk/
+=Gl5k
 -----END PGP SIGNATURE-----
