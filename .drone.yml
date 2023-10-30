@@ -16,7 +16,6 @@ steps:
     commands:
       - echo $${DOCKER_PASSWORD} | docker login --username $${DOCKER_LOGIN} --password-stdin registry.zerotier.com
       - make docker
-      - docker push $${DOCKER_REGISTRY}/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER}
     environment:
       DOCKER_LOGIN:
         from_secret: docker-registry-login
@@ -29,10 +28,12 @@ steps:
     depends_on:
       - build
     commands:
+      - echo $${DOCKER_PASSWORD} | docker login --username $${DOCKER_LOGIN} --password-stdin registry.zerotier.com
+      - docker push $${DOCKER_REGISTRY}/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER}
       - echo $${GCP_CREDENTIALS} > /tmp/gcp.json
       - gcloud auth activate-service-account drone-ci@zerotier-central.iam.gserviceaccount.com --key-file /tmp/gcp.json --project $${GCP_PROJECT}
       - gcloud --project $${GCP_PROJECT} container clusters get-credentials $${CLUSTER_NAME} --region $${GCP_REGION}
-      - kubectl -n dev set image deployment install-zerotier-com install-zerotier-com=$${DOCKER_REGISTRY}/zerotier/docs.zerotier.com:drone-${DRONE_BUILD_NUMBER}
+      - kubectl -n dev set image deployment install-zerotier-com install-zerotier-com=$${DOCKER_REGISTRY}/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER}
     environment:
       GCP_CREDENTIALS:
         from_secret: gcp-k8s-creds
@@ -90,5 +91,3 @@ trigger:
 ---
 kind: signature
 hmac: bab0b00e2b6662d0625f671b090bd716e2efcc1267c93fa576c5039f9badb829
-
-...
