@@ -35,6 +35,10 @@ steps:
       - gcloud --project $${GCP_PROJECT} container clusters get-credentials $${CLUSTER_NAME} --region $${GCP_REGION}
       - kubectl -n dev set image deployment install-zerotier-com install-zerotier-com=$${DOCKER_REGISTRY}/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER}
     environment:
+      DOCKER_LOGIN:
+        from_secret: docker-registry-login
+      DOCKER_PASSWORD:
+        from_secret: docker-registry-password
       GCP_CREDENTIALS:
         from_secret: gcp-k8s-creds
       USE_GKE_GCLOUD_AUTH_PLUGIN: "True"
@@ -90,4 +94,4 @@ trigger:
     - tag
 ---
 kind: signature
-hmac: bab0b00e2b6662d0625f671b090bd716e2efcc1267c93fa576c5039f9badb829
+hmac: 6824e6a0af3034f986d3c076fc9d51e9bef64c6703cfdf504135cafd61c8974a
