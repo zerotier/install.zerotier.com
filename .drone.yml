@@ -33,7 +33,7 @@ steps:
       - echo $${GCP_CREDENTIALS} > /tmp/gcp.json
       - gcloud auth activate-service-account drone-ci@zerotier-central.iam.gserviceaccount.com --key-file /tmp/gcp.json --project $${GCP_PROJECT}
       - gcloud --project $${GCP_PROJECT} container clusters get-credentials $${CLUSTER_NAME} --region $${GCP_REGION}
-      - kubectl -n dev set image deployment install-zerotier-com install-zerotier-com=$${DOCKER_REGISTRY}/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER}
+      - kubectl -n default set image deployment install-zerotier-com install-zerotier-com=$${DOCKER_REGISTRY}/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER}
     environment:
       DOCKER_LOGIN:
         from_secret: docker-registry-login
@@ -48,8 +48,6 @@ steps:
         from_secret: gcp-region
       CLUSTER_NAME:
         from_secret: cluster-name
-      GKE_DEPLOYMENT_NAME:
-        from_secret: gke-deployment-name
       DOCKER_REGISTRY:
         from_secret: docker-registry-host
     when:
@@ -94,4 +92,4 @@ trigger:
     - tag
 ---
 kind: signature
-hmac: 6824e6a0af3034f986d3c076fc9d51e9bef64c6703cfdf504135cafd61c8974a
+hmac: e1b36c7041060b8492c00119216778c246580ea5cd1919718305381b3b596c36
