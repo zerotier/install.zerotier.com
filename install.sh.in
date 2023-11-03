@@ -135,8 +135,12 @@ if [ -f /etc/debian_version ]; then
 	dvers=`cat /etc/debian_version | cut -d '.' -f 1 | cut -d '/' -f 1`
 	$SUDO rm -f /tmp/zt-sources-list
 
-	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F -i LinuxMint`" ]; then
-		# Linux Mint -> Ubuntu 'xenial'
+	if [ -f /etc/os-release ] && (. /etc/os-release ; test "${ID}" = "linuxmint") && (. /etc/os-release ; test "${VERSION_ID}" = "21") ; then
+		# Linux Mint 21 -> Ubuntu 'jammy'
+		echo '*** Found Linux Mint 21, creating /etc/apt/sources.list.d/zerotier.list'
+		echo "deb ${ZT_BASE_URL_HTTP}debian/jammy jammy main" >/tmp/zt-sources-list
+	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F -i LinuxMint`" ]; then
+		# Other Linux Mint versions -> Ubuntu 'xenial'
 		echo '*** Found Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
 		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
 	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
