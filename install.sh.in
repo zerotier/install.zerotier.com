@@ -355,6 +355,14 @@ elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
 	echo '*** Installing zeortier-one package...'
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
+elif  [ $ID == "opensuse-tumbleweed" ]; then 
+	echo '*** Found SuSE Tumbleweed/Leap, adding zypper YUM repo...'	
+	cat /dev/null | $SUDO zypper addrepo -t YUM -G ${ZT_BASE_URL_HTTP}redhat/el/9 zerotier
+
+	echo
+	echo '*** Installing zeortier-one package...'
+
+	cat /dev/null | $SUDO zypper install -y zerotier-one
 else
 	echo '*** Unknown or unsupported distribution! Aborting.'
 	exit 1
