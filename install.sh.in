@@ -88,7 +88,8 @@ echo '***   Debian Linux (7+)'
 echo '***   RedHat/CentOS Linux (6+)'
 echo '***   Fedora Linux (16+)'
 echo '***   SuSE Linux (12+)'
-echo '***   Mint Linux (18+)'
+echo '***   Mint Linux (20+)'
+echo '***   Kali Linux (2024.1+)'
 echo
 echo '*** Supported architectures vary by OS / distribution. We try to support'
 echo '*** every system architecture supported by the target.'
@@ -194,10 +195,29 @@ echo '-----END PGP PUBLIC KEY BLOCK-----' >>/tmp/zt-gpg-key
 echo '*** Detecting Linux Distribution'
 echo
 
+_old_apt_signing() {
+	URL=$1
+	CODENAME=$2
+	if [ -d /etc/apt/trusted.gpg.d ]; then
+		$SUDO gpg --dearmor < /tmp/zt-gpg-key > /etc/apt/trusted.gpg.d/zerotier-debian-package-key.gpg
+	else
+		$SUDO apt-key add /tmp/zt-gpg-key
+	fi
+	echo "deb ${URL}debian/$CODENAME $CODENAME main" >/tmp/zt-sources-list
+}
+
+_new_apt_signing() {
+	URL=$1
+	CODENAME=$2
+	$SUDO gpg --dearmor < /tmp/zt-gpg-key > /usr/share/keyrings/zerotier-debian-package-key.gpg
+	echo "deb [signed-by=/usr/share/keyrings/zerotier-debian-package-key.gpg] ${URL}debian/$CODENAME $CODENAME main" >/tmp/zt-sources-list
+}
 
 write_apt_repo() {
-	URL=$1
+	DISTRIBUTION=$1
 	VERSION=$2
+	URL=$3
+	CODENAME=$4
 
 	if [ ! -d /usr/share/keyrings ]; then
 		$SUDO mkdir -p /usr/share/keyrings
@@ -205,12 +225,28 @@ write_apt_repo() {
 
 	$SUDO apt-get update -y
 	$SUDO apt-get install -y gpg
-
 	$SUDO chmod a+r /tmp/zt-gpg-key
-	$SUDO gpg --dearmor < /tmp/zt-gpg-key > /usr/share/keyrings/zerotier-debian-package-key.gpg
-	$SUDO rm -f /tmp/zt-gpg-key
 
-	echo "deb [signed-by=/usr/share/keyrings/zerotier-debian-package-key.gpg] ${URL}debian/$VERSION $VERSION main" >/tmp/zt-sources-list
+	if   [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
+		_old_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "debian" && "$VERSION" -lt "10" ]]; then
+		_old_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" > "22.03" ]]; then  # comparison to 22.03 is intentional
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "debian" && "$VERSION" -ge "10" ]]; then
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "kali" ]]; then
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "linuxmint" && "$VERSION" == "6" ]]; then
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "21" || "$VERSION" > "21" ) ]]; then
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "20" || ("$VERSION" > "20" && "$VERSION" < "21" ) ) ]]; then
+		_old_apt_signing $URL $CODENAME
+	else
+		echo "Unsupported distribution $DISTRIBUTION $VERSION"
+		exit 1
+	fi
 
 	$SUDO mv -f /tmp/zt-sources-list /etc/apt/sources.list.d/zerotier.list
 	$SUDO chown 0 /etc/apt/sources.list.d/zerotier.list
@@ -241,30 +277,30 @@ if [ $ID == "debian" ]; then
 	echo '*** Detected Debian Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
-		write_apt_repo $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
+		write_apt_repo $ID $MAX_SUPPORTED_DEBIAN_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
 	else 
-		write_apt_repo $ZT_BASE_URL_HTTP $VERSION_CODENAME
+		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
 	fi
 elif [ $ID == "ubuntu" ]; then
 	echo '*** Detected Ubuntu Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_UBUNTU_VERSION" ]]; then
-		write_apt_repo $ZT_BASE_URL_HTTP $MAX_SUPPORTED_UBUNTU_VERSION_NAME
+		write_apt_repo $ID $MAX_SUPPORTED_UBUNTU_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_UBUNTU_VERSION_NAME
 	else 
-		write_apt_repo $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
+		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_MINT_VERSION" ]]; then
-		write_apt_repo $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
+		write_apt_repo $ID $MAX_SUPPORED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
 	else 
-		write_apt_repo $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
+		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
 elif [ $ID == "kali" ]; then
 	echo '*** Detected Kali Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
-	write_apt_repo $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
+	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
 elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "alma" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
