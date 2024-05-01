@@ -15,6 +15,69 @@ export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
 ZT_BASE_URL_HTTPS='https://download.zerotier.com/'
 ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 
+##########################################################
+# 
+#  Maximum Supported Distribution Versions and Codenames
+# 
+##########################################################
+
+# Debian
+MAX_SUPPORTED_DEBIAN_VERSION=12
+MAX_SUPPORDED_DEBIAN_VERSION_NAME=bookworm
+
+
+# Ubuntu
+MAX_SUPPORTED_UBUNTU_VERSION=22.04
+MAX_SUPPORTED_UBUNTU_VERSION_NAME=jammy
+
+# We only do builds for Ubuntu LTS releases.  Map non-LTS releases to the nearest previous LTS release.
+declare -A UBUNTU_CODENAME_MAP
+UBUNTU_CODENAME_MAP["trusty"]="trusty"
+UBUNTU_CODENAME_MAP["utopic"]="trusty"
+UBUNTU_CODENAME_MAP["vivid"]="trusty"
+UBUNTU_CODENAME_MAP["wily"]="trusty"
+UBUNTU_CODENAME_MAP["xenial"]="xenial"
+UBUNTU_CODENAME_MAP["yakkety"]="xenial"
+UBUNTU_CODENAME_MAP["zesty"]="xenial"
+UBUNTU_CODENAME_MAP["artful"]="xenial"
+UBUNTU_CODENAME_MAP["bionic"]="bionic"
+UBUNTU_CODENAME_MAP["cosmic"]="bionic"
+UBUNTU_CODENAME_MAP["disco"]="bionic"
+UBUNTU_CODENAME_MAP["eoan"]="bionic"
+UBUNTU_CODENAME_MAP["focal"]="focal"
+UBUNTU_CODENAME_MAP["groovy"]="focal"
+UBUNTU_CODENAME_MAP["hirsute"]="focal"
+UBUNTU_CODENAME_MAP["impish"]="focal"
+UBUNTU_CODENAME_MAP["jammy"]="jammy"
+UBUNTU_CODENAME_MAP["kinetic"]="jammy"
+UBUNTU_CODENAME_MAP["lunar"]="jammy"
+UBUNTU_CODENAME_MAP["mantic"]="jammy"
+UBUNTU_CODENAME_MAP["noble"]="noble"
+
+
+# Mint
+
+MAX_SUPPORTED_MINT_VERSION=21.3
+MAX_SUPPORTED_MINT_VERSION_NAME=virginia
+
+# Map Mint codenames to Ubuntu codenames (and sometimes Debian)
+declare -A MINT_CODENAME_MAP
+MINT_CODENAME_MAP["virginia"]="jammy"
+MINT_CODENAME_MAP["victoria"]="jammy"
+MINT_CODENAME_MAP["vera"]="jammy"
+MINT_CODENAME_MAP["vanessa"]="jammy"
+MINT_CODENAME_MAP["una"]="focal"
+MINT_CODENAME_MAP["uma"]="focal"
+MINT_CODENAME_MAP["ulyssa"]="focal"
+MINT_CODENAME_MAP["ulyana"]="focal"
+MINT_CODENAME_MAP["faye"]="bookworm"
+
+##########################################################
+#
+# End 
+#
+##########################################################
+
 echo
 echo '*** ZeroTier Service Quick Install for Unix-like Systems'
 echo
@@ -25,7 +88,8 @@ echo '***   Debian Linux (7+)'
 echo '***   RedHat/CentOS Linux (6+)'
 echo '***   Fedora Linux (16+)'
 echo '***   SuSE Linux (12+)'
-echo '***   Mint Linux (18+)'
+echo '***   Mint Linux (20+)'
+echo '***   Kali Linux (2024.1+)'
 echo
 echo '*** Supported architectures vary by OS / distribution. We try to support'
 echo '*** every system architecture supported by the target.'
@@ -131,121 +195,62 @@ echo '-----END PGP PUBLIC KEY BLOCK-----' >>/tmp/zt-gpg-key
 echo '*** Detecting Linux Distribution'
 echo
 
-if [ -f /etc/debian_version ]; then
-	dvers=`cat /etc/debian_version | cut -d '.' -f 1 | cut -d '/' -f 1`
-	$SUDO rm -f /tmp/zt-sources-list
-
-	if [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F -i LinuxMint`" ]; then
-		# Linux Mint -> Ubuntu 'xenial'
-		echo '*** Found Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F trusty`" ]; then
-		# Ubuntu 'trusty'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/trusty trusty main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F wily`" ]; then
-		# Ubuntu 'wily'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/wily wily main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F xenial`" ]; then
-		# Ubuntu 'xenial'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/xenial xenial main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F zesty`" ]; then
-		# Ubuntu 'zesty'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/zesty zesty main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F precise`" ]; then
-		# Ubuntu 'precise'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/precise precise main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F artful`" ]; then
-		# Ubuntu 'artful'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/artful artful main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F bionic`" ]; then
-		# Ubuntu 'bionic'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F yakkety`" ]; then
-		# Ubuntu 'yakkety'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/yakkety yakkety main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F disco`" ]; then
-		# Ubuntu 'disco'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/disco disco main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F focal`" ]; then
-		# Ubuntu 'focal'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/focal focal main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F hirsute`" ]; then
-		# Ubuntu 'hirsute'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F impish`" ]; then
-		# Ubuntu 'impish'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/bionic bionic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a -n "`cat /etc/lsb-release 2>/dev/null | grep -F mantic`" ]; then
-		# Ubuntu 'mantic'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/mantic mantic main" >/tmp/zt-sources-list
-	elif [ -f /etc/lsb-release -a '(' -n "`cat /etc/lsb-release 2>/dev/null | grep -F jammy`" -o -n "`cat /etc/lsb-release 2>/dev/null | grep -F kinetic`" ')' ]; then
-		# Ubuntu 'jammy' or 'kinetic'
-		echo '*** Found Ubuntu, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/jammy jammy main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "6" -o "$dvers" = "squeeze" ]; then
-		# Debian 'squeeze'
-		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/squeeze squeeze main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "7" -o "$dvers" = "wheezy" ]; then
-		# Debian 'wheezy'
-		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/wheezy wheezy main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "8" -o "$dvers" = "jessie" ]; then
-		# Debian 'jessie'
-		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/jessie jessie main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "9" -o "$dvers" = "stretch" ]; then
-		# Debian 'stretch'
-		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/stretch stretch main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "10" -o "$dvers" = "buster" -o "$dvers" = "parrot" ]; then
-		# Debian 'buster'
-		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "11" -o "$dvers" = "bullseye" ]; then
-		# Debian 'bullseye'
-		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/bullseye bullseye main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "12" -o "$dvers" = "bookworm" ]; then
-		# Debian 'bookworm'
-		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
-	elif [ "$dvers" = "testing" -o "$dvers" = "sid" ]; then
-		# Debian 'testing', 'sid', and 'bookworm' -> Debian 'bookworm'
-		echo '*** Found Debian, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/bookworm bookworm main" >/tmp/zt-sources-list
-	else
-		# Use Debian "buster" for unrecognized Debians
-		echo '*** Found Debian or Debian derivative, creating /etc/apt/sources.list.d/zerotier.list'
-		echo "deb ${ZT_BASE_URL_HTTP}debian/buster buster main" >/tmp/zt-sources-list
-	fi
-
-	$SUDO apt-get update -y
-	$SUDO apt-get install -y gpg
-	$SUDO mv -f /tmp/zt-sources-list /etc/apt/sources.list.d/zerotier.list
-	$SUDO chown 0 /etc/apt/sources.list.d/zerotier.list
-	$SUDO chgrp 0 /etc/apt/sources.list.d/zerotier.list
-
-	$SUDO chmod a+r /tmp/zt-gpg-key
+_old_apt_signing() {
+	URL=$1
+	CODENAME=$2
 	if [ -d /etc/apt/trusted.gpg.d ]; then
 		$SUDO gpg --dearmor < /tmp/zt-gpg-key > /etc/apt/trusted.gpg.d/zerotier-debian-package-key.gpg
 	else
 		$SUDO apt-key add /tmp/zt-gpg-key
 	fi
-	$SUDO rm -f /tmp/zt-gpg-key
+	echo "deb ${URL}debian/$CODENAME $CODENAME main" >/tmp/zt-sources-list
+}
+
+_new_apt_signing() {
+	URL=$1
+	CODENAME=$2
+	$SUDO gpg --dearmor < /tmp/zt-gpg-key > /usr/share/keyrings/zerotier-debian-package-key.gpg
+	echo "deb [signed-by=/usr/share/keyrings/zerotier-debian-package-key.gpg] ${URL}debian/$CODENAME $CODENAME main" >/tmp/zt-sources-list
+}
+
+write_apt_repo() {
+	DISTRIBUTION=$1
+	VERSION=$2
+	URL=$3
+	CODENAME=$4
+
+	if [ ! -d /usr/share/keyrings ]; then
+		$SUDO mkdir -p /usr/share/keyrings
+	fi
+
+	$SUDO apt-get update -y
+	$SUDO apt-get install -y gpg
+	$SUDO chmod a+r /tmp/zt-gpg-key
+
+	if   [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
+		_old_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "debian" && "$VERSION" -lt "10" ]]; then
+		_old_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" > "22.03" ]]; then  # comparison to 22.03 is intentional
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "debian" && "$VERSION" -ge "10" ]]; then
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "kali" ]]; then
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "linuxmint" && "$VERSION" == "6" ]]; then
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "21" || "$VERSION" > "21" ) ]]; then
+		_new_apt_signing $URL $CODENAME
+	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "20" || ("$VERSION" > "20" && "$VERSION" < "21" ) ) ]]; then
+		_old_apt_signing $URL $CODENAME
+	else
+		echo "Unsupported distribution $DISTRIBUTION $VERSION"
+		exit 1
+	fi
+
+	$SUDO mv -f /tmp/zt-sources-list /etc/apt/sources.list.d/zerotier.list
+	$SUDO chown 0 /etc/apt/sources.list.d/zerotier.list
+	$SUDO chgrp 0 /etc/apt/sources.list.d/zerotier.list
 
 	echo
 	echo '*** Installing zerotier-one package...'
@@ -258,16 +263,45 @@ if [ -f /etc/debian_version ]; then
 
 	cat /dev/null | $SUDO apt-get update
 	cat /dev/null | $SUDO apt-get install -y zerotier-one
-elif [ -f /etc/SuSE-release -o -f /etc/suse-release -o -f /etc/SUSE-brand -o -f /etc/SuSE-brand -o -f /etc/suse-brand ]; then
-	echo '*** Found SuSE, adding zypper YUM repo...'
-	cat /dev/null | $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier
-	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
+}
 
-	echo
-	echo '*** Installing zeortier-one package...'
 
-	cat /dev/null | $SUDO zypper install -y zerotier-one
-elif [ -d /etc/yum.repos.d ]; then
+if [ ! -f /etc/os-release ]; then
+	echo '*** Cannot detect Linux distribution! Aborting.'
+	exit 1
+fi
+
+source /etc/os-release
+
+if [ $ID == "debian" ]; then
+	echo '*** Detected Debian Linux, creating /etc/apt/sources.list.d/zerotier.list'
+
+	if [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
+		write_apt_repo $ID $MAX_SUPPORTED_DEBIAN_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
+	else 
+		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
+	fi
+elif [ $ID == "ubuntu" ]; then
+	echo '*** Detected Ubuntu Linux, creating /etc/apt/sources.list.d/zerotier.list'
+
+	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_UBUNTU_VERSION" ]]; then
+		write_apt_repo $ID $MAX_SUPPORTED_UBUNTU_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_UBUNTU_VERSION_NAME
+	else 
+		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
+	fi
+elif [ $ID == "linuxmint" ]; then
+	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
+
+	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_MINT_VERSION" ]]; then
+		write_apt_repo $ID $MAX_SUPPORED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
+	else 
+		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
+	fi
+elif [ $ID == "kali" ]; then
+	echo '*** Detected Kali Linux, creating /etc/apt/sources.list.d/zerotier.list'
+
+	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
+elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
@@ -312,6 +346,26 @@ elif [ -d /etc/yum.repos.d ]; then
 	else
 		cat /dev/null | $SUDO yum install -y zerotier-one
 	fi
+elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
+	echo '*** Found SuSE, adding zypper YUM repo...'
+	cat /dev/null | $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier
+	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
+
+	echo
+	echo '*** Installing zeortier-one package...'
+
+	cat /dev/null | $SUDO zypper install -y zerotier-one
+elif  [ $ID == "opensuse-tumbleweed" ]; then 
+	echo '*** Found SuSE Tumbleweed/Leap, adding zypper YUM repo...'	
+	cat /dev/null | $SUDO zypper addrepo -t YUM -G ${ZT_BASE_URL_HTTP}redhat/el/9 zerotier
+
+	echo
+	echo '*** Installing zeortier-one package...'
+
+	cat /dev/null | $SUDO zypper install -y zerotier-one
+else
+	echo '*** Unknown or unsupported distribution! Aborting.'
+	exit 1
 fi
 
 $SUDO rm -f /tmp/zt-gpg-key
