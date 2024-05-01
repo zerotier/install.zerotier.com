@@ -16,6 +16,7 @@ steps:
     commands:
       - echo $${DOCKER_PASSWORD} | docker login --username $${DOCKER_LOGIN} --password-stdin registry.zerotier.com
       - make docker
+      - make push
     environment:
       DOCKER_LOGIN:
         from_secret: docker-registry-login
@@ -23,36 +24,6 @@ steps:
         from_secret: docker-registry-password
       DOCKER_REGISTRY:
         from_secret: docker-registry-host
-  - name: deploy-to-install
-    image: 084037375216.dkr.ecr.us-east-2.amazonaws.com/central-builder
-    depends_on:
-      - build
-    commands:
-      - echo $${DOCKER_PASSWORD} | docker login --username $${DOCKER_LOGIN} --password-stdin registry.zerotier.com
-      - docker push $${DOCKER_REGISTRY}/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER}
-      - echo $${GCP_CREDENTIALS} > /tmp/gcp.json
-      - gcloud auth activate-service-account drone-ci@zerotier-central.iam.gserviceaccount.com --key-file /tmp/gcp.json --project $${GCP_PROJECT}
-      - gcloud --project $${GCP_PROJECT} container clusters get-credentials $${CLUSTER_NAME} --region $${GCP_REGION}
-      - kubectl -n default set image deployment install-zerotier-com install-zerotier-com=$${DOCKER_REGISTRY}/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER}
-    environment:
-      DOCKER_LOGIN:
-        from_secret: docker-registry-login
-      DOCKER_PASSWORD:
-        from_secret: docker-registry-password
-      GCP_CREDENTIALS:
-        from_secret: gcp-k8s-creds
-      USE_GKE_GCLOUD_AUTH_PLUGIN: "True"
-      GCP_PROJECT:
-        from_secret: gcp-project
-      GCP_REGION:
-        from_secret: gcp-region
-      CLUSTER_NAME:
-        from_secret: cluster-name
-      DOCKER_REGISTRY:
-        from_secret: docker-registry-host
-    when:
-      branch:
-        - main
   - name: notify-mattermost-build-failure
     pull: always
     image: 084037375216.dkr.ecr.us-east-2.amazonaws.com/mattermost-notify
@@ -92,4 +63,4 @@ trigger:
     - tag
 ---
 kind: signature
-hmac: e1b36c7041060b8492c00119216778c246580ea5cd1919718305381b3b596c36
+hmac: c424a4e052c47dfad3a5eb4f06baac3381e1fc29a81a02667bd07dcfad29f0f0
