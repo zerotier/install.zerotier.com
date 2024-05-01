@@ -234,11 +234,11 @@ write_apt_repo() {
 
 	if   [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
 		_old_apt_signing $URL $CODENAME
-	elif [[ "$DISTRIBUTION" == "debian" && "$VERSION" -lt "10" ]]; then
+	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$VERSION" -lt "10" ]]; then
 		_old_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" > "22.03" ]]; then  # comparison to 22.03 is intentional
 		_new_apt_signing $URL $CODENAME
-	elif [[ "$DISTRIBUTION" == "debian" && "$VERSION" -ge "10" ]]; then
+	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$VERSION" -ge "10" ]]; then
 		_new_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "kali" ]]; then
 		_new_apt_signing $URL $CODENAME
@@ -420,18 +420,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmYxaWYVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphIrsP/2MiX599o47ulvUxP9bUBKIhB4eU
-+Gqut/sokAYfzPoitEkGv18jjX47PvBV8dhZoRSPSbGCF3Iy2V/+ssHNE3/buoo4
-5By+YnWTZ2l2MRQo3G0hKkL+1g7hXuNsZmhLIeAJNeQPovR3kN0HP1aZA/11o/Kw
-+Oj2WiFcOJfAxooZyltPRfnUhYKqvVX3rZMvLFCHK8IlUs7qQDasqWwKS5Kv249T
-cu/POKfelkCV/yfJLQoVaSSF2Yo6JzH8Tu6yr4bvsZQMc5ME9W7HiFPr0kP3ozPW
-yvU2U55vSoTn4I+axneyIDho1OUxzBE3W0MFNRzo2HLs5XFgjPVah9mKJhu70F7W
-f/B2OxlZa2fbJttF7LL1wK5FfWnh2qDYsIeCBzdtdL0APNp65fooFcGa+hLyG3Y/
-XAiPIRTHyFMzbKvScmaVqmMJjnm6MQI8MbIgPvizF55r06+u7aN8wVMmjFldHmMa
-0t2w0d6ZGb/3JNzj2nKoOMM83wDWKslhSzH3nBQ8tgxSYfhDUWUTVJpqj4J4AQyA
-5kV2E3iVX6zyF7cXk0vpI7kBsJuNxIEDRX+KmaHMH8gWPPQP315F1JjiL2zfnFmR
-uImyJgsed9knwpOom/sSKHSdvii/SaCrstFnh+PsEQiaB2r9IcUxYNQoNHmr4Nhi
-mPJn4RhrkglYmxcx
-=qIUG
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmYydaUVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphgxMP/iKyFqgIrs+LrkEV5upFb95OXOf2
+fWumxbLGQCXJFmRpfeqh7oaE7Pf2siE+uR01WeARvLrTeSB2Se9ZWP3gZ3q4nuZm
+PJO2BK33aZN5pQLeej6UCDeExGEAxP1ha4HylGJvhqUtJUyxgBUJcfOQ7REOt1Uf
+Vw5Bxx7UqBjAI4dZPlq4cyUt+xTszNuTnmySveNVI83Gdk8+75D/+oJ4OlicXLSq
+Bjku67EjIzsFldB772TK53Odr0+MDc5o1baEm8k6LLMFMeVf/YvhLDEM6x1wSbEy
+9N/xW9XRBiXJJ7QVEf/XpYq/svKO4ukClHgSCBerzeZUBaPoEjsgTcDGpmUxpe7d
+WK5wgP4ybkbDCimXoSmMuvuijHZkbHd+iD9xcgwiMW9zuBJWhsuZPwKbd8I+3fn+
+lA/1I1tt/Lfvng1Gr27B3PYFY+NFDPv8TKtOQPZgjhUxqxw8/88r0r8t6TeVfaoN
+pNBH81coFnS589F20FHdO8LU1MojDGwoX42LXh9BV+Eh/3gzjLyPbve/AEhowc+t
+0Sag1ogXRC7QsF5Hf+hoXuGmmWMjeH1Fpe9HKYErjtIV4xqMh/PUutViDsEuSF57
+JionLTX9759ZH0oxckO/gK67pxptPG2uGYU7aNMIlHLir6O0nSVmb65vDkyMXE1b
+DDkhI+a1hePDAE4n
+=YcJE
 -----END PGP SIGNATURE-----

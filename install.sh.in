@@ -229,11 +229,11 @@ write_apt_repo() {
 
 	if   [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
 		_old_apt_signing $URL $CODENAME
-	elif [[ "$DISTRIBUTION" == "debian" && "$VERSION" -lt "10" ]]; then
+	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$VERSION" -lt "10" ]]; then
 		_old_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" > "22.03" ]]; then  # comparison to 22.03 is intentional
 		_new_apt_signing $URL $CODENAME
-	elif [[ "$DISTRIBUTION" == "debian" && "$VERSION" -ge "10" ]]; then
+	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$VERSION" -ge "10" ]]; then
 		_new_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "kali" ]]; then
 		_new_apt_signing $URL $CODENAME

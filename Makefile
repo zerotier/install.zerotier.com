@@ -1,5 +1,8 @@
 ALL: docker
 
+build-install:
+	./build-install.sh
+
 docker:
 	docker build -t registry.zerotier.com/zerotier/install.zerotier.com:drone-${DRONE_BUILD_NUMBER} .
 
