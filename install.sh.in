@@ -27,8 +27,8 @@ MAX_SUPPORDED_DEBIAN_VERSION_NAME=bookworm
 
 
 # Ubuntu
-MAX_SUPPORTED_UBUNTU_VERSION=22.04
-MAX_SUPPORTED_UBUNTU_VERSION_NAME=jammy
+MAX_SUPPORTED_UBUNTU_VERSION=24.04
+MAX_SUPPORTED_UBUNTU_VERSION_NAME=noble
 
 # We only do builds for Ubuntu LTS releases.  Map non-LTS releases to the nearest previous LTS release.
 declare -A UBUNTU_CODENAME_MAP
