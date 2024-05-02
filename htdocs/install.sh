@@ -32,8 +32,8 @@ MAX_SUPPORDED_DEBIAN_VERSION_NAME=bookworm
 
 
 # Ubuntu
-MAX_SUPPORTED_UBUNTU_VERSION=22.04
-MAX_SUPPORTED_UBUNTU_VERSION_NAME=jammy
+MAX_SUPPORTED_UBUNTU_VERSION=24.04
+MAX_SUPPORTED_UBUNTU_VERSION_NAME=noble
 
 # We only do builds for Ubuntu LTS releases.  Map non-LTS releases to the nearest previous LTS release.
 declare -A UBUNTU_CODENAME_MAP
@@ -278,7 +278,7 @@ fi
 
 source /etc/os-release
 
-if [ $ID == "debian" ]; then
+if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	echo '*** Detected Debian Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
@@ -420,18 +420,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmYydaUVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphgxMP/iKyFqgIrs+LrkEV5upFb95OXOf2
-fWumxbLGQCXJFmRpfeqh7oaE7Pf2siE+uR01WeARvLrTeSB2Se9ZWP3gZ3q4nuZm
-PJO2BK33aZN5pQLeej6UCDeExGEAxP1ha4HylGJvhqUtJUyxgBUJcfOQ7REOt1Uf
-Vw5Bxx7UqBjAI4dZPlq4cyUt+xTszNuTnmySveNVI83Gdk8+75D/+oJ4OlicXLSq
-Bjku67EjIzsFldB772TK53Odr0+MDc5o1baEm8k6LLMFMeVf/YvhLDEM6x1wSbEy
-9N/xW9XRBiXJJ7QVEf/XpYq/svKO4ukClHgSCBerzeZUBaPoEjsgTcDGpmUxpe7d
-WK5wgP4ybkbDCimXoSmMuvuijHZkbHd+iD9xcgwiMW9zuBJWhsuZPwKbd8I+3fn+
-lA/1I1tt/Lfvng1Gr27B3PYFY+NFDPv8TKtOQPZgjhUxqxw8/88r0r8t6TeVfaoN
-pNBH81coFnS589F20FHdO8LU1MojDGwoX42LXh9BV+Eh/3gzjLyPbve/AEhowc+t
-0Sag1ogXRC7QsF5Hf+hoXuGmmWMjeH1Fpe9HKYErjtIV4xqMh/PUutViDsEuSF57
-JionLTX9759ZH0oxckO/gK67pxptPG2uGYU7aNMIlHLir6O0nSVmb65vDkyMXE1b
-DDkhI+a1hePDAE4n
-=YcJE
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmY0CjwVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphhPUQALQPKbRODELQEyimd3e2Meg+yYyJ
+cdBrWP/RSNNH+2TMiwKqmCq6S6LC5vuExnWDb6J8ASBGNfmSVpGstyI/1m8GmGf7
+R23cHF89fYOcZXyTYZik8EeS5muctYZXKIIrLihM11vbxkF8O/AaGgDouLQQHNMK
+eES9MHDmmsBR8QtySNNeDi1YpkBHiJy5gChrjgG0M8VKLwgzBC3SuvTzkX37MdyW
+W5Ve13RpjpoOlrEfmYODGqOpJLODNbIc7J9FsCt8pU7tcJXDvp+8klazgNPFzc4Z
+KStZsSpgtG5BRHvcABFMOmHgfAQLOfot7s6CWEqmH7gIim5WphOE71pvrQqMY6+n
+cDsiUzL1GkYnu1G7qLlBWAK9nlFBnCMruJpZHGvCmGhnKZZpy0Rdsy+YzuoO3gCW
+iNO4tBrOewpcfDaaSDbBAPrAgCLsTEo2NXfcxxGP1ecjbYw74qBcl+WWz+2Hk7lA
+rdWNehoTdHP7akzay6Alhat3bbYbMuA8yZNmE9Lyo9YQDO9BiLicbOKfdrXrY2zT
+dolw2/oUnpYqDqKTHI2cOKp1Z5sWqi01GgwQh/BgJdSi+JNkku0rqld3zpZiOVGn
+lS5s2CfLPfTtVUfEqIev5riZWJDwmFyVudGKulDCx2uA1xB5ubYnz8MGH13NM+Fu
+27GZ/T8+U5RrH8XC
+=Mx2U
 -----END PGP SIGNATURE-----
