@@ -273,7 +273,7 @@ fi
 
 source /etc/os-release
 
-if [ $ID == "debian" ]; then
+if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	echo '*** Detected Debian Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
