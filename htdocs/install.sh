@@ -306,7 +306,7 @@ elif [ $ID == "kali" ]; then
 	echo '*** Detected Kali Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
-elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ]; then
+elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ] || [ $ID == "amzn" ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
@@ -420,18 +420,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmY0CjwVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphhPUQALQPKbRODELQEyimd3e2Meg+yYyJ
-cdBrWP/RSNNH+2TMiwKqmCq6S6LC5vuExnWDb6J8ASBGNfmSVpGstyI/1m8GmGf7
-R23cHF89fYOcZXyTYZik8EeS5muctYZXKIIrLihM11vbxkF8O/AaGgDouLQQHNMK
-eES9MHDmmsBR8QtySNNeDi1YpkBHiJy5gChrjgG0M8VKLwgzBC3SuvTzkX37MdyW
-W5Ve13RpjpoOlrEfmYODGqOpJLODNbIc7J9FsCt8pU7tcJXDvp+8klazgNPFzc4Z
-KStZsSpgtG5BRHvcABFMOmHgfAQLOfot7s6CWEqmH7gIim5WphOE71pvrQqMY6+n
-cDsiUzL1GkYnu1G7qLlBWAK9nlFBnCMruJpZHGvCmGhnKZZpy0Rdsy+YzuoO3gCW
-iNO4tBrOewpcfDaaSDbBAPrAgCLsTEo2NXfcxxGP1ecjbYw74qBcl+WWz+2Hk7lA
-rdWNehoTdHP7akzay6Alhat3bbYbMuA8yZNmE9Lyo9YQDO9BiLicbOKfdrXrY2zT
-dolw2/oUnpYqDqKTHI2cOKp1Z5sWqi01GgwQh/BgJdSi+JNkku0rqld3zpZiOVGn
-lS5s2CfLPfTtVUfEqIev5riZWJDwmFyVudGKulDCx2uA1xB5ubYnz8MGH13NM+Fu
-27GZ/T8+U5RrH8XC
-=Mx2U
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmY5m+8VHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph5SkP/2jHW9J9RUH+ctBfCQ/TNad/111f
+5xrc0e5mcY0L041aVfdbJYzUruUkTzBsk0GmhOfox+ke/NfbIJqGGH6xfkAgfGW9
+lxNk2GCBpRfYixNaMUPDwhELplQhhI/Y9J4XTaAYg4fAdbaD6wQRZiN9rbs9Dr8B
+LZ2Z0LQyyS0zsQv7tURadfMqEeGjgbqVfMz2oqRToqONdGAgqAv2MFEUmxpPF9Uv
+dCkWsAH3/9KeeT9r0IIabztEXNPNtsXK59i6CLlQEHY0wYUcAvNKsqs3TQkij0BO
+oXzUtKo64XxYrizDBkF8zRdu2WEJWek2UrjMLtVk7JJvadUqTW/Th4UBnKkWTH8L
+zomIjysgeXLYfrWNl/5KCw/7gOkulGak82N72FD2fZL+Fc4ZBMJfNf/EWMM0qK80
+YnQX6A2Ryebe8kZvfxWdTi/RoDdp1ljtVy8wakIwvE1LbFuXhBHdtjK2rigqikzE
+0kuzdA0r4KdRsK92hCB3qhNmtEYWTvCa/56I1wgvVzHTrsRNf8An3wmHmXm3+7ID
+oXkyzDTtb7g7Fgh2cN1WfrUpd5gNmIZDdGwe843+FqVN1MuaKnU6LlEs03LFY5Uw
+54Frtu+4pCaF8hm7H7RLtuItn0bz3HYiI+xpGBijjNdId13+hgnqw5dMxqSDYQWR
+rnPqh35on7QkWikR
+=gRXN
 -----END PGP SIGNATURE-----
