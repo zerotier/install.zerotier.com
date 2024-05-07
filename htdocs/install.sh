@@ -99,7 +99,9 @@ echo
 echo '*** Supported architectures vary by OS / distribution. We try to support'
 echo '*** every system architecture supported by the target.'
 echo
-echo '*** Please report problems to contact@zerotier.com and we will try to fix.'
+echo '*** Please report problems by opening a GitHub issue or Pull Request at: '
+echo '*** https://github.com/zerotier/install.zerotier.com'
+echo '*** Please include the content of `/etc/os-release` for your distribution.'
 echo
 
 SUDO=
@@ -306,7 +308,7 @@ elif [ $ID == "kali" ]; then
 	echo '*** Detected Kali Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
-elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ] || [ $ID == "amzn" ]; then
+elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ] || [ $ID == "amzn" ] || [ $ID == "sangoma" ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
@@ -420,18 +422,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmY5m+8VHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sph5SkP/2jHW9J9RUH+ctBfCQ/TNad/111f
-5xrc0e5mcY0L041aVfdbJYzUruUkTzBsk0GmhOfox+ke/NfbIJqGGH6xfkAgfGW9
-lxNk2GCBpRfYixNaMUPDwhELplQhhI/Y9J4XTaAYg4fAdbaD6wQRZiN9rbs9Dr8B
-LZ2Z0LQyyS0zsQv7tURadfMqEeGjgbqVfMz2oqRToqONdGAgqAv2MFEUmxpPF9Uv
-dCkWsAH3/9KeeT9r0IIabztEXNPNtsXK59i6CLlQEHY0wYUcAvNKsqs3TQkij0BO
-oXzUtKo64XxYrizDBkF8zRdu2WEJWek2UrjMLtVk7JJvadUqTW/Th4UBnKkWTH8L
-zomIjysgeXLYfrWNl/5KCw/7gOkulGak82N72FD2fZL+Fc4ZBMJfNf/EWMM0qK80
-YnQX6A2Ryebe8kZvfxWdTi/RoDdp1ljtVy8wakIwvE1LbFuXhBHdtjK2rigqikzE
-0kuzdA0r4KdRsK92hCB3qhNmtEYWTvCa/56I1wgvVzHTrsRNf8An3wmHmXm3+7ID
-oXkyzDTtb7g7Fgh2cN1WfrUpd5gNmIZDdGwe843+FqVN1MuaKnU6LlEs03LFY5Uw
-54Frtu+4pCaF8hm7H7RLtuItn0bz3HYiI+xpGBijjNdId13+hgnqw5dMxqSDYQWR
-rnPqh35on7QkWikR
-=gRXN
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmY6XEUVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphSOwQALdRsQtL90fOCSfBRwGSbc81dpc8
+TVFS+Me9TPReDmC47JWNlcDy6kj37aBdIgYbxTkGvyURI9XRafbY3OHzbqlYzYGk
+/9h9Ea8WnzaliLDQ22NfmH0Y6jcz6q7cRE9O+aNf5KRrGg2R+k/hDxVzMkjAKL9R
+5BYBiSImhn7vdl3O7hPK6KpMlvN/6qMuHaoQfZnUAf6arZTW1npt5zQWGBd2DhUW
+tmzIVm846kROK230WCLLFsvCRYYEY5sSTXkSNWrYL7Gszq8lJ8xZUnb1cKtY/Kol
+A7RXiNqPfI7gNK83AE1RKa0C3KI2Sh4Q1TvfjDCkxSuY6KkhsusVMJfqOV5TnOAJ
+URArjB8Kcyi8qbqE3/OFCyV2Z2ND48sjcOfEdnLKJAqxlhigzFnTB10Cxug/45qA
+MnGs01nX6514FcDEY81iWkxAiRDB3U+k53FBBgiG1c6zxufNmWxJvXUm7Is+q7su
+R4WtnCVQLRcUcl6TVhoZBRAq8Th57ZGEqP8hJYIG4VkP7Jfp9mRjkQTmWNbXtaAN
+LxChgI/CD2H76GSfEMaJ6xfP1oKM345YmStcUVUFC4LWSnwwA/sBGmhC4oFLf3tv
+jbzUJ0xX6wAKpjKiRwx582FdZgOPG2CUZ5UrKtqhoU1wdSa+QaLQFIDjMbFP9VP3
+twbPdvfETYe8KYiI
+=3DGH
 -----END PGP SIGNATURE-----
