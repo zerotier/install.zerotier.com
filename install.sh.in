@@ -94,7 +94,9 @@ echo
 echo '*** Supported architectures vary by OS / distribution. We try to support'
 echo '*** every system architecture supported by the target.'
 echo
-echo '*** Please report problems to contact@zerotier.com and we will try to fix.'
+echo '*** Please report problems by opening a GitHub issue or Pull Request at: '
+echo '*** https://github.com/zerotier/install.zerotier.com'
+echo '*** Please include the content of `/etc/os-release` for your distribution.'
 echo
 
 SUDO=
