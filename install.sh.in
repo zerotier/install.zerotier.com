@@ -283,7 +283,7 @@ if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
 	fi
-elif [ $ID == "ubuntu" || $ID == "pop" ]; then
+elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 	echo '*** Detected Ubuntu Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_UBUNTU_VERSION" ]]; then

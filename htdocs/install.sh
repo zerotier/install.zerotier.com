@@ -288,7 +288,7 @@ if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
 	fi
-elif [ $ID == "ubuntu" || $ID == "pop" ]; then
+elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 	echo '*** Detected Ubuntu Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_UBUNTU_VERSION" ]]; then
@@ -422,18 +422,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmZDe6YVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphIbcP/2dAgbZLD1NUkf0V8kcn58l8jjeB
-rkkH6zRUPAcUqUP8dpG3W7w7z0dNeDqVbX8GQRLiHGWnODJpo4BbhwGDE+PSwAaJ
-rR/8Rld6bKNa7LMZsCKZTbyQS1X/Y4zMJZtGGkAEDQcN4LLCzLtAbQV2LAgVmoZJ
-Hf239OL6xu6cdDvQQwfMyjZj2R1LTZCEnVFgmMMDqvzs3Ej6MFVVszG2ahlnFJ+j
-BLZ6NqiDbjEcOqcnMH6zC10Zqh7YelplkyJVAJwoVa+0ZaLPrziYT0f054Ar7Q6f
-R4XNpLiCfGJmtqVePFnSDB9YzO4dewbPc1CRPw7I/rk/FBPro4ytpKeUGrcw/U3z
-5hJoVAOTXZmLG/yILszEhkt3akkP/BpaTwh4+4yXhCV3kTauG2C2j0sqff8A2y5M
-0ythYzi4Ct9+YYAhNUg4BymAJBzBBGl1ckw7hHIAgFHSvGf73bh8ewFTssiMRJ6e
-s36OHQBS1R5mVD81vO6dT0wa4KrqzBeEFdjHNCXluv/N5+ZmrQaXCjdGTplT4T0q
-vZvTQMnbahL3IsaHUqk5olNUsQnjt7wURhNGVcrfZS3d1V8UrpFEVAbsPjqge7lY
-0Y3imJdnByy6E6oSJm3lWd7Miq/wR2rtdeais+QOXUjBVZLu7zOXwztrz4ijVkqa
-Gvq/8dOZriQ34qb9
-=1dnt
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmZDlZ8VHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphJy0P/AnKLT9qUEDXYkRqadICUtJk8a7Q
+ExeD/QMap7+2X9e+eTUfRQnxhFlZAvjQosY1cKEHBV+gg58zw9Z4eh8l66vn8x80
+p07mXjCBOBgVyEZi7zj7pr1a4PBd23QQoLejdh6IwqgM4CEnoJ+5Y3u5CFBaoSQO
+Ey32ps/Xok5SjogZHHfHsTYUKgdqndXv+B6NW6fyrWTg8TA4SZhgwf5DTsttlWTU
+AaCwAJh9Yi+vHRAnK6u5nkn+vi4Q2LI5eUZYrL2oiRtHuJ0re+U3hCyQ0KyNTz2J
+AgaLGdUUhIGS1lQbjpme+cLWwMjaKMBVjCl2Gz3+XI+Uqkc/FSbCpMON8npzQlk8
+ztdH9AZttzcCoUqk7zvvXTeo1WiQNSaA4x+aoIKb2dtMlFcQuboRPC+MTunTcErx
+etsfPqAOCYci7Her/DS8pbkPYl6uyyXb1QMkrIgDuwdbxeeBFsk+rmWDYNcCFYxZ
+IYoWnTE8TSy0MBv2YGIhblSqA/VdmAAoIQ+7hSCheMYwtujlLdtq/RDk4nUBo+NH
+rQqlLO1mpLaiiYagMnJhGngtCLNoNRSrDGT6EMxgOn4pBWyqMHoY72+/aokHoRc+
+Wp+f9na899UKSY6m5ow2OmvuwdQIKnG5a5wBVP5L6KWhnw4QDkPOvOBN2ENPvW1X
+SRloN0JhhBJnUvWJ
+=zjqJ
 -----END PGP SIGNATURE-----
