@@ -288,13 +288,13 @@ if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
 	fi
-elif [ $ID == "ubuntu" ]; then
+elif [ $ID == "ubuntu" || $ID == "pop" ]; then
 	echo '*** Detected Ubuntu Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_UBUNTU_VERSION" ]]; then
-		write_apt_repo $ID $MAX_SUPPORTED_UBUNTU_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_UBUNTU_VERSION_NAME
+		write_apt_repo ubuntu $MAX_SUPPORTED_UBUNTU_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_UBUNTU_VERSION_NAME
 	else 
-		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
+		write_apt_repo ubuntu $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
@@ -422,18 +422,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmY6XEUVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphSOwQALdRsQtL90fOCSfBRwGSbc81dpc8
-TVFS+Me9TPReDmC47JWNlcDy6kj37aBdIgYbxTkGvyURI9XRafbY3OHzbqlYzYGk
-/9h9Ea8WnzaliLDQ22NfmH0Y6jcz6q7cRE9O+aNf5KRrGg2R+k/hDxVzMkjAKL9R
-5BYBiSImhn7vdl3O7hPK6KpMlvN/6qMuHaoQfZnUAf6arZTW1npt5zQWGBd2DhUW
-tmzIVm846kROK230WCLLFsvCRYYEY5sSTXkSNWrYL7Gszq8lJ8xZUnb1cKtY/Kol
-A7RXiNqPfI7gNK83AE1RKa0C3KI2Sh4Q1TvfjDCkxSuY6KkhsusVMJfqOV5TnOAJ
-URArjB8Kcyi8qbqE3/OFCyV2Z2ND48sjcOfEdnLKJAqxlhigzFnTB10Cxug/45qA
-MnGs01nX6514FcDEY81iWkxAiRDB3U+k53FBBgiG1c6zxufNmWxJvXUm7Is+q7su
-R4WtnCVQLRcUcl6TVhoZBRAq8Th57ZGEqP8hJYIG4VkP7Jfp9mRjkQTmWNbXtaAN
-LxChgI/CD2H76GSfEMaJ6xfP1oKM345YmStcUVUFC4LWSnwwA/sBGmhC4oFLf3tv
-jbzUJ0xX6wAKpjKiRwx582FdZgOPG2CUZ5UrKtqhoU1wdSa+QaLQFIDjMbFP9VP3
-twbPdvfETYe8KYiI
-=3DGH
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmZDe6YVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphIbcP/2dAgbZLD1NUkf0V8kcn58l8jjeB
+rkkH6zRUPAcUqUP8dpG3W7w7z0dNeDqVbX8GQRLiHGWnODJpo4BbhwGDE+PSwAaJ
+rR/8Rld6bKNa7LMZsCKZTbyQS1X/Y4zMJZtGGkAEDQcN4LLCzLtAbQV2LAgVmoZJ
+Hf239OL6xu6cdDvQQwfMyjZj2R1LTZCEnVFgmMMDqvzs3Ej6MFVVszG2ahlnFJ+j
+BLZ6NqiDbjEcOqcnMH6zC10Zqh7YelplkyJVAJwoVa+0ZaLPrziYT0f054Ar7Q6f
+R4XNpLiCfGJmtqVePFnSDB9YzO4dewbPc1CRPw7I/rk/FBPro4ytpKeUGrcw/U3z
+5hJoVAOTXZmLG/yILszEhkt3akkP/BpaTwh4+4yXhCV3kTauG2C2j0sqff8A2y5M
+0ythYzi4Ct9+YYAhNUg4BymAJBzBBGl1ckw7hHIAgFHSvGf73bh8ewFTssiMRJ6e
+s36OHQBS1R5mVD81vO6dT0wa4KrqzBeEFdjHNCXluv/N5+ZmrQaXCjdGTplT4T0q
+vZvTQMnbahL3IsaHUqk5olNUsQnjt7wURhNGVcrfZS3d1V8UrpFEVAbsPjqge7lY
+0Y3imJdnByy6E6oSJm3lWd7Miq/wR2rtdeais+QOXUjBVZLu7zOXwztrz4ijVkqa
+Gvq/8dOZriQ34qb9
+=1dnt
 -----END PGP SIGNATURE-----
