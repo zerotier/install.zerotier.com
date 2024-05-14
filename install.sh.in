@@ -283,13 +283,13 @@ if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
 	fi
-elif [ $ID == "ubuntu" ]; then
+elif [ $ID == "ubuntu" || $ID == "pop" ]; then
 	echo '*** Detected Ubuntu Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_UBUNTU_VERSION" ]]; then
-		write_apt_repo $ID $MAX_SUPPORTED_UBUNTU_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_UBUNTU_VERSION_NAME
+		write_apt_repo ubuntu $MAX_SUPPORTED_UBUNTU_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_UBUNTU_VERSION_NAME
 	else 
-		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
+		write_apt_repo ubuntu $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
