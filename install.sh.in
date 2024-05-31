@@ -278,7 +278,8 @@ source /etc/os-release
 if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	echo '*** Detected Debian Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
-	if [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
+	# Debian testing/sid does not declare a VERSION_ID in /etc/os-release
+	if [ -z "$VERSION_ID" ] || [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
 		write_apt_repo $ID $MAX_SUPPORTED_DEBIAN_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
