@@ -23,7 +23,7 @@ ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 
 # Debian
 MAX_SUPPORTED_DEBIAN_VERSION=12
-MAX_SUPPORDED_DEBIAN_VERSION_NAME=bookworm
+MAX_SUPPORTED_DEBIAN_VERSION_NAME=bookworm
 
 
 # Ubuntu
@@ -278,8 +278,9 @@ source /etc/os-release
 if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	echo '*** Detected Debian Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
-	if [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
-		write_apt_repo $ID $MAX_SUPPORTED_DEBIAN_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
+	# Debian testing/sid does not declare a VERSION_ID in /etc/os-release
+	if [ -z "$VERSION_ID" ] || [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
+		write_apt_repo $ID $MAX_SUPPORTED_DEBIAN_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_DEBIAN_VERSION_NAME
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
 	fi
@@ -302,7 +303,7 @@ elif [ $ID == "linuxmint" ]; then
 elif [ $ID == "kali" ]; then
 	echo '*** Detected Kali Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
-	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
+	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORTED_DEBIAN_VERSION_NAME
 elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ] || [ $ID == "amzn" ] || [ $ID == "sangoma" ] || [ $ID == "ol" ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then

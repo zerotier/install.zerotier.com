@@ -28,7 +28,7 @@ ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 
 # Debian
 MAX_SUPPORTED_DEBIAN_VERSION=12
-MAX_SUPPORDED_DEBIAN_VERSION_NAME=bookworm
+MAX_SUPPORTED_DEBIAN_VERSION_NAME=bookworm
 
 
 # Ubuntu
@@ -283,8 +283,9 @@ source /etc/os-release
 if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	echo '*** Detected Debian Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
-	if [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
-		write_apt_repo $ID $MAX_SUPPORTED_DEBIAN_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
+	# Debian testing/sid does not declare a VERSION_ID in /etc/os-release
+	if [ -z "$VERSION_ID" ] || [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
+		write_apt_repo $ID $MAX_SUPPORTED_DEBIAN_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_DEBIAN_VERSION_NAME
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
 	fi
@@ -307,7 +308,7 @@ elif [ $ID == "linuxmint" ]; then
 elif [ $ID == "kali" ]; then
 	echo '*** Detected Kali Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
-	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORDED_DEBIAN_VERSION_NAME
+	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORTED_DEBIAN_VERSION_NAME
 elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ] || [ $ID == "amzn" ] || [ $ID == "sangoma" ] || [ $ID == "ol" ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
@@ -422,18 +423,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmZFElIVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphLh8P/RjiIaO5JSZ7k72hChDcMdgrHwjt
-zCciI20CQ3mc6vF3PAkMBR1NFiR/oMVViAC4dKmmpBrSFgCZUf8vPzj3dhRP+UVf
-AbgoJq3GkBX47+0pwe2b8npYYSSwRRGux8m8mXjRtOV8WdxC0tvBvV51WqBQgDy3
-0pwZg2ZpcQccDAQa/S1D6+CJ+ULe9Ti78NJ7GXn7TJfjSJjHpj5eaUwAzVxJTXsL
-OhzTaUlm+QZrqu569bmFa4J1E3ahbk0vr0D56zQ2mTHBuK88v9+Tf1Ajvt8QSZhj
-IhzPbysoJwu7Mnvquj5V+4NXAHZ39CF4koJKFQoTOKmc/gNJzbkZ08AgZHnQ7tT5
-CM1pbcjVlhUYab7Y3P0pxAYjUuyyZvMz54UhRihgnclLNNVReu2xe5P0dP+1x/pM
-/RcobAIOZi5qlLjq3cseOtcr0rszR9thVpGTVJYZx1zvJ1B03VRmWCWQP3/768tq
-yIhE84BoS5DnbXI/8VVnOms9UBRd8BsO1RmGgX4OVlNGSKYh1s2s/P8OtwpoDiV1
-vA/SNZpTfo6OSba3YEq6eIxf1P4wwVa3lSvBzjgDcf54plocxyLltuk0ZNBZSXUX
-D9Y8qS34ZtPagAgkbrcrss6lljRQ34BG6dNYU+KhxtOpWwCd9gCVu/Y/g1kS9fBz
-ILtaCFngTXy6L7Tk
-=hqDQ
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmZZ8xIVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphsdMP/ig91AIAjDPDiQJDlDA0D2S3sDVG
+NzwGgqJY+kzmtb24FZJbpcP7XgZLp016OPlYyATvagWyfZ37fOwo6d8PJ0G7Onyd
+gBnatTvsvqAhKc3OX+4opYEqYc5NtjHfgEuVZfsXQFM5m9AfGoJo/T6JXDYkeaMm
++P8TXdRO4bVotUyOJI6GIzkIIH7Ul7YtwVa4D20MYH0rC32kGORNJwg2OmJrclZP
+Yt5qA4qsBrIepPz3axrst8m7mEzWmpT6OTHJuSmJ1NWirMWjGqF8yozftMoCTddo
+pQKVkl7/2oHNiorntyulkYT4VYzjOuWBPn/iPwCBi0r7ZEDCteeY937kMZEshgCM
+ZZd7w+dfrcdJhSZFigkFOEWf32Jc0NfiyY9GzgWBGVIAZcOCX+tsO+0JUWRp6IHP
+r96AIIATOTkxUHbjS4YEpceSKfyt8Xr+ASHfdbqf8cvXEU7tjbsg/LtPCICg4JN7
+t3kXKf+hXIXJF8LbRgRN3xMjrrH1yPJwUqd11HR+qjBL/HoFeyRJLht8AegTh33r
+TPhkcbUInDkvJauNDd7fAi5QKHVzLeWlFMaOyRS1svoe5CrwynJNzCb33RRnDdSs
+ZBar7tuKZJUCmucKeBlKbzCxfCHZM98nCXfNxgebqgh7WKW6YKvZ8SyzH3jwzlYm
+yFfswoyCCP/zzRsV
+=X16V
 -----END PGP SIGNATURE-----
