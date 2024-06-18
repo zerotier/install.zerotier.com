@@ -346,8 +346,10 @@ elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $I
 
 	if [ -e /usr/bin/dnf ]; then
 		cat /dev/null | $SUDO dnf install -y zerotier-one
-	else
+	elif [ -e /usr/bin/yum ]; then
 		cat /dev/null | $SUDO yum install -y zerotier-one
+  	else
+   		cat /dev/null | rpm-ostree install -y zerotier-one
 	fi
 elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
 	echo '*** Found SuSE, adding zypper YUM repo...'
