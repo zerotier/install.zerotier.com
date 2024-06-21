@@ -357,6 +357,17 @@ elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $I
 		cat /dev/null | $SUDO yum install -y zerotier-one
   	else
    		cat /dev/null | rpm-ostree install -y zerotier-one
+   		# Inform the user about the installation and the next steps
+		echo '*** The zerotier-one package has been successfully installed.'
+		echo '*** You need to restart the system to complete the installation.'
+		echo '*** After restarting, manually start the ZeroTier systemd services with the following commands:'
+		echo '*** sudo systemctl enable zerotier-one'
+		echo '*** sudo systemctl start zerotier-one'
+		echo '*** You can view your ZeroTier address with the following command:'
+		echo '*** cat /var/lib/zerotier-one/identity.public | cut -d : -f 1'
+		
+		# Exit successfully
+		exit 0
 	fi
 elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
 	echo '*** Found SuSE, adding zypper YUM repo...'
