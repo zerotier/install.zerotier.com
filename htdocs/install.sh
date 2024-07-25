@@ -62,11 +62,12 @@ UBUNTU_CODENAME_MAP["noble"]="noble"
 
 # Mint
 
-MAX_SUPPORTED_MINT_VERSION=21.3
-MAX_SUPPORTED_MINT_VERSION_NAME=virginia
+MAX_SUPPORTED_MINT_VERSION=22
+MAX_SUPPORTED_MINT_VERSION_NAME=wilma
 
 # Map Mint codenames to Ubuntu codenames (and sometimes Debian)
 declare -A MINT_CODENAME_MAP
+MINT_CODENAME_MAP["wilma"]="noble"
 MINT_CODENAME_MAP["virginia"]="jammy"
 MINT_CODENAME_MAP["victoria"]="jammy"
 MINT_CODENAME_MAP["vera"]="jammy"
@@ -301,7 +302,7 @@ elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
 
 	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_MINT_VERSION" ]]; then
-		write_apt_repo $ID $MAX_SUPPORED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
+		write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
@@ -360,7 +361,7 @@ elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
 	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
 
 	echo
-	echo '*** Installing zeortier-one package...'
+	echo '*** Installing zerotier-one package...'
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
 elif  [ $ID == "opensuse-tumbleweed" ]; then 
@@ -368,7 +369,7 @@ elif  [ $ID == "opensuse-tumbleweed" ]; then
 	cat /dev/null | $SUDO zypper addrepo -t YUM -G ${ZT_BASE_URL_HTTP}redhat/el/9 zerotier
 
 	echo
-	echo '*** Installing zeortier-one package...'
+	echo '*** Installing zerotier-one package...'
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
 else
