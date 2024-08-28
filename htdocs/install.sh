@@ -361,7 +361,7 @@ elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
 	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
 
 	echo
-	echo '*** Installing zerotier-one package...'
+	echo '*** Installing zeortier-one package...'
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
 elif  [ $ID == "opensuse-tumbleweed" ]; then 
@@ -369,7 +369,7 @@ elif  [ $ID == "opensuse-tumbleweed" ]; then
 	cat /dev/null | $SUDO zypper addrepo -t YUM -G ${ZT_BASE_URL_HTTP}redhat/el/9 zerotier
 
 	echo
-	echo '*** Installing zerotier-one package...'
+	echo '*** Installing zeortier-one package...'
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
 else
@@ -424,18 +424,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmZZ8xIVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphsdMP/ig91AIAjDPDiQJDlDA0D2S3sDVG
-NzwGgqJY+kzmtb24FZJbpcP7XgZLp016OPlYyATvagWyfZ37fOwo6d8PJ0G7Onyd
-gBnatTvsvqAhKc3OX+4opYEqYc5NtjHfgEuVZfsXQFM5m9AfGoJo/T6JXDYkeaMm
-+P8TXdRO4bVotUyOJI6GIzkIIH7Ul7YtwVa4D20MYH0rC32kGORNJwg2OmJrclZP
-Yt5qA4qsBrIepPz3axrst8m7mEzWmpT6OTHJuSmJ1NWirMWjGqF8yozftMoCTddo
-pQKVkl7/2oHNiorntyulkYT4VYzjOuWBPn/iPwCBi0r7ZEDCteeY937kMZEshgCM
-ZZd7w+dfrcdJhSZFigkFOEWf32Jc0NfiyY9GzgWBGVIAZcOCX+tsO+0JUWRp6IHP
-r96AIIATOTkxUHbjS4YEpceSKfyt8Xr+ASHfdbqf8cvXEU7tjbsg/LtPCICg4JN7
-t3kXKf+hXIXJF8LbRgRN3xMjrrH1yPJwUqd11HR+qjBL/HoFeyRJLht8AegTh33r
-TPhkcbUInDkvJauNDd7fAi5QKHVzLeWlFMaOyRS1svoe5CrwynJNzCb33RRnDdSs
-ZBar7tuKZJUCmucKeBlKbzCxfCHZM98nCXfNxgebqgh7WKW6YKvZ8SyzH3jwzlYm
-yFfswoyCCP/zzRsV
-=X16V
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmbPWScVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphMd4QAIS5o8RnphoOHJcDaAl/VqZFrM6U
+P8x9ggSPhf3/V0kF6tzLxbcFqvpk9nFsqJHpcjScuaiiHyg/CxT7a2Cl23yd4DrK
+tE7ThkLbB+28HbVvuEehHcKKrleEwohhyaOnh19Havuaa/knKLiZNbfd1EtqrwXN
+kW4p3OU7fQykpURyNfXyHwK4SXLwx5zSTgf8CbLhF5m29Q3ss7IZ1vojQ52Ua71B
+pBHyXYAOBsiU/UsXYemsQpIz2zMFBAvYEm6Yu9ut7edTSCJ2xdpOtJpDAZrBiuBc
+hoPor6/pKo1RXN4NA9fsYvMsmgP6q5t45UUIHiJrj6owLqdgLU40csry4EBseKjJ
+u5N7OCIRoCR3lC9CzPo4m4EMjjsj9mfLTAM0saaB34BWB1LKm/RTC1IQ1q4n8lAH
+k6zv7hDb+HeHUY65onLpOM/8+ubxAn1VK/GqsHMqiuQXU8PpENQFVZxyJKB7HNpe
+44sAjs7Y6KXUxfLKzqoSvQH0si7KL032SE1PKptU38xsOM26Ko1AzWvRlupHgPs4
+ahPv5UUz90eqTUeE19pufHRLYpwuYLaAlI6j9GldQDUrsy1aynPCAvEvUx6ilenC
+iZiYfmtT+dmk8x+jGPG0GhN0S/tmDh0ylo6t2jTj9Ycc/C6/JCdgfdK7nILYBSCH
+ET/8yYBmNy2ISaTi
+=BSHR
 -----END PGP SIGNATURE-----
