@@ -19,6 +19,8 @@ jobs:
       uses: google-github-actions/auth@v2
       with:
         credentials_json: '${{ secrets.DOCKER_REGISTRY_WRITER }}'
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
     - name: Build and push Docker image
       run: |
         gcloud auth configure-docker us-central1-docker.pkg.dev
