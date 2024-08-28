@@ -1,0 +1,28 @@
+name: Deploy to install.zerotier.com
+on:
+  release:
+    types: [published]
+
+concurrency:
+  group: install-deploy
+
+jobs:
+  build:
+    name: Depoy to install.zerotier.com
+
+    runs-on: gha-runner-x64
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Authenticate with Google Cloud
+      id: auth
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: '${{ secrets.DOCKER_REGISTRY_WRITER }}'
+    - name: Build and push Docker image
+      run: |
+        gcloud auth configure-docker us-central1-docker.pkg.dev
+        docker build -t ${{ secrets.DOCKER_REGISTRY }}/install-zerotier-com:${{ github.ref_name }} . --push
+    - name: Create Deploy PR
+      run: |
+        curl -s -L -X POST -H 'Accept: application/vnd.github+json' -H 'Authorization: Bearer ${{ secrets.DEPLOY_TOKEN }}' -H 'X-GitHub-Api-Version: 2022-11-28' https://api.github.com/repos/zerotier/${{ secrets.INFRA_REPO_NAME }}/dispatches -d '{"event_type": "deploy_install_zerotier_com", "client_payload": {"docker_tag": "${{ github.ref_name }}", "actor": "${{ github.actor }}"}}'
