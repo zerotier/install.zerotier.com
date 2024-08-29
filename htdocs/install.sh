@@ -3,6 +3,7 @@
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
 
+# shellcheck disable=SC2148
 ENDOFSIGSTART=
 
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
@@ -221,6 +222,7 @@ _new_apt_signing() {
 	echo "deb [signed-by=/usr/share/keyrings/zerotier-debian-package-key.gpg] ${URL}debian/$CODENAME $CODENAME main" >/tmp/zt-sources-list
 }
 
+	# shellcheck disable=SC2072
 write_apt_repo() {
 	DISTRIBUTION=$1
 	VERSION=$2
@@ -235,7 +237,7 @@ write_apt_repo() {
 	$SUDO apt-get install -y gpg
 	$SUDO chmod a+r /tmp/zt-gpg-key
 
-	if   [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
+	if [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
 		_old_apt_signing $URL $CODENAME
 	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$VERSION" -lt "10" ]]; then
 		_old_apt_signing $URL $CODENAME
@@ -247,9 +249,9 @@ write_apt_repo() {
 		_new_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "linuxmint" && "$VERSION" == "6" ]]; then
 		_new_apt_signing $URL $CODENAME
-	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "21" || "$VERSION" > "21" ) ]]; then
+	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "21" || "$VERSION" -gt "21" ) ]]; then
 		_new_apt_signing $URL $CODENAME
-	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "20" || ("$VERSION" > "20" && "$VERSION" < "21" ) ) ]]; then
+	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "20" || ("$VERSION" -gt "20" && "$VERSION" -lt "21" ) ) ]]; then
 		_old_apt_signing $URL $CODENAME
 	else
 		echo "Unsupported distribution $DISTRIBUTION $VERSION"
@@ -301,7 +303,7 @@ elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
 
-	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_MINT_VERSION" ]]; then
+	if [[ "$VERSION_ID" -gt "$MAX_SUPPORTED_MINT_VERSION" ]]; then
 		write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
@@ -392,14 +394,22 @@ echo
 echo '*** Enabling and starting ZeroTier service...'
 
 if [ -e /usr/bin/systemctl -o -e /usr/sbin/systemctl -o -e /sbin/systemctl -o -e /bin/systemctl ]; then
-	$SUDO systemctl enable zerotier-one
-	$SUDO systemctl start zerotier-one
-	if [ "$?" != "0" ]; then
+	if [[ -d /run/systemd/system ]]; then
+		$SUDO systemctl enable zerotier-one
+		$SUDO systemctl start zerotier-one
+		if [ "$?" != "0" ]; then
+			echo
+			echo '*** Package installed but cannot start service! You may be in a Docker'
+			echo '*** container or using a non-standard init service.'
+			echo
+			exit 1
+		fi
+	else
 		echo
-		echo '*** Package installed but cannot start service! You may be in a Docker'
-		echo '*** container or using a non-standard init service.'
+		echo '*** Package installed but cannot start service! You may be in a Docker container'
+		echo '*** or using a non-standard init service.'
 		echo
-		exit 1
+		exit 0
 	fi
 else
 	if [ -e /sbin/update-rc.d -o -e /usr/sbin/update-rc.d -o -e /bin/update-rc.d -o -e /usr/bin/update-rc.d ]; then
@@ -424,18 +434,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmbPc0oVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5Sphl7YP/2szwVvzyFS+tQeVNWK8pr3Xjn/B
-ZGUeS/LtZ1v3gpciDhVqocwU5wiXYZD/Ou47lgaH2rhnprMVfYRpY/N/kuP3RybE
-n6KzEuHimk2aSNlUAilcdH2nhFsrgJKvvXb8KzAuMtjUfdgKBkdOMlYHpsoi7PVn
-UCUySaDdaIZVZDhknvN2QksRJ1ABOyGDiLMmFTJ6pM/b7WhyrItIGcmIh4qKriie
-WugGbCSxp9fyrUrKtf426hQQXyNelOx1z6xeJ7o/CGDfvuDT1Y+NXcdF78LWxTQF
-YU/51Dq5JZcSZ0LRKKjGwXDKbmy10B6iLUqWJlsVb5zndDYwXOyaNHmoVPBKnkip
-3O0eatUOasGPrFpDcE1W26AudoU1OCHL4q+lORgkhH0T06HHqpLcwaabAO7OvGU/
-E3VGF9eyKKZYpOIlZ8TcZmMMmqkAZj7pX+vd2nUxw0YKvJYgm7qLhr+SCqvYwuDk
-145DhgfjV0nrc5TVyHxGq++n5wTW/ceUa4DmRZlI6fHyvvo7SBD3SfE9PsbOJppY
-bdIiVk+vmz35OCwAQXUif+sTS1NMwt4Idmtt3fnRYzbDQDjoxJIUivTTWU+nqGLJ
-6qvTy7ggnZ9sT/FJNVtM3PpB2S3qUX7SeKf0qy9s+zlIFgQINzPJXyIaphwk2HLa
-NQ1sqHFFmu6KSfFd
-=WWIe
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmbQtMwVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphoycQAJm1CLTAsEFAXtDZo6r9epypLswd
+AsQjok+ZL0oKmaN24vfhuaUs2+K81YqB1aOiQwiKTbos/dneTtwhxcPyorAgETl2
+pvnbx45C0HkRBvR7MuCIjTE7VCvHsQKoxJmYjaEAbAoMY802fhnO9UI8GO3fBwBD
+XiX9rJtKwqHWhQVX3A0XK7idsGZn7p96d2EkuiUNeGMapWLhwfxIuXKLLJcQtuZi
+AwTQpzjNWDbPy7iRMtT4O2i2hDuDHzFs6J36VxzCZrUK31Mkj6xqI1d4Kvtc8IJL
+IqvbyiAlRRhfqV6tR2QXv/hX4qL3XRCD7Z3mIwUSHJlYs+wTFbIqLIzz7tiKnKmJ
+MmjV52JfrdkMkmocJItqQd/ZsYHKsWxAt3fGtbvV5We4lwgf6MgQ1JczuDo6UHMx
+S7nslV9/vIm1O/t1tvkC+noQICaHLsRO69IXE7rfe+ZBjpiw/bfBf6KkTdXZ9dQK
+3iw/agkwiBNUYBLWGdm5a8lt50ME5Kn+alPmPHqcXUhw2f3myuUEImIXvxh37Q4b
+L4Jqcb9xZiJstjJSKscWcunW+9Myouug/VohuIq+YWPfLRqqVA58m3kjTFRLPTgK
+vwx61786MllOWzzy/fDSga8JCrkaWlBOxmRJBJRGj9ElIFyf7LL091KXpdRIC0LX
+YOYGXI7kgJWFYLM5
+=lGmV
 -----END PGP SIGNATURE-----
