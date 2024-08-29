@@ -31,7 +31,12 @@ jobs:
           - "debian:12"
           - "debian:11"
           - "debian:10"
+          - "linuxmintd/mint22-amd64:latest"
           - "kalilinux/kali-rolling:latest"
+          - "redhat/ubi9:latest"
+          - "rockylinux/rockylinux:latest"
+          - "fedora:latest"
+          - "fedora:rawhide"
 
     container:
       image: ${{ matrix.container }}

@@ -389,14 +389,22 @@ echo
 echo '*** Enabling and starting ZeroTier service...'
 
 if [ -e /usr/bin/systemctl -o -e /usr/sbin/systemctl -o -e /sbin/systemctl -o -e /bin/systemctl ]; then
-	$SUDO systemctl enable zerotier-one
-	$SUDO systemctl start zerotier-one
-	if [ "$?" != "0" ]; then
+	if [[ -d /run/systemd/system ]]; then
+		$SUDO systemctl enable zerotier-one
+		$SUDO systemctl start zerotier-one
+		if [ "$?" != "0" ]; then
+			echo
+			echo '*** Package installed but cannot start service! You may be in a Docker'
+			echo '*** container or using a non-standard init service.'
+			echo
+			exit 1
+		fi
+	else
 		echo
-		echo '*** Package installed but cannot start service! You may be in a Docker'
-		echo '*** container or using a non-standard init service.'
+		echo '*** Package installed but cannot start service! You may be in a Docker container'
+		echo '*** or using a non-standard init service.'
 		echo
-		exit 1
+		exit 0
 	fi
 else
 	if [ -e /sbin/update-rc.d -o -e /usr/sbin/update-rc.d -o -e /bin/update-rc.d -o -e /usr/bin/update-rc.d ]; then
