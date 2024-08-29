@@ -1,3 +1,4 @@
+# shellcheck disable=SC2148
 ENDOFSIGSTART=
 
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
@@ -216,6 +217,7 @@ _new_apt_signing() {
 	echo "deb [signed-by=/usr/share/keyrings/zerotier-debian-package-key.gpg] ${URL}debian/$CODENAME $CODENAME main" >/tmp/zt-sources-list
 }
 
+	# shellcheck disable=SC2072
 write_apt_repo() {
 	DISTRIBUTION=$1
 	VERSION=$2
@@ -230,7 +232,7 @@ write_apt_repo() {
 	$SUDO apt-get install -y gpg
 	$SUDO chmod a+r /tmp/zt-gpg-key
 
-	if   [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
+	if [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
 		_old_apt_signing $URL $CODENAME
 	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$VERSION" -lt "10" ]]; then
 		_old_apt_signing $URL $CODENAME
@@ -242,9 +244,9 @@ write_apt_repo() {
 		_new_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "linuxmint" && "$VERSION" == "6" ]]; then
 		_new_apt_signing $URL $CODENAME
-	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "21" || "$VERSION" > "21" ) ]]; then
+	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "21" || "$VERSION" -gt "21" ) ]]; then
 		_new_apt_signing $URL $CODENAME
-	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "20" || ("$VERSION" > "20" && "$VERSION" < "21" ) ) ]]; then
+	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "20" || ("$VERSION" -gt "20" && "$VERSION" -lt "21" ) ) ]]; then
 		_old_apt_signing $URL $CODENAME
 	else
 		echo "Unsupported distribution $DISTRIBUTION $VERSION"
@@ -296,7 +298,7 @@ elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
 
-	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_MINT_VERSION" ]]; then
+	if [[ "$VERSION_ID" -gt "$MAX_SUPPORTED_MINT_VERSION" ]]; then
 		write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
 	else 
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
