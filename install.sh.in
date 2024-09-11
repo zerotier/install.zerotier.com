@@ -311,12 +311,7 @@ elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $I
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
-		fedora_release="`cat /etc/os-release | grep -F VERSION_ID= | cut -d = -f 2`"
-		if [ -n "$fedora_release" ]; then
-			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/$fedora_release"
-		else
-			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
-		fi
+ 		baseurl="${ZT_BASE_URL_HTTP}redhat/fc/\$releasever"
 	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i rocky`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i alma`" ]; then
 		echo "*** Found RHEL/CentOS/Rocky, creating /etc/yum.repos.d/zerotier.repo"
 		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
