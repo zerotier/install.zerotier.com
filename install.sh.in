@@ -89,10 +89,11 @@ echo '***   MacOS (10.13+) (just installs ZeroTier One.pkg)'
 echo '***   Debian Linux (7+)'
 echo '***   RedHat/CentOS Linux (6+)'
 echo '***   Fedora Linux (16+)'
+echo '***   Alibaba Cloud Linux (release 2+)'
 echo '***   SuSE Linux (12+)'
 echo '***   Mint Linux (20+)'
 echo '***   Kali Linux (2024.1+)'
-echo
+echo    
 echo '*** Supported architectures vary by OS / distribution. We try to support'
 echo '*** every system architecture supported by the target.'
 echo
@@ -307,7 +308,7 @@ elif [ $ID == "kali" ]; then
 	echo '*** Detected Kali Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $MAX_SUPPORTED_DEBIAN_VERSION_NAME
-elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ] || [ $ID == "amzn" ] || [ $ID == "sangoma" ] || [ $ID == "ol" ]; then
+elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $ID == "alinux" ] || [ $ID == "rhel" ] || [ $ID == "fedora" ] || [ $ID == "amzn" ] || [ $ID == "sangoma" ] || [ $ID == "ol" ]; then
 	baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 	if [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i fedora`" ]; then
 		echo "*** Found Fedora, creating /etc/yum.repos.d/zerotier.repo"
@@ -326,6 +327,11 @@ elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $I
 			baseurl="${ZT_BASE_URL_HTTP}redhat/el/7"
 		else
 			baseurl="${ZT_BASE_URL_HTTP}redhat/amzn1/2016.03"
+		fi
+	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i Alibaba`" ]; then
+		echo "*** Found Alibaba Cloud (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
+		if [ -n "`cat /etc/system-release 2>/dev/null | grep -F 'Alibaba Cloud Linux release 3'`" ]; then
+			baseurl="${ZT_BASE_URL_HTTP}redhat/el/8"
 		fi
 	else
 		echo "*** Found unknown yum-based repo, using el/7, creating /etc/yum.repos.d/zerotier.repo"
