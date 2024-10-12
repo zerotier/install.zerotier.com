@@ -89,10 +89,11 @@ echo '***   MacOS (10.13+) (just installs ZeroTier One.pkg)'
 echo '***   Debian Linux (7+)'
 echo '***   RedHat/CentOS Linux (6+)'
 echo '***   Fedora Linux (16+)'
+echo '***   Alibaba Cloud Linux (release 2+)'
 echo '***   SuSE Linux (12+)'
 echo '***   Mint Linux (20+)'
 echo '***   Kali Linux (2024.1+)'
-echo
+echo    
 echo '*** Supported architectures vary by OS / distribution. We try to support'
 echo '*** every system architecture supported by the target.'
 echo
