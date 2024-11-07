@@ -297,6 +297,9 @@ elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 	fi
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
+ 	
+  	# fix for non integer version number
+  	VERSION_ID=$(echo $VERSION_ID | cut -d . -f 1)
 
 	if [[ "$VERSION_ID" -gt "$MAX_SUPPORTED_MINT_VERSION" ]]; then
 		write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
