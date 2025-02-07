@@ -5,6 +5,7 @@ on:
       - install.sh.in
       - .github/workflows/ci.yml
     # branches: [ main ]
+  workflow_dispatch:
   schedule:
     - cron: "0 0 * * 0"   # weekly
 jobs:
