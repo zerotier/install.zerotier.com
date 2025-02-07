@@ -4,8 +4,11 @@ on:
     paths:
       - install.sh.in
       - .github/workflows/ci.yml
-    # branches: [ main ]
   workflow_dispatch:
+  pull_request:
+    paths:
+      - install.sh.in
+      - .github/workflows/ci.yml
   schedule:
     - cron: "0 0 * * 0"   # weekly
 jobs:
