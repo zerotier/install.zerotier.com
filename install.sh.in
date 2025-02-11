@@ -335,7 +335,14 @@ elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $I
 		echo "*** Found unknown yum-based repo, using el/7, creating /etc/yum.repos.d/zerotier.repo"
 	fi
 
-	$SUDO rpm --import /tmp/zt-gpg-key
+ 	# Check if ostree is installed
+	if rpm -q ostree &>/dev/null; then
+	    echo "Immutable system detected. Copying GPG key to /etc/pki/RPM-GPG-KEY-zerotier"
+	    $SUDO cp /tmp/zt-gpg-key /etc/pki/rpm-gpg/RPM-GPG-KEY-zerotier
+	else
+	    # If ostree is not installed, import GPG key directly with rpm
+	    $SUDO rpm --import /tmp/zt-gpg-key
+	fi
 
 	$SUDO rm -f /tmp/zerotier.repo
 	echo '[zerotier]' >/tmp/zerotier.repo
@@ -353,8 +360,21 @@ elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $I
 
 	if [ -e /usr/bin/dnf ]; then
 		cat /dev/null | $SUDO dnf install -y zerotier-one
-	else
+	elif [ -e /usr/bin/yum ]; then
 		cat /dev/null | $SUDO yum install -y zerotier-one
+  	else
+   		cat /dev/null | rpm-ostree install -y zerotier-one
+   		# Inform the user about the installation and the next steps
+		echo '*** The zerotier-one package has been successfully installed.'
+		echo '*** You need to restart the system to complete the installation.'
+		echo '*** After restarting, manually start the ZeroTier systemd services with the following commands:'
+		echo '*** sudo systemctl enable zerotier-one'
+		echo '*** sudo systemctl start zerotier-one'
+		echo '*** You can view your ZeroTier address with the following command:'
+		echo '*** cat /var/lib/zerotier-one/identity.public | cut -d : -f 1'
+		
+		# Exit successfully
+		exit 0
 	fi
 elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
 	echo '*** Found SuSE, adding zypper YUM repo...'
