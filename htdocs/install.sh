@@ -64,10 +64,11 @@ UBUNTU_CODENAME_MAP["noble"]="noble"
 # Mint
 
 MAX_SUPPORTED_MINT_VERSION=22
-MAX_SUPPORTED_MINT_VERSION_NAME=wilma
+MAX_SUPPORTED_MINT_VERSION_NAME=xia
 
 # Map Mint codenames to Ubuntu codenames (and sometimes Debian)
 declare -A MINT_CODENAME_MAP
+MINT_CODENAME_MAP["xia"]="noble"
 MINT_CODENAME_MAP["wilma"]="noble"
 MINT_CODENAME_MAP["virginia"]="jammy"
 MINT_CODENAME_MAP["victoria"]="jammy"
@@ -302,6 +303,9 @@ elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 	fi
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
+ 	
+  	# fix for non integer version number
+  	VERSION_ID=$(echo $VERSION_ID | cut -d . -f 1)
 
 	if [[ "$VERSION_ID" -gt "$MAX_SUPPORTED_MINT_VERSION" ]]; then
 		write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
@@ -434,18 +438,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmbQtMwVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphoycQAJm1CLTAsEFAXtDZo6r9epypLswd
-AsQjok+ZL0oKmaN24vfhuaUs2+K81YqB1aOiQwiKTbos/dneTtwhxcPyorAgETl2
-pvnbx45C0HkRBvR7MuCIjTE7VCvHsQKoxJmYjaEAbAoMY802fhnO9UI8GO3fBwBD
-XiX9rJtKwqHWhQVX3A0XK7idsGZn7p96d2EkuiUNeGMapWLhwfxIuXKLLJcQtuZi
-AwTQpzjNWDbPy7iRMtT4O2i2hDuDHzFs6J36VxzCZrUK31Mkj6xqI1d4Kvtc8IJL
-IqvbyiAlRRhfqV6tR2QXv/hX4qL3XRCD7Z3mIwUSHJlYs+wTFbIqLIzz7tiKnKmJ
-MmjV52JfrdkMkmocJItqQd/ZsYHKsWxAt3fGtbvV5We4lwgf6MgQ1JczuDo6UHMx
-S7nslV9/vIm1O/t1tvkC+noQICaHLsRO69IXE7rfe+ZBjpiw/bfBf6KkTdXZ9dQK
-3iw/agkwiBNUYBLWGdm5a8lt50ME5Kn+alPmPHqcXUhw2f3myuUEImIXvxh37Q4b
-L4Jqcb9xZiJstjJSKscWcunW+9Myouug/VohuIq+YWPfLRqqVA58m3kjTFRLPTgK
-vwx61786MllOWzzy/fDSga8JCrkaWlBOxmRJBJRGj9ElIFyf7LL091KXpdRIC0LX
-YOYGXI7kgJWFYLM5
-=lGmV
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAme2UsoVHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5SphEVEQAKaIu1wFPR3PbRGRiNP8ylfAD4ns
+X3dyTzZjU6NcwU/iUQJzuePOGC41j7lF03drfOlrQ5PN5XsYkOSWZx2I04qHVxug
++ghb9upvQ1Eemak3Une46Py+VB9Ke8lzKt2DYGGFWJHYl3Fak3WdTgH6y9N1oYv5
+qCsPzth2wbF3WGe764/rfo/bn8UEQI/Mi3LUGOqJuD3C8u7V6XQ67B4zvNKBdIXI
+3lJ6PFOmRr0XT4v8VsXbl3nst7Ml6/sJCNmIHiHzJAAxIevin3JThosl8llXgr6L
+uAaW2n9RUvhSNX6+pnnoa7uhUVmitzZDKZWkY7lINP7mxn1b8QIDOVfgEXDU31Hh
+r2LviuwScAmSi7RWHAO2S1NvVD1yVoONbpz24Ke+kl1TKVNYxE9DkLdg2I3fy4pK
+HvOa5sX+safJhDoyTcQxLZO1qLO34V6R5Co1BQ6j58kT+iDElt7IfQwvBUdjc9an
+HQAvbRY7IK8j1gLUVS9B7Z/kWczM2u1aBAoZhcuXqfk7Av1JJfU9qz/RrcLowueC
+lHkhErxVY6iVA4akbIxope4X6VnROuaJto9ExigSV3dTyvhYIWPA0yuh1muOlef1
+reEZ7bSqYmrxB4sRUivdSEGlFdmNwm41PAuWdlIFQDQ5XG4wDziUG3qDrQ1tkXJc
+NAfdFEsfkRPMmMtk
+=pery
 -----END PGP SIGNATURE-----
