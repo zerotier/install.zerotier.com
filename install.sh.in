@@ -26,7 +26,6 @@ ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 MAX_SUPPORTED_DEBIAN_VERSION=13
 MAX_SUPPORTED_DEBIAN_VERSION_NAME=trixie
 
-
 # Ubuntu
 MAX_SUPPORTED_UBUNTU_VERSION=24.04
 MAX_SUPPORTED_UBUNTU_VERSION_NAME=noble
@@ -93,6 +92,7 @@ echo '***   Fedora Linux (16+)'
 echo '***   SuSE Linux (12+)'
 echo '***   Mint Linux (20+)'
 echo '***   Kali Linux (2024.1+)'
+echo '***   ParrotOS (6+)'
 echo
 echo '*** Supported architectures vary by OS / distribution. We try to support'
 echo '*** every system architecture supported by the target.'
@@ -224,7 +224,9 @@ write_apt_repo() {
 	VERSION=$2
 	URL=$3
 	CODENAME=$4
-
+	LINUXDESCRIPTION=$(lsb_release -d | awk '{print $2}')
+    MAJOR_VERSION="${VERSION_ID%%.*}"
+    
 	if [ ! -d /usr/share/keyrings ]; then
 		$SUDO mkdir -p /usr/share/keyrings
 	fi
@@ -235,14 +237,16 @@ write_apt_repo() {
 
 	if [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" < "22.04" ]]; then
 		_old_apt_signing $URL $CODENAME
-	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$VERSION" -lt "10" ]]; then
+	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$MAJOR_VERSION" -lt "10" && "$CODENAME" != "lory" ]]; then
 		_old_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "ubuntu" && "$VERSION" > "22.03" ]]; then  # comparison to 22.03 is intentional
 		_new_apt_signing $URL $CODENAME
-	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$VERSION" -ge "10" ]]; then
+	elif [[ ("$DISTRIBUTION" == "debian" || "$DISTRIBUTION" == "raspbian") && "$MAJOR_VERSION" -ge "10" ]]; then
 		_new_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "kali" ]]; then
-		_new_apt_signing $URL $CODENAME
+		_new_apt_signing $URL $CODENAME	
+	elif [[ "$DISTRIBUTION" == "debian" && "$CODENAME" == "lory" && "$LINUXDESCRIPTION" == "Parrot" ]]; then	
+	_new_apt_signing "$URL" "bookworm"
 	elif [[ "$DISTRIBUTION" == "linuxmint" && "$VERSION" == "6" ]]; then
 		_new_apt_signing $URL $CODENAME
 	elif [[ "$DISTRIBUTION" == "linuxmint" && ( "$VERSION" == "21" || "$VERSION" -gt "21" ) ]]; then
@@ -279,7 +283,7 @@ fi
 
 source /etc/os-release
 
-if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
+if [[ "$ID" == "debian" && "$VERSION_CODENAME" != "lory" ]] || [[ "$ID" == "raspbian" ]]; then
 	echo '*** Detected Debian Linux, creating /etc/apt/sources.list.d/zerotier.list'
 
 	# Debian testing/sid does not declare a VERSION_ID in /etc/os-release
@@ -296,6 +300,15 @@ elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 	else 
 		write_apt_repo ubuntu $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
+elif [[ $ID == "debian" && $VERSION_CODENAME == "lory" ]]; then
+	echo '*** Detected ParrotOS Linux, creating /etc/apt/sources.list.d/zerotier.list'
+
+	# Remove redundant APT source from /etc/apt/sources.list to prevent duplicate warnings
+	sed -i '/^deb https:\/\/deb.parrot.sh\/parrot lory main contrib non-free$/d' /etc/apt/sources.list
+
+	# ParrotOS testing/sid does declare decimal instead at VERSION_ID in /etc/os-release later to use PRETTYNAME instead
+	write_apt_repo  $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
+
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
  	
