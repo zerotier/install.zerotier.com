@@ -54,7 +54,8 @@ UBUNTU_CODENAME_MAP["kinetic"]="jammy"
 UBUNTU_CODENAME_MAP["lunar"]="jammy"
 UBUNTU_CODENAME_MAP["mantic"]="jammy"
 UBUNTU_CODENAME_MAP["noble"]="noble"
-
+UBUNTU_CODENAME_MAP["oracular"]="noble"
+UBUNTU_CODENAME_MAP["plucky"]="noble"
 
 # Mint
 
