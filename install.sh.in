@@ -1,6 +1,8 @@
 # shellcheck disable=SC2148
 ENDOFSIGSTART=
 
+set -Eeuo pipefail
+
 export PATH=/bin:/usr/bin:/usr/local/bin:/sbin:/usr/sbin:/usr/local/sbin
 
 #
@@ -17,9 +19,9 @@ ZT_BASE_URL_HTTPS='https://download.zerotier.com/'
 ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 
 ##########################################################
-# 
+#
 #  Maximum Supported Distribution Versions and Codenames
-# 
+#
 ##########################################################
 
 # Debian
@@ -77,7 +79,7 @@ MINT_CODENAME_MAP["faye"]="bookworm"
 
 ##########################################################
 #
-# End 
+# End
 #
 ##########################################################
 
@@ -108,7 +110,7 @@ if [ "$UID" != "0" ]; then
 		SUDO=sudo
 	else
 		echo '*** This quick installer script requires root privileges.'
-		exit 0
+		exit 1
 	fi
 fi
 
@@ -204,7 +206,7 @@ _old_apt_signing() {
 	URL=$1
 	CODENAME=$2
 	if [ -d /etc/apt/trusted.gpg.d ]; then
-		$SUDO gpg --dearmor < /tmp/zt-gpg-key > /etc/apt/trusted.gpg.d/zerotier-debian-package-key.gpg
+		gpg --dearmor < /tmp/zt-gpg-key | $SUDO tee /etc/apt/trusted.gpg.d/zerotier-debian-package-key.gpg > /dev/null
 	else
 		$SUDO apt-key add /tmp/zt-gpg-key
 	fi
@@ -214,7 +216,7 @@ _old_apt_signing() {
 _new_apt_signing() {
 	URL=$1
 	CODENAME=$2
-	$SUDO gpg --dearmor < /tmp/zt-gpg-key > /usr/share/keyrings/zerotier-debian-package-key.gpg
+	gpg --dearmor < /tmp/zt-gpg-key | $SUDO tee /usr/share/keyrings/zerotier-debian-package-key.gpg > /dev/null
 	echo "deb [signed-by=/usr/share/keyrings/zerotier-debian-package-key.gpg] ${URL}debian/$CODENAME $CODENAME main" >/tmp/zt-sources-list
 }
 
@@ -285,7 +287,7 @@ if [ $ID == "debian" ] || [ $ID == "raspbian" ]; then
 	# Debian testing/sid does not declare a VERSION_ID in /etc/os-release
 	if [ -z "$VERSION_ID" ] || [ $VERSION_ID -gt $MAX_SUPPORTED_DEBIAN_VERSION ]; then
 		write_apt_repo $ID $MAX_SUPPORTED_DEBIAN_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_DEBIAN_VERSION_NAME
-	else 
+	else
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP $VERSION_CODENAME
 	fi
 elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
@@ -293,18 +295,18 @@ elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 
 	if [[ "$VERSION_ID" > "$MAX_SUPPORTED_UBUNTU_VERSION" ]]; then
 		write_apt_repo ubuntu $MAX_SUPPORTED_UBUNTU_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_UBUNTU_VERSION_NAME
-	else 
+	else
 		write_apt_repo ubuntu $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
- 	
+
   	# fix for non integer version number
   	VERSION_ID=$(echo $VERSION_ID | cut -d . -f 1)
 
 	if [[ "$VERSION_ID" -gt "$MAX_SUPPORTED_MINT_VERSION" ]]; then
 		write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
-	else 
+	else
 		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
 elif [ $ID == "kali" ]; then
@@ -365,8 +367,8 @@ elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
 	echo '*** Installing zeortier-one package...'
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
-elif  [ $ID == "opensuse-tumbleweed" ]; then 
-	echo '*** Found SuSE Tumbleweed/Leap, adding zypper YUM repo...'	
+elif  [ $ID == "opensuse-tumbleweed" ]; then
+	echo '*** Found SuSE Tumbleweed/Leap, adding zypper YUM repo...'
 	cat /dev/null | $SUDO zypper addrepo -t YUM -G ${ZT_BASE_URL_HTTP}redhat/el/9 zerotier
 
 	echo
@@ -395,6 +397,8 @@ echo '*** Enabling and starting ZeroTier service...'
 if [ -e /usr/bin/systemctl -o -e /usr/sbin/systemctl -o -e /sbin/systemctl -o -e /bin/systemctl ]; then
 	if [[ -d /run/systemd/system ]]; then
 		$SUDO systemctl enable zerotier-one
+		# Disable errexit temporarily and handle error status explicitly.
+		set +e
 		$SUDO systemctl start zerotier-one
 		if [ "$?" != "0" ]; then
 			echo
@@ -403,6 +407,8 @@ if [ -e /usr/bin/systemctl -o -e /usr/sbin/systemctl -o -e /sbin/systemctl -o -e
 			echo
 			exit 1
 		fi
+		# Re-enable errexit.
+		set -e
 	else
 		echo
 		echo '*** Package installed but cannot start service! You may be in a Docker container'

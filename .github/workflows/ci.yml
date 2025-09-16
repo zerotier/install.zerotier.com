@@ -47,7 +47,5 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: apt
-        run: apt-get -y update && apt-get -y install curl gnupg2 gnupg gpg || true
       - name: install ${{ matrix.container }}
-        run: bash install.sh.in
+        run: bash -x install.sh.in
