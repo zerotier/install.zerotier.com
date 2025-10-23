@@ -74,6 +74,7 @@ MINT_CODENAME_MAP["uma"]="focal"
 MINT_CODENAME_MAP["ulyssa"]="focal"
 MINT_CODENAME_MAP["ulyana"]="focal"
 MINT_CODENAME_MAP["faye"]="bookworm"
+MINT_CODENAME_MAP["zara"]="noble"
 
 ##########################################################
 #
