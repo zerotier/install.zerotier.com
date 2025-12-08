@@ -297,15 +297,21 @@ elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 		write_apt_repo ubuntu $VERSION_ID $ZT_BASE_URL_HTTP ${UBUNTU_CODENAME_MAP[${VERSION_CODENAME}]}
 	fi
 elif [ $ID == "linuxmint" ]; then
-	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
- 	
-  	# fix for non integer version number
-  	VERSION_ID=$(echo $VERSION_ID | cut -d . -f 1)
+	# Check if this is LMDE (Linux Mint Debian Edition) - it's Debian-based, not Ubuntu-based
+	if [ -n "$DEBIAN_CODENAME" ]; then
+		echo '*** Detected LMDE (Linux Mint Debian Edition), creating /etc/apt/sources.list.d/zerotier.list'
+		write_apt_repo debian 12 $ZT_BASE_URL_HTTP $DEBIAN_CODENAME
+	else
+		echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
 
-	if [[ "$VERSION_ID" -gt "$MAX_SUPPORTED_MINT_VERSION" ]]; then
-		write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
-	else 
-		write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
+	  	# fix for non integer version number
+	  	VERSION_ID=$(echo $VERSION_ID | cut -d . -f 1)
+
+		if [[ "$VERSION_ID" -gt "$MAX_SUPPORTED_MINT_VERSION" ]]; then
+			write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
+		else
+			write_apt_repo $ID $VERSION_ID $ZT_BASE_URL_HTTP ${MINT_CODENAME_MAP[${VERSION_CODENAME}]}
+		fi
 	fi
 elif [ $ID == "kali" ]; then
 	echo '*** Detected Kali Linux, creating /etc/apt/sources.list.d/zerotier.list'
@@ -322,8 +328,15 @@ elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $I
 			baseurl="${ZT_BASE_URL_HTTP}redhat/fc/22"
 		fi
 	elif [ -n "`cat /etc/redhat-release 2>/dev/null | grep -i centos`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i enterprise`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i rocky`" -o -n "`cat /etc/redhat-release 2>/dev/null | grep -i alma`" ]; then
-		echo "*** Found RHEL/CentOS/Rocky, creating /etc/yum.repos.d/zerotier.repo"
-		baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
+		echo "*** Found RHEL/CentOS/Rocky/Alma, creating /etc/yum.repos.d/zerotier.repo"
+		# Check for EL10+ which may not have packages yet - fall back to EL9
+		el_version="${VERSION_ID%%.*}"
+		if [ -n "$el_version" ] && [ "$el_version" -ge 10 ] 2>/dev/null; then
+			echo "*** Warning: EL${el_version} packages may not be available, using EL9 packages"
+			baseurl="${ZT_BASE_URL_HTTP}redhat/el/9"
+		else
+			baseurl="${ZT_BASE_URL_HTTP}redhat/el/\$releasever"
+		fi
 	elif [ -n "`cat /etc/system-release 2>/dev/null | grep -i amazon`" ]; then
 		echo "*** Found Amazon (CentOS/RHEL based), creating /etc/yum.repos.d/zerotier.repo"
 		if [ -n "`cat /etc/system-release 2>/dev/null | grep -F 'Amazon Linux 2'`" ]; then
@@ -356,23 +369,32 @@ elif [ $ID == "centos" ] || [ $ID == "rocky" ] || [ $ID == "almalinux" ] || [ $I
 	else
 		cat /dev/null | $SUDO yum install -y zerotier-one
 	fi
-elif [ $ID == "opensuse" ] || [ $ID == "suse" ]; then
-	echo '*** Found SuSE, adding zypper YUM repo...'
-	cat /dev/null | $SUDO zypper addrepo -t YUM -g ${ZT_BASE_URL_HTTP}redhat/el/7 zerotier
+elif [ $ID == "opensuse" ] || [ $ID == "suse" ] || [ $ID == "opensuse-leap" ] || [ $ID == "opensuse-tumbleweed" ]; then
+	echo '*** Found openSUSE/SUSE, adding zypper YUM repo...'
+	# Use el/9 for all modern openSUSE variants (Leap 15+, Tumbleweed)
+	cat /dev/null | $SUDO zypper addrepo -t YUM -G ${ZT_BASE_URL_HTTP}redhat/el/9 zerotier
 	cat /dev/null | $SUDO rpm --import /tmp/zt-gpg-key
 
 	echo
-	echo '*** Installing zeortier-one package...'
+	echo '*** Installing zerotier-one package...'
 
 	cat /dev/null | $SUDO zypper install -y zerotier-one
-elif  [ $ID == "opensuse-tumbleweed" ]; then 
-	echo '*** Found SuSE Tumbleweed/Leap, adding zypper YUM repo...'	
-	cat /dev/null | $SUDO zypper addrepo -t YUM -G ${ZT_BASE_URL_HTTP}redhat/el/9 zerotier
+elif [[ "$ID_LIKE" == *"ubuntu"* ]] || [[ "$ID_LIKE" == *"debian"* ]]; then
+	# Fallback for Ubuntu/Debian derivatives (ZorinOS, AnduinOS, elementary, etc.)
+	# Use UBUNTU_CODENAME if available (Ubuntu derivatives), otherwise VERSION_CODENAME (Debian derivatives)
+	fallback_codename="${UBUNTU_CODENAME:-$VERSION_CODENAME}"
 
-	echo
-	echo '*** Installing zeortier-one package...'
-
-	cat /dev/null | $SUDO zypper install -y zerotier-one
+	if [[ "$ID_LIKE" == *"ubuntu"* ]] && [ -n "$fallback_codename" ]; then
+		echo "*** Detected Ubuntu derivative ($ID), using Ubuntu repos with codename: $fallback_codename"
+		mapped_codename="${UBUNTU_CODENAME_MAP[$fallback_codename]:-$MAX_SUPPORTED_UBUNTU_VERSION_NAME}"
+		write_apt_repo ubuntu "$MAX_SUPPORTED_UBUNTU_VERSION" $ZT_BASE_URL_HTTP "$mapped_codename"
+	elif [[ "$ID_LIKE" == *"debian"* ]] && [ -n "$fallback_codename" ]; then
+		echo "*** Detected Debian derivative ($ID), using Debian repos with codename: $fallback_codename"
+		write_apt_repo debian 12 $ZT_BASE_URL_HTTP "$fallback_codename"
+	else
+		echo '*** Unknown or unsupported distribution! Aborting.'
+		exit 1
+	fi
 else
 	echo '*** Unknown or unsupported distribution! Aborting.'
 	exit 1
