@@ -28,8 +28,8 @@ ZT_BASE_URL_HTTP='http://download.zerotier.com/'
 ##########################################################
 
 # Debian
-MAX_SUPPORTED_DEBIAN_VERSION=12
-MAX_SUPPORTED_DEBIAN_VERSION_NAME=bookworm
+MAX_SUPPORTED_DEBIAN_VERSION=13
+MAX_SUPPORTED_DEBIAN_VERSION_NAME=trixie
 
 
 # Ubuntu
@@ -64,10 +64,11 @@ UBUNTU_CODENAME_MAP["noble"]="noble"
 # Mint
 
 MAX_SUPPORTED_MINT_VERSION=22
-MAX_SUPPORTED_MINT_VERSION_NAME=wilma
+MAX_SUPPORTED_MINT_VERSION_NAME=xia
 
 # Map Mint codenames to Ubuntu codenames (and sometimes Debian)
 declare -A MINT_CODENAME_MAP
+MINT_CODENAME_MAP["xia"]="noble"
 MINT_CODENAME_MAP["wilma"]="noble"
 MINT_CODENAME_MAP["virginia"]="jammy"
 MINT_CODENAME_MAP["victoria"]="jammy"
@@ -302,6 +303,9 @@ elif [ $ID == "ubuntu" ] || [ $ID == "pop" ]; then
 	fi
 elif [ $ID == "linuxmint" ]; then
 	echo '*** Detected Linux Mint, creating /etc/apt/sources.list.d/zerotier.list'
+ 	
+  	# fix for non integer version number
+  	VERSION_ID=$(echo $VERSION_ID | cut -d . -f 1)
 
 	if [[ "$VERSION_ID" -gt "$MAX_SUPPORTED_MINT_VERSION" ]]; then
 		write_apt_repo $ID $MAX_SUPPORTED_MINT_VERSION $ZT_BASE_URL_HTTP $MAX_SUPPORTED_MINT_VERSION_NAME
@@ -434,18 +438,18 @@ echo
 exit 0
 -----BEGIN PGP SIGNATURE-----
 
-iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmbQtMwVHGNvbnRhY3RA
-emVyb3RpZXIuY29tAAoJEBZXGYgj5SphoycQAJm1CLTAsEFAXtDZo6r9epypLswd
-AsQjok+ZL0oKmaN24vfhuaUs2+K81YqB1aOiQwiKTbos/dneTtwhxcPyorAgETl2
-pvnbx45C0HkRBvR7MuCIjTE7VCvHsQKoxJmYjaEAbAoMY802fhnO9UI8GO3fBwBD
-XiX9rJtKwqHWhQVX3A0XK7idsGZn7p96d2EkuiUNeGMapWLhwfxIuXKLLJcQtuZi
-AwTQpzjNWDbPy7iRMtT4O2i2hDuDHzFs6J36VxzCZrUK31Mkj6xqI1d4Kvtc8IJL
-IqvbyiAlRRhfqV6tR2QXv/hX4qL3XRCD7Z3mIwUSHJlYs+wTFbIqLIzz7tiKnKmJ
-MmjV52JfrdkMkmocJItqQd/ZsYHKsWxAt3fGtbvV5We4lwgf6MgQ1JczuDo6UHMx
-S7nslV9/vIm1O/t1tvkC+noQICaHLsRO69IXE7rfe+ZBjpiw/bfBf6KkTdXZ9dQK
-3iw/agkwiBNUYBLWGdm5a8lt50ME5Kn+alPmPHqcXUhw2f3myuUEImIXvxh37Q4b
-L4Jqcb9xZiJstjJSKscWcunW+9Myouug/VohuIq+YWPfLRqqVA58m3kjTFRLPTgK
-vwx61786MllOWzzy/fDSga8JCrkaWlBOxmRJBJRGj9ElIFyf7LL091KXpdRIC0LX
-YOYGXI7kgJWFYLM5
-=lGmV
+iQJJBAEBCAAzFiEEdKXpxFjhpDHx2lenFlcZiCPlKmEFAmjEbt8VHGNvbnRhY3RA
+emVyb3RpZXIuY29tAAoJEBZXGYgj5Sphmm8QAMKpYSQ/ao8HRIdqpqgU2yWADwRr
+XtIjfqzn74D4kDX5ecJBPdD2hPWhHwG/VevD+ofdL/x4UY3yE7vb9T4JLJQnFnFx
+VHwhThUPN6EdZt2uEDsDz44FJQMY3TDcLVNSLYI4kC3rdFsWzpiMTyQaJcAH0Ax9
+38iQkxXKMSTWsTt7cwkFNCufNf5kcI0x8WT5XlYVn0SMEx3Kwywkv5Y4L1LZLVG+
+i3ssZPv+LsnhAG3bDKJwRl0MxVGtGRuyI2UXLA8/BBg0B7hmRg7OPFGPL9ckkVMR
+xWLTne/Prwu6JNiX9EQ4AsKO42Oe5L+R8HhTnRQCcb6zZ6/v5rDsjjhY1DMo7y/a
+E3YQZI9RHUIDTtO8y6DgxHAzLh18MRgUpu69/4fW+37mdCBIJjkiWUbTJt+a5NDK
+t+J2HFnNvoN4TwRsTpVTYprmzU5pz/0qu306h7SEtcE9U2AmCaxnP4UpFDIQAwtk
+uvriYrhZ1z0+gxm/jTZR38rbz693LvxkUtPlDNhLIKQdK74QiAacVORJnQ2Zx8e3
+DtAjyTU422+V5mYUpUlRMrIxqRANzyKG7/DDp/7O5I9Sxnc/WYQhpmqzsEz3Ev70
+MTQEBhDpfjZryz7zDMFdlBF72Zaq3xXOEbRujYduKCO666UA+yyyltLizgOGF186
+GwMb3kgxJr7faowv
+=cN5B
 -----END PGP SIGNATURE-----

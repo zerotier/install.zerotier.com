@@ -3,6 +3,15 @@ ZeroTier `curl|bash` Installation Script
 
 This repository contains the `curl|bash` install script served from [https://install.zerotier.com/](https://install.zerotier.com).
 
+The script adds our repo https://download.zerotier.com to your apt or yum/dnf configuration. For example: 
+
+```sh
+cat /etc/apt/sources.list.d/zerotier.list 
+deb http://download.zerotier.com/debian/buster buster main
+```
+
+If the script doesn't work for your distro, you might be able to manually create the repo configuration while you wait for a fix. Small Pull Requests to add distro configuration are welcome. 
+
 The `install.sh.in` file contains the script source minus the signature, while `build-install.sh` is a short shell script that signs it and concatenates it all together into the actuall install payload. You will need to edit the latter if you want to use it yourself since you will not have our *contact@zerotier.com* GPG secret key.
 
 The GPG signed script built from `install.sh.in` uses a clever little hack to yield a script that is valid regardless of whether it's been passed through `gpg --output` to check its signature or not, offering two options to users:

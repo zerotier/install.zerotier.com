@@ -4,7 +4,11 @@ on:
     paths:
       - install.sh.in
       - .github/workflows/ci.yml
-    # branches: [ main ]
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - install.sh.in
+      - .github/workflows/ci.yml
   schedule:
     - cron: "0 0 * * 0"   # weekly
 jobs:
@@ -23,14 +27,13 @@ jobs:
       matrix:
         container:
           - "ubuntu:latest"
-          - "ubuntu:24.10"
           - "ubuntu:24.04"
           - "ubuntu:22.04"
           - "ubuntu:20.04"
           - "debian:latest"
+          - "debian:13"
           - "debian:12"
           - "debian:11"
-          - "debian:10"
           - "linuxmintd/mint22-amd64:latest"
           - "kalilinux/kali-rolling:latest"
           - "redhat/ubi9:latest"
